@@ -22,8 +22,11 @@ namespace _3_Validators
             var productTypeExists = await _context.ProductTypes.AnyAsync(p => p.Id == console.IdProductType);
             if (!productTypeExists) { Errors.Add($"No existe ningún tipo de producto con Id {console.IdProductType} en la tabla 'ProductType'."); }
 
-            var systemExists = await _context.Systems.AnyAsync(s => s.Id == console.IdSystem);
-            if (!systemExists) { Errors.Add($"No existe ningún sistema con Id {console.IdSystem} en la tabla 'System'."); }
+            if(console.IdProductType != ValidationConstants._PRODUCT_TYPE_GAME_BOY_CONSOLE && 
+                console.IdProductType != ValidationConstants._PRODUCT_TYPE_GAME_GEAR_CONSOLE)
+            {
+                Errors.Add($"El tipo de producto con Id {console.IdProductType} en la tabla 'ProductType' no corresponde con ninguna videoconsola.");
+            }
 
             if (console.IdReference == 0 || console.Reference == null) { Errors.Add($"La consola que intentas comprar no tiene una referencia asignada."); }
 

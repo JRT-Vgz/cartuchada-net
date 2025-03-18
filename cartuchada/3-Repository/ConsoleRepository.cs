@@ -23,7 +23,7 @@ namespace _3_Repository
         public async Task<IEnumerable<VideoConsole>> GetAllAsync()
         {
             var consoleModels = await _context.Consoles
-                .Include("System")
+                .Include("ProductType")
                 .Include("Reference")
                 .ToListAsync();
 

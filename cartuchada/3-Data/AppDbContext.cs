@@ -10,7 +10,6 @@ namespace _3_Data
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }
 
         public DbSet<ProductTypeModel> ProductTypes { get; set; }
-        public DbSet<SystemModel> Systems { get; set; }
         public DbSet<RegionModel> Regions { get; set; }
         public DbSet<ConditionModel> Conditions { get; set; }
         public DbSet<GameCatalogueModel> Games { get; set; }
@@ -25,7 +24,6 @@ namespace _3_Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<ProductTypeModel>().ToTable("ProductType");
-            modelBuilder.Entity<SystemModel>().ToTable("System");
             modelBuilder.Entity<RegionModel>().ToTable("Region");
             modelBuilder.Entity<ConditionModel>().ToTable("Condition");
             modelBuilder.Entity<GameCatalogueModel>().ToTable("GameCatalogue");
@@ -36,10 +34,16 @@ namespace _3_Data
             modelBuilder.Entity<ShopStatModel>().ToTable("ShopStat");
 
             modelBuilder.Entity<GameCatalogueModel>()
-                .HasOne(c => c.System)
+                .HasOne(c => c.ProductType)
                 .WithMany()
-                .HasForeignKey(c => c.IdSystem)
+                .HasForeignKey(c => c.IdProductType)
                 .OnDelete(DeleteBehavior.NoAction);
+
+            //modelBuilder.Entity<ConsoleModel>()
+            //    .HasOne(c => c.ProductType)
+            //    .WithMany()
+            //    .HasForeignKey(c => c.IdProductType)
+            //    .OnDelete(DeleteBehavior.NoAction);
 
             modelBuilder.Entity<ReferenceModel>()
                 .HasOne(c => c.ProductType)

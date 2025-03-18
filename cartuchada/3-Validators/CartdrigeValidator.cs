@@ -23,11 +23,14 @@ namespace _3_Validators
             var productTypeExists = await _context.ProductTypes.AnyAsync(p => p.Id == cartdrige.IdProductType);
             if (!productTypeExists) { Errors.Add($"No existe ningún tipo de producto con Id {cartdrige.IdProductType} en la tabla 'ProductType'."); }
 
+            if (cartdrige.IdProductType != ValidationConstants._PRODUCT_TYPE_GAME_BOY_CARTDRIGE &&
+                cartdrige.IdProductType != ValidationConstants._PRODUCT_TYPE_GAME_GEAR_CARTDRIGE)
+            {
+                Errors.Add($"El tipo de producto con Id {cartdrige.IdProductType} en la tabla 'ProductType' no corresponde con ningún cartucho.");
+            }
+
             var gameExists = await _context.Games.AnyAsync(g => g.Id == cartdrige.IdGame);
             if (!gameExists) { Errors.Add($"No existe ningún juego con Id {cartdrige.IdGame} en la tabla 'GameCatalogue'."); }
-
-            //var systemExists = await _context.Systems.AnyAsync(s => s.Id == cartdrige.IdSystem);
-            //if (!systemExists) { Errors.Add($"No existe ningún sistema con Id {cartdrige.IdSystem} en la tabla 'System'."); }
 
             var regionExists = await _context.Regions.AnyAsync(r => r.Id == cartdrige.IdRegion);
             if (!regionExists) { Errors.Add($"No existe ninguna región con Id {cartdrige.IdRegion} en la tabla 'Region'."); }

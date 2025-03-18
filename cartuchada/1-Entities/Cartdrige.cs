@@ -9,7 +9,6 @@ namespace _1_Entities
         public int IdReference { get; private set; }
         public int IdProductType { get; private set; }
         public int IdGame { get; private set; }
-        //public int IdSystem { get; private set; }
         public int IdRegion { get; private set; }
         public int IdCondition { get; private set; }
         public DateTime PurchaseDate { get; private set; }
@@ -22,7 +21,6 @@ namespace _1_Entities
         {
             IdProductType = idProductType;
             IdGame = idGame;
-            //IdSystem = idSystem;
             IdRegion = idRegion;
             IdCondition = idCondition;
             PurchaseDate = DateTime.Now.Date;

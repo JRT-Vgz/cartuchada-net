@@ -13,7 +13,7 @@ namespace _3_Mappers.Automapper
         {
             // From ConsoleModel to VideoConsole
             CreateMap<ConsoleModel, VideoConsole>()
-                .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.System.Name))
+                .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.ProductType.Name))
                 .ForMember(dest => dest.Reference, opt => opt.MapFrom(src => src.Reference.Name));
 
             // From VideoConsole to ConsoleModel

@@ -11,7 +11,6 @@ namespace _3_Data.Models
         public int Id { get; set; }
         public int IdReference { get; set; }
         public int IdProductType { get; set; }
-        public int IdSystem { get; set; }
 
         [Column(TypeName = "DATE")]
         public DateTime PurchaseDate { get; set; }
@@ -24,8 +23,5 @@ namespace _3_Data.Models
 
         [ForeignKey("IdProductType")]
         public ProductTypeModel ProductType { get; set; }
-
-        [ForeignKey("IdSystem")]
-        public SystemModel System { get; set; }
     }
 }

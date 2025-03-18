@@ -36,7 +36,6 @@ namespace _2_Services.Services.Purchase_Services
         {
             try
             {
-                //ola
                 var cartdrige = _mapper.Map<Cartdrige>(cartdrigeDto);
 
                 await _referenceSystem.AssignReferenceToProductAsync(cartdrige);

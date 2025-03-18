@@ -9,7 +9,6 @@ namespace _1_Entities
         public int Id { get; private set; }
         public int IdReference { get; private set; }
         public int IdProductType { get; private set; }
-        public int IdSystem { get; private set; }
         public DateTime PurchaseDate { get; private set; }
         public decimal PurchasePrice { get; private set; }
         public decimal SparePartsPrice { get; private set; }
@@ -18,10 +17,9 @@ namespace _1_Entities
         public string? Reference { get; private set; }
 
         public VideoConsole() { }
-        public VideoConsole(int idProductType, int idSystem, decimal purchasePrice, decimal sparePartsPrice = 0)
+        public VideoConsole(int idProductType, decimal purchasePrice, decimal sparePartsPrice = 0)
         {
             IdProductType = idProductType;
-            IdSystem = idSystem;
             PurchaseDate = DateTime.Now.Date;
             PurchasePrice = purchasePrice;
             SparePartsPrice = sparePartsPrice;

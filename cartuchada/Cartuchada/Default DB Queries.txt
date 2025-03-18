@@ -1,14 +1,9 @@
 ﻿INSERT INTO ProductType (Name, ReferencePrefix)
 VALUES
     ('Cartucho Game Boy', 'GB-'),
+    ('Cartucho Game Gear', 'GE-'),
     ('Videoconsola Game Boy', 'V-GB-'),
     ('Videoconsola Game Gear', 'V-GE-')
-
-INSERT INTO System (Name) 
-VALUES
-    ('Game Boy'),
-    ('Game Boy Color'),
-    ('Game Gear');
 
 INSERT INTO Region (Name)
 VALUES
@@ -34,18 +29,18 @@ VALUES
 
 INSERT INTO Reference (IdProductType, Name, Assigned)
 VALUES
-    (1, 'GB-1', 0),
-    (1, 'GB-2', 0),
-    (1, 'GB-3', 0),
-    (2, 'V-1', 0),
-    (2, 'V-2', 0),
-    (2, 'V-3', 0);
+    (1, 'GB-1', 1),
+    (1, 'GB-2', 1),
+    (1, 'GB-3', 1),
+    (3, 'V-GB-1', 1),
+    (3, 'V-GB-2', 1),
+    (4, 'V-GE-1', 1);
 
-INSERT INTO GameCatalogue (IdSystem, Name, JAP, NA, PAL)
+INSERT INTO GameCatalogue (IdProductType, Name, JAP, NA, PAL)
 VALUES
     (1, 'Juego 1', 1, 0, 0),
     (1, 'Juego 2', 1, 1, 0),
-    (2, 'Juego 3', 1, 1, 1);
+    (1, 'Juego 3', 1, 1, 1);
 
 INSERT INTO Sleeve (Name, Quantity) 
 VALUES
@@ -58,11 +53,11 @@ VALUES
     (2, 1, 2, 2, 6, '2025-03-12', 15),
     (3, 1, 3, 3, 7, '2025-03-12', 20);
 
-INSERT INTO Console (IdReference, IdProductType, IdSystem, PurchaseDate, PurchasePrice, SparePartsPrice, TotalPrice)
+INSERT INTO Console (IdReference, IdProductType, PurchaseDate, PurchasePrice, SparePartsPrice, TotalPrice)
 VALUES
-    (4, 2, 1, '2025-03-12', 30, 5, 35),
-    (5, 2, 2, '2025-03-12', 40, 5, 45),
-    (6, 2, 3, '2025-03-12', 50, 5, 55);
+    (4, 3, '2025-03-12', 30, 5, 35),
+    (5, 3, '2025-03-12', 40, 5, 45),
+    (6, 4, '2025-03-12', 50, 5, 55);
 
 INSERT INTO ShopStat (Name, Quantity)
 VALUES

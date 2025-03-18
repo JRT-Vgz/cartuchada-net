@@ -97,9 +97,6 @@ namespace _3_Data.Migrations
                     b.Property<int>("IdReference")
                         .HasColumnType("int");
 
-                    b.Property<int>("IdSystem")
-                        .HasColumnType("int");
-
                     b.Property<DateTime>("PurchaseDate")
                         .HasColumnType("DATE");
 
@@ -118,8 +115,6 @@ namespace _3_Data.Migrations
 
                     b.HasIndex("IdReference");
 
-                    b.HasIndex("IdSystem");
-
                     b.ToTable("Console", (string)null);
                 });
 
@@ -131,7 +126,7 @@ namespace _3_Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("IdSystem")
+                    b.Property<int>("IdProductType")
                         .HasColumnType("int");
 
                     b.Property<bool>("JAP")
@@ -149,7 +144,7 @@ namespace _3_Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("IdSystem");
+                    b.HasIndex("IdProductType");
 
                     b.ToTable("GameCatalogue", (string)null);
                 });
@@ -299,23 +294,6 @@ namespace _3_Data.Migrations
                     b.ToTable("ShopStat", (string)null);
                 });
 
-            modelBuilder.Entity("_3_Data.Models.SystemModel", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("System", (string)null);
-                });
-
             modelBuilder.Entity("_3_Data.Models.CartdrigeModel", b =>
                 {
                     b.HasOne("_3_Data.Models.ConditionModel", "Condition")
@@ -373,28 +351,20 @@ namespace _3_Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("_3_Data.Models.SystemModel", "System")
-                        .WithMany()
-                        .HasForeignKey("IdSystem")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.Navigation("ProductType");
 
                     b.Navigation("Reference");
-
-                    b.Navigation("System");
                 });
 
             modelBuilder.Entity("_3_Data.Models.GameCatalogueModel", b =>
                 {
-                    b.HasOne("_3_Data.Models.SystemModel", "System")
+                    b.HasOne("_3_Data.Models.ProductTypeModel", "ProductType")
                         .WithMany()
-                        .HasForeignKey("IdSystem")
+                        .HasForeignKey("IdProductType")
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
-                    b.Navigation("System");
+                    b.Navigation("ProductType");
                 });
 
             modelBuilder.Entity("_3_Data.Models.ReferenceModel", b =>

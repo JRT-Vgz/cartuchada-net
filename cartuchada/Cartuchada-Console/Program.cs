@@ -50,7 +50,7 @@ var consoleValidator = new ConsoleValidator(context);
 //var cartuchos = await servicio.ExecuteAsync();
 //foreach (var c in cartuchos)
 //{
-//    Console.WriteLine($" id:{c.Id}, ref:{c.IdReference}, idproducttype: {c.IdProductType}, idgame: {c.IdGame}, idsystem: quitado, " +
+//    Console.WriteLine($" id:{c.Id}, ref:{c.IdReference}, idproducttype: {c.IdProductType}, idgame: {c.IdGame}, " +
 //        $"idregion: {c.IdRegion}, idcondition: {c.IdCondition}, purchasedate: {c.PurchaseDate}, purchaseprice:{c.PurchasePrice}, " +
 //        $"name: {c.Name}, reference: {c.Reference}");
 //}
@@ -61,22 +61,21 @@ var consoleValidator = new ConsoleValidator(context);
 //await servicio.ExecuteAsync(cartuchoDto);
 
 
-
 ////////////////////////////////// SERVICIOS DE CONSOLE //////////////////////////////////
 
 //var servicio = new GetAllConsolesService(unitOfWork);
 //var consoles = await servicio.ExecuteAsync();
 //foreach (var c in consoles)
 //{
-//    Console.WriteLine($" id:{c.Id}, ref:{c.IdReference}, idproducttype: {c.IdProductType}, idsystem: {c.IdSystem}, " +
+//    Console.WriteLine($" id:{c.Id}, ref:{c.IdReference}, idproducttype: {c.IdProductType}, " +
 //        $"purchasedate: {c.PurchaseDate}, purchaseprice:{c.PurchasePrice}, sparepartsprice: {c.SparePartsPrice}, " +
 //        $"totalprice: {c.TotalPrice}, name: {c.Name}, reference: {c.Reference}");
 //}
 
-var servicio = new PurchaseGameBoyConsoleService<ConsolePurchaseDto>(unitOfWork, mapper, referenceSystem, statisticSystem, accountingSystem, logger, consoleValidator);
-var consoleDto = new ConsolePurchaseDto() { IdProductType = 2, IdSystem = 1, PurchasePrice = 100, Name = "Consola 1" };
+//var servicio = new PurchaseGameBoyConsoleService<ConsolePurchaseDto>(unitOfWork, mapper, referenceSystem, statisticSystem, accountingSystem, logger, consoleValidator);
+//var consoleDto = new ConsolePurchaseDto() { IdProductType = 3, PurchasePrice = 100, Name = "Consola 1" };
 
-await servicio.ExecuteAsync(consoleDto);
+//await servicio.ExecuteAsync(consoleDto);
 
 
 
