@@ -294,6 +294,52 @@ namespace _3_Data.Migrations
                     b.ToTable("ShopStat", (string)null);
                 });
 
+            modelBuilder.Entity("_3_Data.Models.Spare_Parts_Models.SparePartTypeModel", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("SparePartType", (string)null);
+                });
+
+            modelBuilder.Entity("_3_Data.Models.Spare_Parts_Models.SparePartsPurchaseModel", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Concept")
+                        .IsRequired()
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)");
+
+                    b.Property<int>("IdSparePartType")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("PurchaseDate")
+                        .HasColumnType("DATE");
+
+                    b.Property<decimal>("PurchasePrice")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("IdSparePartType");
+
+                    b.ToTable("SparePartsPurchase", (string)null);
+                });
+
             modelBuilder.Entity("_3_Data.Models.CartdrigeModel", b =>
                 {
                     b.HasOne("_3_Data.Models.ConditionModel", "Condition")
@@ -376,6 +422,17 @@ namespace _3_Data.Migrations
                         .IsRequired();
 
                     b.Navigation("ProductType");
+                });
+
+            modelBuilder.Entity("_3_Data.Models.Spare_Parts_Models.SparePartsPurchaseModel", b =>
+                {
+                    b.HasOne("_3_Data.Models.Spare_Parts_Models.SparePartTypeModel", "SparePartType")
+                        .WithMany()
+                        .HasForeignKey("IdSparePartType")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("SparePartType");
                 });
 #pragma warning restore 612, 618
         }

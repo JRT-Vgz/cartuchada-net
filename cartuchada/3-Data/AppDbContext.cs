@@ -1,6 +1,7 @@
 ﻿using _3_Data.Models;
 using _3_Data.Models.Management_Models;
 using _3_Data.Models.Product_Models;
+using _3_Data.Models.Spare_Parts_Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace _3_Data
@@ -20,6 +21,8 @@ namespace _3_Data
         public DbSet<ShopStatModel> ShopStats { get; set; }
         public DbSet<AccountingModel> Accounting { get; set; }
         public DbSet<LogModel> Logs { get; set; }
+        public DbSet<SparePartTypeModel> SparePartTypes { get; set; }
+        public DbSet<SparePartsPurchaseModel> SparePartsPurchases { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -32,18 +35,14 @@ namespace _3_Data
             modelBuilder.Entity<ConsoleModel>().ToTable("Console");
             modelBuilder.Entity<ReferenceModel>().ToTable("Reference");
             modelBuilder.Entity<ShopStatModel>().ToTable("ShopStat");
+            modelBuilder.Entity<SparePartTypeModel>().ToTable("SparePartType");
+            modelBuilder.Entity<SparePartsPurchaseModel>().ToTable("SparePartsPurchase");
 
             modelBuilder.Entity<GameCatalogueModel>()
                 .HasOne(c => c.ProductType)
                 .WithMany()
                 .HasForeignKey(c => c.IdProductType)
                 .OnDelete(DeleteBehavior.NoAction);
-
-            //modelBuilder.Entity<ConsoleModel>()
-            //    .HasOne(c => c.ProductType)
-            //    .WithMany()
-            //    .HasForeignKey(c => c.IdProductType)
-            //    .OnDelete(DeleteBehavior.NoAction);
 
             modelBuilder.Entity<ReferenceModel>()
                 .HasOne(c => c.ProductType)
