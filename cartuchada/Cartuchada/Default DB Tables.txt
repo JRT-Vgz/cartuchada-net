@@ -1,0 +1,9 @@
+﻿CREATE TABLE Cartdrige (
+    Id INT IDENTITY(1,1) PRIMARY KEY,      
+    Reference VARCHAR(45) NOT NULL, 
+    IdGame INT NOT NULL,                   
+    IdRegion INT NOT NULL,                
+    IdCondition INT NOT NULL,              
+    PurchaseDate DATETIME NOT NULL,       
+    PurchasePrice DECIMAL(18,2) NOT NULL  
+);

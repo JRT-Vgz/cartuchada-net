@@ -1,0 +1,84 @@
+﻿INSERT INTO ProductType (Name, ReferencePrefix)
+VALUES
+    ('Cartucho Game Boy', 'GB-'),
+    ('Videoconsola Game Boy', 'V-GB-'),
+    ('Videoconsola Game Gear', 'V-GE-')
+
+INSERT INTO System (Name) 
+VALUES
+    ('Game Boy'),
+    ('Game Boy Color'),
+    ('Game Gear');
+
+INSERT INTO Region (Name)
+VALUES
+    ('JAP'),
+    ('NA'),
+    ('PAL ESP'),
+    ('PAL EUR'),
+    ('PAL FAH'),
+    ('PAL FRA'),
+    ('PAL UKV'),
+    ('PAL NOE'),
+    ('PAL ITA');
+
+INSERT INTO Condition (Name)
+VALUES
+    ('PO'),
+    ('PL'),
+    ('LP'),
+    ('GD'),
+    ('EX'),
+    ('NM'),
+    ('MT');
+
+INSERT INTO Reference (IdProductType, Name, Assigned)
+VALUES
+    (1, 'GB-1', 0),
+    (1, 'GB-2', 0),
+    (1, 'GB-3', 0),
+    (2, 'V-1', 0),
+    (2, 'V-2', 0),
+    (2, 'V-3', 0);
+
+INSERT INTO GameCatalogue (IdSystem, Name, JAP, NA, PAL)
+VALUES
+    (1, 'Juego 1', 1, 0, 0),
+    (1, 'Juego 2', 1, 1, 0),
+    (2, 'Juego 3', 1, 1, 1);
+
+INSERT INTO Sleeve (Name, Quantity) 
+VALUES
+    ('Funda Game Boy Original', 50),
+    ('Funda Game Boy Pirata', 100);
+
+INSERT INTO Cartdrige (IdReference, IdProductType, IdGame, IdRegion, IdCondition, PurchaseDate, PurchasePrice)
+VALUES
+    (1, 1, 1, 1, 5, '2025-03-12', 10),
+    (2, 1, 2, 2, 6, '2025-03-12', 15),
+    (3, 1, 3, 3, 7, '2025-03-12', 20);
+
+INSERT INTO Console (IdReference, IdProductType, IdSystem, PurchaseDate, PurchasePrice, SparePartsPrice, TotalPrice)
+VALUES
+    (4, 2, 1, '2025-03-12', 30, 5, 35),
+    (5, 2, 2, '2025-03-12', 40, 5, 45),
+    (6, 2, 3, '2025-03-12', 50, 5, 55);
+
+INSERT INTO ShopStat (Name, Quantity)
+VALUES
+    ('Juegos Game Boy Comprados', 0),
+    ('Juegos Game Boy Vendidos', 0),
+    ('Game Boy Compradas', 0),
+    ('Game Boy Vendidas', 0),
+    ('Juegos Game Gear Comprados', 0),
+    ('Juegos Game Gear Vendidos', 0),
+    ('Game Gear Compradas', 0),
+    ('Game Gear Vendidas', 0),
+    ('Fundas Originales Game Boy Vendidas', 0),
+    ('Fundas Pirata Game Boy Vendidas', 0);
+
+INSERT INTO Accounting (Date, Income, Expenses)
+VALUES
+    ('2024-03-01', 45.00, 10.50),
+    ('2025-02-01', 45.00, 10.50),
+    ('2025-03-01', 45.00, 10.50)
