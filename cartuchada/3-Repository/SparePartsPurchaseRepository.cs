@@ -46,7 +46,7 @@ namespace _3_Repository
             throw new NotImplementedException();
         }
 
-        public void Update(SparePartsPurchase sparePartsPurchase, int id)
+        public void Update(SparePartsPurchase sparePartsPurchase)
         {
             throw new NotImplementedException();
         }

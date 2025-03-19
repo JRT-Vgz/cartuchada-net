@@ -6,7 +6,7 @@ namespace _2_Services.Interfaces
         Task<IEnumerable<TEntity>> GetAllAsync();
         Task<TEntity> GetByIdAsync(int id);
         Task AddAsync(TEntity entity);
-        void Update(TEntity entity, int id);
+        void Update(TEntity entity);
         void Delete(int id);
     }
 }

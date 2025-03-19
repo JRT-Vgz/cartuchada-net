@@ -75,10 +75,18 @@ var sparePartsPurchaseValidator = new SparePartsPurchaseValidator(context);
 //        $"totalprice: {c.TotalPrice}, name: {c.Name}, reference: {c.Reference}");
 //}
 
+
+
 //var servicio = new PurchaseGameBoyConsoleService<ConsolePurchaseDto>(unitOfWork, mapper, referenceSystem, statisticSystem, accountingSystem, logger, consoleValidator);
 //var consoleDto = new ConsolePurchaseDto() { IdProductType = 3, PurchasePrice = 100, Name = "Consola 1" };
 
 //await servicio.ExecuteAsync(consoleDto);
+
+
+
+//var servicio = new SumToSparePartsPrice(unitOfWork, logger);
+//await servicio.ExecuteAsync(1, 50);
+
 
 
 ////////////////////////////////// SERVICIOS DE SPARE PARTS //////////////////////////////////

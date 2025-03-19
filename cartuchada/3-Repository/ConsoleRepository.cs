@@ -5,6 +5,7 @@ using _3_Data;
 using _3_Data.Models;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
+using System;
 
 namespace _3_Repository
 {
@@ -29,6 +30,17 @@ namespace _3_Repository
 
             return consoleModels.Select(c => _mapper.Map<VideoConsole>(c));
         }
+        public async Task<VideoConsole> GetByIdAsync(int id)
+        {
+            var consoleModel = await _context.Consoles
+                .Include("ProductType")
+                .Include("Reference")
+                .FirstOrDefaultAsync(c => c.Id == id);
+
+            return _mapper.Map<VideoConsole>(consoleModel);
+        }
+            
+
 
         public async Task AddAsync(VideoConsole console)
         {
@@ -42,14 +54,16 @@ namespace _3_Repository
             throw new NotImplementedException();
         }
 
-        public Task<VideoConsole> GetByIdAsync(int id)
+        public async void Update(VideoConsole console)
         {
-            throw new NotImplementedException();
-        }
+            var consoleModel = await _context.Consoles.FindAsync(console.Id);
 
-        public void Update(VideoConsole entity, int id)
-        {
-            throw new NotImplementedException();
+            if (consoleModel == null) { throw new KeyNotFoundException($"No se ha encontrado ningún elemento con Id {console.Id} en la tabla 'Console'."); }
+
+            _mapper.Map(console, consoleModel);
+
+            _context.Consoles.Attach(consoleModel);
+            _context.Consoles.Entry(consoleModel).State = EntityState.Modified;
         }
     }
 }

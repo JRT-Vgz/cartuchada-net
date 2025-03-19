@@ -46,7 +46,7 @@ namespace _3_Repository
             throw new NotImplementedException();
         }
 
-        public void Update(Cartdrige cartdrige, int id)
+        public void Update(Cartdrige cartdrige)
         {
             throw new NotImplementedException();
         }

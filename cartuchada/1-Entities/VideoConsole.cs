@@ -25,6 +25,12 @@ namespace _1_Entities
             TotalPrice = PurchasePrice + SparePartsPrice;
         }
 
+        public void SumToSparePartsPrice(decimal sparePartsPrice)
+        {
+            SparePartsPrice += sparePartsPrice;
+            CalculateTotalPrice();
+        }
+
         public void AssignReference(int idReference, string reference)
         {
             if (IdReference != 0) { return; }
