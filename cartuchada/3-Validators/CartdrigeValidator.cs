@@ -3,7 +3,6 @@ using _1_Entities;
 using _2_Services.Interfaces;
 using _3_Data;
 using Microsoft.EntityFrameworkCore;
-using System;
 
 namespace _3_Validators
 {
@@ -12,7 +11,7 @@ namespace _3_Validators
         public List<string> Errors { get; set; }
         private readonly AppDbContext _context;
 
-        public CartdrigeValidator(AppDbContext context) 
+        public CartdrigeValidator(AppDbContext context)
         {
             Errors = new List<string>();
             _context = context;
@@ -40,9 +39,11 @@ namespace _3_Validators
 
             if (cartdrige.IdReference == 0 || cartdrige.Reference == null) { Errors.Add($"El cartucho que intentas comprar no tiene una referencia asignada."); }
 
-            if (cartdrige.PurchasePrice < 0) { Errors.Add("No se puede comprar un cartucho con precio negativo."); }
+            if (cartdrige.PurchaseDate != DateTime.Now.Date) { Errors.Add("El campo 'PurchaseDate' no coincide con la fecha actual."); }
 
-            if (cartdrige.Name == null) { Errors.Add("El campo 'Name' no puede ser nulo."); }
+            if (cartdrige.PurchasePrice < 0) { Errors.Add("El canpo 'PurchasePrice' no puede ser negativo."); }
+
+            if (cartdrige.Name == null || cartdrige.Name == "") { Errors.Add("El campo 'Name' no puede ser nulo ni estar vacío."); }
 
             if (Errors.Count > 0) { return false; }
             return true;

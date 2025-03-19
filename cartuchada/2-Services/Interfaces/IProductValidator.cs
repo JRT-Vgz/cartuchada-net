@@ -1,8 +1,4 @@
-﻿
-using _1_Entities;
-using _1_Entities.Interfaces;
-
-namespace _2_Services.Interfaces
+﻿namespace _2_Services.Interfaces
 {
     public interface IProductValidator<TProduct>
     {

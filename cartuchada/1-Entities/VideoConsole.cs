@@ -1,6 +1,5 @@
 
 using _1_Entities.Interfaces;
-using System.Xml.Linq;
 
 namespace _1_Entities
 {
@@ -16,18 +15,15 @@ namespace _1_Entities
         public string? Name { get; private set; }
         public string? Reference { get; private set; }
 
-        public VideoConsole() { }
-        public VideoConsole(int idProductType, decimal purchasePrice, decimal sparePartsPrice = 0)
+        public VideoConsole()
         {
-            IdProductType = idProductType;
             PurchaseDate = DateTime.Now.Date;
-            PurchasePrice = purchasePrice;
-            SparePartsPrice = sparePartsPrice;
-            TotalPrice = CalculateTotalPrice();
         }
 
-        private decimal CalculateTotalPrice()
-            => PurchasePrice + SparePartsPrice;
+        public void CalculateTotalPrice()
+        {
+            TotalPrice = PurchasePrice + SparePartsPrice;
+        }
 
         public void AssignReference(int idReference, string reference)
         {

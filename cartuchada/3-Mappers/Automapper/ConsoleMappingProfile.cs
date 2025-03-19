@@ -1,7 +1,6 @@
 
 using _1_Entities;
 using _3_Data.Models;
-using _3_Mappers.DTOs;
 using _3_Mappers.DTOs.Purchase_Dtos;
 using AutoMapper;
 
@@ -9,7 +8,7 @@ namespace _3_Mappers.Automapper
 {
     public class ConsoleMappingProfile : Profile
     {
-        public ConsoleMappingProfile() 
+        public ConsoleMappingProfile()
         {
             // From ConsoleModel to VideoConsole
             CreateMap<ConsoleModel, VideoConsole>()
@@ -21,7 +20,11 @@ namespace _3_Mappers.Automapper
                 .ForMember(dest => dest.Reference, map => map.Ignore());
 
             // From ConsolePurchaseDto to VideoConsole
-            CreateMap<ConsolePurchaseDto, VideoConsole>();
+            CreateMap<ConsolePurchaseDto, VideoConsole>()
+                .AfterMap((src, dest) =>
+                {
+                    dest.CalculateTotalPrice();
+                });
         }
     }
 }

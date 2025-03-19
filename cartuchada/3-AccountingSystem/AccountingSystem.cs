@@ -1,10 +1,8 @@
 ﻿using _2_Services.Exceptions;
 using _2_Services.Interfaces;
 using _3_Data;
-using _3_Data.Models;
 using _3_Data.Models.Management_Models;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.IdentityModel.Tokens;
 
 namespace _3_AccountingSystem
 {
@@ -24,7 +22,7 @@ namespace _3_AccountingSystem
                 .FirstOrDefaultAsync();
 
             // Si no existe el modelo, crea una entrada para el año y mes actuales.
-            if (accountingModel == null) 
+            if (accountingModel == null)
             {
                 try { accountingModel = CreateAccountingEntryForCurrentDate(dateTime); }
                 catch (Exception) { throw new AccountingSystemException("Error al crear una nueva entrada en la tabla 'Accounting'."); }
@@ -37,7 +35,7 @@ namespace _3_AccountingSystem
             catch (Exception) { throw new AccountingSystemException("Error al actualizar las cuentas en la tabla 'Accounting'."); }
         }
 
-        private AccountingModel CreateAccountingEntryForCurrentDate(DateTime dateTime) 
+        private AccountingModel CreateAccountingEntryForCurrentDate(DateTime dateTime)
         {
             DateTime accountingDateFormat = new DateTime(dateTime.Year, dateTime.Month, 1);
 

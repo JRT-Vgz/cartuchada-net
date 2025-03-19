@@ -1,6 +1,3 @@
-
-using _3_Mappers.DTOs.Purchase_Dtos;
-
 namespace _3_Mappers.DTOs
 {
     public class CartdrigePurchaseDto

@@ -1,6 +1,7 @@
-﻿using _2_Services.Interfaces;
-using _3_Data.Models.Management_Models;
+﻿using _2_Services.Exceptions;
+using _2_Services.Interfaces;
 using _3_Data;
+using _3_Data.Models.Management_Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace _3_Loggers
@@ -16,6 +17,8 @@ namespace _3_Loggers
 
         public async Task WriteLogEntryAsync(string logEntry)
         {
+            if (logEntry.Length > 255) { throw new LoggerException("La entrada para el log no puede superar los 255 caracteres."); }
+
             var logModel = new LogModel
             {
                 Date = DateTime.Now,

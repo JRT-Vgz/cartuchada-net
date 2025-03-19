@@ -1,11 +1,15 @@
 ﻿
 
 using _2_Services.Services.Cartdrige_Services;
+using _2_Services.Services.Console_Services;
+using _2_Services.Services.Purchase_Services;
 using _2_Services.Services.Spare_Parts_Services;
 using _3_AccountingSystem;
 using _3_Data;
 using _3_Loggers;
 using _3_Mappers.Automapper;
+using _3_Mappers.DTOs;
+using _3_Mappers.DTOs.Purchase_Dtos;
 using _3_ReferenceSystem;
 using _3_Repository;
 using _3_StatisticSystem;
@@ -41,6 +45,7 @@ var accountingSystem = new AccountingSystem(context);
 var logger = new Logger(context);
 var cartdrigeValidator = new CartdrigeValidator(context);
 var consoleValidator = new ConsoleValidator(context);
+var sparePartsPurchaseValidator = new SparePartsPurchaseValidator(context);
 
 ////////////////////////////////// SERVICIOS DE CARTDRIGE //////////////////////////////////
 
@@ -78,11 +83,16 @@ var consoleValidator = new ConsoleValidator(context);
 
 ////////////////////////////////// SERVICIOS DE SPARE PARTS //////////////////////////////////
 
-var servicio = new GetAllSparePartsPurchases(unitOfWork);
-var sparePartPurchases = await servicio.ExecuteAsync();
-foreach (var c in sparePartPurchases)
-{
-    Console.WriteLine($" idSparePartType:{c.IdSparePartType}, purchasedate: {c.PurchaseDate}, concept: {c.Concept}, " +
-        $"purchaseprice:{c.PurchasePrice}, name: {c.Name}");
-}
+//var servicio = new GetAllSparePartsPurchases(unitOfWork);
+//var sparePartPurchases = await servicio.ExecuteAsync();
+//foreach (var c in sparePartPurchases)
+//{
+//    Console.WriteLine($" idSparePartType:{c.IdSparePartType}, purchasedate: {c.PurchaseDate}, concept: {c.Concept}, " +
+//        $"purchaseprice:{c.PurchasePrice}, name: {c.Name}");
+//}
+
+//var servicio = new PurchaseSparePartsService<SparePartsPurchaseDto>(unitOfWork, mapper, sparePartsPurchaseValidator, accountingSystem, logger);
+//var sparePartsPurchaseDto = new SparePartsPurchaseDto() { IdSparePartType = 1, Concept = "cepto piezasconcepto piezasconcepto piezasconcepto piezasconcepto piezasconcepto piezasconcepto piezasconcepto piezasconcepto piezasconcepto piezasconcepto piezasconcepto piezas", PurchasePrice = 100, Name = "Recambios game boy" };
+
+//await servicio.ExecuteAsync(sparePartsPurchaseDto);
 

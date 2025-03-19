@@ -2,23 +2,22 @@
 using _2_Services.Interfaces;
 using _3_Data;
 using Microsoft.EntityFrameworkCore;
-using System.ComponentModel;
 
 namespace _3_StatisticSystem
 {
     public class StatisticSystem : IStatisticsSystem
     {
         private readonly AppDbContext _context;
-        public StatisticSystem(AppDbContext context) 
+        public StatisticSystem(AppDbContext context)
         {
-            _context = context; 
+            _context = context;
         }
 
         public async Task SumStatistic(string shopStatName)
         {
             var shopStatModel = await _context.ShopStats.FirstOrDefaultAsync(s => s.Name == shopStatName);
 
-            if (shopStatModel == null) 
+            if (shopStatModel == null)
             {
                 throw new StatisticSystemException($"No se encontró la estadística con el nombre '{shopStatName}' en la tabla 'shopStat'");
             }

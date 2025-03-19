@@ -8,13 +8,15 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\1-Entities\1-Entities.csproj" />
-    <ProjectReference Include="..\2-Services\2-Services.csproj" />
-    <ProjectReference Include="..\3-Data\3-Data.csproj" />
+    <Compile Remove="ManualMappers\**" />
+    <EmbeddedResource Remove="ManualMappers\**" />
+    <None Remove="ManualMappers\**" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="ManualMappers\" />
+    <ProjectReference Include="..\1-Entities\1-Entities.csproj" />
+    <ProjectReference Include="..\2-Services\2-Services.csproj" />
+    <ProjectReference Include="..\3-Data\3-Data.csproj" />
   </ItemGroup>
 
 </Project>
