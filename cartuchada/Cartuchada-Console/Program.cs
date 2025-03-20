@@ -32,6 +32,7 @@ var configuration = new MapperConfiguration(cfg =>
     cfg.AddProfile(new CartdrigeMappingProfile());
     cfg.AddProfile(new ConsoleMappingProfile());
     cfg.AddProfile(new SparePartsPurchaseMappingProfile());
+    cfg.AddProfile(new SpotMappingProfile());
 });
 
 // Crear el Mapper
@@ -103,4 +104,31 @@ var sparePartsPurchaseValidator = new SparePartsPurchaseValidator(context);
 //var sparePartsPurchaseDto = new SparePartsPurchaseDto() { IdSparePartType = 1, Concept = "cepto piezasconcepto piezasconcepto piezasconcepto piezasconcepto piezasconcepto piezasconcepto piezasconcepto piezasconcepto piezasconcepto piezasconcepto piezasconcepto piezas", PurchasePrice = 100, Name = "Recambios game boy" };
 
 //await servicio.ExecuteAsync(sparePartsPurchaseDto);
+
+
+
+
+// SERVICIOS DE SPOT
+
+//var spots = await unitOfWork.SpotRepository.GetAllAsync();
+
+//foreach (var c in spots)
+//{
+//    Console.WriteLine($" id:{c.Id}, idproducttype: {c.IdProductType}, idgame: {c.IdGame}, " +
+//        $"idregion: {c.IdRegion}, idcondition: {c.IdCondition}, purchasedate: {c.PurchaseDate}, purchaseprice:{c.PurchasePrice}, " +
+//        $"name: {c.Name}, reference: {c.Reference}");
+//}
+
+
+//var servicio = new SpotCartdrigePurchaseService<CartdrigePurchaseDto>(unitOfWork, mapper, statisticSystem, logger, cartdrigeValidator);
+//var cartuchoDto = new CartdrigePurchaseDto() { IdProductType = 1, IdGame = 1, IdRegion = 1, IdCondition = 7, PurchasePrice = 50, Name = "Juego 1" };
+
+//await servicio.ExecuteAsync(cartuchoDto);
+
+
+
+
+// VENTA DE CARTUCHO
+
+
 

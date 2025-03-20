@@ -13,6 +13,7 @@ namespace _3_Repository
         private IRepository<Cartdrige> _cartdrigeRepository;
         private IRepository<VideoConsole> _consoleRepository;
         private IRepository<SparePartsPurchase> _sparePartsPurchaseRepository;
+        private IRepository<Cartdrige> _spotRepository;
 
         public IRepository<Cartdrige> CartdrigeRepository
         {
@@ -41,6 +42,16 @@ namespace _3_Repository
                 return _sparePartsPurchaseRepository == null ?
                     _sparePartsPurchaseRepository = new SparePartsPurchaseRepository(_context, _mapper) :
                     _sparePartsPurchaseRepository;
+            }
+        }
+
+        public IRepository<Cartdrige> SpotRepository
+        {
+            get
+            {
+                return _spotRepository == null ?
+                    _spotRepository = new SpotRepository(_context, _mapper) :
+                    _spotRepository;
             }
         }
 

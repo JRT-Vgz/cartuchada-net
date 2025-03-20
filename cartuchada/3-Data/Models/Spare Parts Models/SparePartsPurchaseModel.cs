@@ -17,6 +17,7 @@ namespace _3_Data.Models.Spare_Parts_Models
         [StringLength(255)]
         public string Concept { get; set; }
 
+        [Column(TypeName = "decimal(18,2)")]
         public decimal PurchasePrice { get; set; }
 
         [ForeignKey("IdSparePartType")]

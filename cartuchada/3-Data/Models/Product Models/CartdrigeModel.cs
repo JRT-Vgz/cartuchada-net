@@ -17,6 +17,8 @@ namespace _3_Data.Models
 
         [Column(TypeName = "DATE")]
         public DateTime PurchaseDate { get; set; }
+
+        [Column(TypeName = "decimal(18,2)")]
         public decimal PurchasePrice { get; set; }
 
         [ForeignKey("IdReference")]

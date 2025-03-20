@@ -14,8 +14,14 @@ namespace _3_Data.Models
 
         [Column(TypeName = "DATE")]
         public DateTime PurchaseDate { get; set; }
+
+        [Column(TypeName = "decimal(18,2)")]
         public decimal PurchasePrice { get; set; }
+
+        [Column(TypeName = "decimal(18,2)")]
         public decimal SparePartsPrice { get; set; }
+
+        [Column(TypeName = "decimal(18,2)")]
         public decimal TotalPrice { get; set; }
 
         [ForeignKey("IdReference")]

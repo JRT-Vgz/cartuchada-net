@@ -13,7 +13,7 @@ namespace _3_StatisticSystem
             _context = context;
         }
 
-        public async Task SumStatistic(string shopStatName)
+        public async Task SumOneToStatistic(string shopStatName)
         {
             var shopStatModel = await _context.ShopStats.FirstOrDefaultAsync(s => s.Name == shopStatName);
 
@@ -37,13 +37,19 @@ namespace _3_StatisticSystem
         public async Task SumOnePurchasedGameBoyCartdrigeToStatistics()
         {
             string shopStatName = ShopStatConstants.JUEGOS_GAME_BOY_COMPRADOS;
-            await SumStatistic(shopStatName);
+            await SumOneToStatistic(shopStatName);
         }
 
         public async Task SumOnePurchasedGameBoyConsoleToStatistics()
         {
             string shopStatName = ShopStatConstants.GAME_BOY_COMPRADAS;
-            await SumStatistic(shopStatName);
+            await SumOneToStatistic(shopStatName);
+        }
+
+        public async Task SumOneSpotGameBoyCartdrigeToStatistics()
+        {
+            string shopStatName = ShopStatConstants.JUEGOS_GAME_BOY_SPOTEADOS;
+            await SumOneToStatistic(shopStatName);
         }
     }
 }

@@ -5,5 +5,6 @@ namespace _2_Services.Interfaces
     {
         Task SumOnePurchasedGameBoyCartdrigeToStatistics();
         Task SumOnePurchasedGameBoyConsoleToStatistics();
+        Task SumOneSpotGameBoyCartdrigeToStatistics();
     }
 }

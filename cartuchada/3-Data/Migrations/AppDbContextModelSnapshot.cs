@@ -212,7 +212,7 @@ namespace _3_Data.Migrations
                     b.ToTable("ProductType", (string)null);
                 });
 
-            modelBuilder.Entity("_3_Data.Models.Product_Models.SleeveModel", b =>
+            modelBuilder.Entity("_3_Data.Models.Product_Models.SpotModel", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -220,16 +220,35 @@ namespace _3_Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("Quantity")
+                    b.Property<int>("IdCondition")
                         .HasColumnType("int");
+
+                    b.Property<int>("IdGame")
+                        .HasColumnType("int");
+
+                    b.Property<int>("IdProductType")
+                        .HasColumnType("int");
+
+                    b.Property<int>("IdRegion")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("SpotDate")
+                        .HasColumnType("DATE");
+
+                    b.Property<decimal>("SpotPrice")
+                        .HasColumnType("decimal(18,2)");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Sleeve", (string)null);
+                    b.HasIndex("IdCondition");
+
+                    b.HasIndex("IdGame");
+
+                    b.HasIndex("IdProductType");
+
+                    b.HasIndex("IdRegion");
+
+                    b.ToTable("Spot", (string)null);
                 });
 
             modelBuilder.Entity("_3_Data.Models.ReferenceModel", b =>
@@ -272,6 +291,120 @@ namespace _3_Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Region", (string)null);
+                });
+
+            modelBuilder.Entity("_3_Data.Models.SaleModels.SaleCartdrigeModel", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<decimal>("Benefit")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<int>("IdCondition")
+                        .HasColumnType("int");
+
+                    b.Property<int>("IdGame")
+                        .HasColumnType("int");
+
+                    b.Property<int>("IdProductType")
+                        .HasColumnType("int");
+
+                    b.Property<int>("IdRegion")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("PurchaseDate")
+                        .HasColumnType("DATE");
+
+                    b.Property<decimal>("PurchasePrice")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<DateTime>("SaleDate")
+                        .HasColumnType("DATE");
+
+                    b.Property<decimal>("SalePrice")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("IdCondition");
+
+                    b.HasIndex("IdGame");
+
+                    b.HasIndex("IdProductType");
+
+                    b.HasIndex("IdRegion");
+
+                    b.ToTable("SaleCartdrige", (string)null);
+                });
+
+            modelBuilder.Entity("_3_Data.Models.SaleModels.SaleConsoleModel", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<decimal>("Benefit")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<int>("IdProductType")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("PurchaseDate")
+                        .HasColumnType("DATE");
+
+                    b.Property<decimal>("PurchasePrice")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<DateTime>("SaleDate")
+                        .HasColumnType("DATE");
+
+                    b.Property<decimal>("SalePrice")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("SparePartsPrice")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("TotalPrice")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("IdProductType");
+
+                    b.ToTable("SaleConsole", (string)null);
+                });
+
+            modelBuilder.Entity("_3_Data.Models.SaleModels.SaleSleeveModel", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("IdSparePartType")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Quantity")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("SaleDate")
+                        .HasColumnType("DATE");
+
+                    b.Property<decimal>("SalePrice")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("IdSparePartType");
+
+                    b.ToTable("SaleSleeve", (string)null);
                 });
 
             modelBuilder.Entity("_3_Data.Models.ShopStatModel", b =>
@@ -413,6 +546,41 @@ namespace _3_Data.Migrations
                     b.Navigation("ProductType");
                 });
 
+            modelBuilder.Entity("_3_Data.Models.Product_Models.SpotModel", b =>
+                {
+                    b.HasOne("_3_Data.Models.ConditionModel", "Condition")
+                        .WithMany()
+                        .HasForeignKey("IdCondition")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("_3_Data.Models.GameCatalogueModel", "Game")
+                        .WithMany()
+                        .HasForeignKey("IdGame")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("_3_Data.Models.ProductTypeModel", "ProductType")
+                        .WithMany()
+                        .HasForeignKey("IdProductType")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("_3_Data.Models.RegionModel", "Region")
+                        .WithMany()
+                        .HasForeignKey("IdRegion")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Condition");
+
+                    b.Navigation("Game");
+
+                    b.Navigation("ProductType");
+
+                    b.Navigation("Region");
+                });
+
             modelBuilder.Entity("_3_Data.Models.ReferenceModel", b =>
                 {
                     b.HasOne("_3_Data.Models.ProductTypeModel", "ProductType")
@@ -422,6 +590,63 @@ namespace _3_Data.Migrations
                         .IsRequired();
 
                     b.Navigation("ProductType");
+                });
+
+            modelBuilder.Entity("_3_Data.Models.SaleModels.SaleCartdrigeModel", b =>
+                {
+                    b.HasOne("_3_Data.Models.ConditionModel", "Condition")
+                        .WithMany()
+                        .HasForeignKey("IdCondition")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("_3_Data.Models.GameCatalogueModel", "Game")
+                        .WithMany()
+                        .HasForeignKey("IdGame")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("_3_Data.Models.ProductTypeModel", "ProductType")
+                        .WithMany()
+                        .HasForeignKey("IdProductType")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.HasOne("_3_Data.Models.RegionModel", "Region")
+                        .WithMany()
+                        .HasForeignKey("IdRegion")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Condition");
+
+                    b.Navigation("Game");
+
+                    b.Navigation("ProductType");
+
+                    b.Navigation("Region");
+                });
+
+            modelBuilder.Entity("_3_Data.Models.SaleModels.SaleConsoleModel", b =>
+                {
+                    b.HasOne("_3_Data.Models.ProductTypeModel", "ProductType")
+                        .WithMany()
+                        .HasForeignKey("IdProductType")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("ProductType");
+                });
+
+            modelBuilder.Entity("_3_Data.Models.SaleModels.SaleSleeveModel", b =>
+                {
+                    b.HasOne("_3_Data.Models.Spare_Parts_Models.SparePartTypeModel", "SparePartType")
+                        .WithMany()
+                        .HasForeignKey("IdSparePartType")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("SparePartType");
                 });
 
             modelBuilder.Entity("_3_Data.Models.Spare_Parts_Models.SparePartsPurchaseModel", b =>

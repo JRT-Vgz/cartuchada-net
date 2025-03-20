@@ -37,7 +37,7 @@ namespace _3_Validators
             var conditionExists = await _context.Conditions.AnyAsync(c => c.Id == cartdrige.IdCondition);
             if (!conditionExists) { Errors.Add($"No existe ninguna condición con Id {cartdrige.IdCondition} en la tabla 'Condition'."); }
 
-            if (cartdrige.IdReference == 0 || cartdrige.Reference == null) { Errors.Add($"El cartucho que intentas comprar no tiene una referencia asignada."); }
+            if (cartdrige.IdReference == 0 && cartdrige.Reference == null) { Errors.Add($"El cartucho que intentas comprar no tiene una referencia asignada."); }
 
             if (cartdrige.PurchaseDate != DateTime.Now.Date) { Errors.Add("El campo 'PurchaseDate' no coincide con la fecha actual."); }
 
