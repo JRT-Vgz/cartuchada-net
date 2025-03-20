@@ -150,7 +150,7 @@ namespace _3_Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "SaleConsole",
+                name: "SoldConsole",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -166,9 +166,9 @@ namespace _3_Data.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_SaleConsole", x => x.Id);
+                    table.PrimaryKey("PK_SoldConsole", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_SaleConsole_ProductType_IdProductType",
+                        name: "FK_SoldConsole_ProductType_IdProductType",
                         column: x => x.IdProductType,
                         principalTable: "ProductType",
                         principalColumn: "Id",
@@ -176,7 +176,7 @@ namespace _3_Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "SaleSleeve",
+                name: "SoldSleeve",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -188,9 +188,9 @@ namespace _3_Data.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_SaleSleeve", x => x.Id);
+                    table.PrimaryKey("PK_SoldSleeve", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_SaleSleeve_SparePartType_IdSparePartType",
+                        name: "FK_SoldSleeve_SparePartType_IdSparePartType",
                         column: x => x.IdSparePartType,
                         principalTable: "SparePartType",
                         principalColumn: "Id",
@@ -220,7 +220,7 @@ namespace _3_Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "SaleCartdrige",
+                name: "SoldCartdrige",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -237,26 +237,26 @@ namespace _3_Data.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_SaleCartdrige", x => x.Id);
+                    table.PrimaryKey("PK_SoldCartdrige", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_SaleCartdrige_Condition_IdCondition",
+                        name: "FK_SoldCartdrige_Condition_IdCondition",
                         column: x => x.IdCondition,
                         principalTable: "Condition",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_SaleCartdrige_GameCatalogue_IdGame",
+                        name: "FK_SoldCartdrige_GameCatalogue_IdGame",
                         column: x => x.IdGame,
                         principalTable: "GameCatalogue",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_SaleCartdrige_ProductType_IdProductType",
+                        name: "FK_SoldCartdrige_ProductType_IdProductType",
                         column: x => x.IdProductType,
                         principalTable: "ProductType",
                         principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_SaleCartdrige_Region_IdRegion",
+                        name: "FK_SoldCartdrige_Region_IdRegion",
                         column: x => x.IdRegion,
                         principalTable: "Region",
                         principalColumn: "Id",
@@ -429,33 +429,33 @@ namespace _3_Data.Migrations
                 column: "IdProductType");
 
             migrationBuilder.CreateIndex(
-                name: "IX_SaleCartdrige_IdCondition",
-                table: "SaleCartdrige",
+                name: "IX_SoldCartdrige_IdCondition",
+                table: "SoldCartdrige",
                 column: "IdCondition");
 
             migrationBuilder.CreateIndex(
-                name: "IX_SaleCartdrige_IdGame",
-                table: "SaleCartdrige",
+                name: "IX_SoldCartdrige_IdGame",
+                table: "SoldCartdrige",
                 column: "IdGame");
 
             migrationBuilder.CreateIndex(
-                name: "IX_SaleCartdrige_IdProductType",
-                table: "SaleCartdrige",
+                name: "IX_SoldCartdrige_IdProductType",
+                table: "SoldCartdrige",
                 column: "IdProductType");
 
             migrationBuilder.CreateIndex(
-                name: "IX_SaleCartdrige_IdRegion",
-                table: "SaleCartdrige",
+                name: "IX_SoldCartdrige_IdRegion",
+                table: "SoldCartdrige",
                 column: "IdRegion");
 
             migrationBuilder.CreateIndex(
-                name: "IX_SaleConsole_IdProductType",
-                table: "SaleConsole",
+                name: "IX_SoldConsole_IdProductType",
+                table: "SoldConsole",
                 column: "IdProductType");
 
             migrationBuilder.CreateIndex(
-                name: "IX_SaleSleeve_IdSparePartType",
-                table: "SaleSleeve",
+                name: "IX_SoldSleeve_IdSparePartType",
+                table: "SoldSleeve",
                 column: "IdSparePartType");
 
             migrationBuilder.CreateIndex(
@@ -500,16 +500,16 @@ namespace _3_Data.Migrations
                 name: "Logs");
 
             migrationBuilder.DropTable(
-                name: "SaleCartdrige");
-
-            migrationBuilder.DropTable(
-                name: "SaleConsole");
-
-            migrationBuilder.DropTable(
-                name: "SaleSleeve");
-
-            migrationBuilder.DropTable(
                 name: "ShopStat");
+
+            migrationBuilder.DropTable(
+                name: "SoldCartdrige");
+
+            migrationBuilder.DropTable(
+                name: "SoldConsole");
+
+            migrationBuilder.DropTable(
+                name: "SoldSleeve");
 
             migrationBuilder.DropTable(
                 name: "SparePartsPurchase");

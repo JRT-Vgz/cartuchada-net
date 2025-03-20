@@ -46,6 +46,27 @@ namespace _3_ReferenceSystem
             product.AssignReference(referenceModel.Id, referenceModel.Name);
         }
 
+        public async Task ReleaseReferenceByIdAsync(int idReference)
+        {
+            var referenceModel = await _context.References.FirstOrDefaultAsync(r => r.Id == idReference);
+
+            if (referenceModel == null)
+            {
+                throw new ReferenceSystemException($"No se ha encontrado la referencia {idReference} en la tabla 'Reference'. ");
+            }
+
+            if (referenceModel.Assigned == false)
+            {
+                throw new ReferenceSystemException($"No se puede liberar la referencia {idReference} de la tabla 'Reference' porque " +
+                    $"no está asignada a ningún producto. ");
+            }
+
+            referenceModel.Assigned = false;
+
+            try { _context.References.Update(referenceModel); }
+            catch (Exception) { throw new ReferenceSystemException("Error al actualizar la referencia en la tabla 'Reference'."); }
+        }
+
         private async Task<ReferenceModel> CreateNewReferenceAsync(int idProductType) 
         {
             // Cuenta las referencias actuales para el producto.

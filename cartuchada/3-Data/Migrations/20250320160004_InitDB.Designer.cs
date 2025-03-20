@@ -12,7 +12,7 @@ using _3_Data;
 namespace _3_Data.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20250320144605_InitDB")]
+    [Migration("20250320160004_InitDB")]
     partial class InitDB
     {
         /// <inheritdoc />
@@ -296,7 +296,7 @@ namespace _3_Data.Migrations
                     b.ToTable("Region", (string)null);
                 });
 
-            modelBuilder.Entity("_3_Data.Models.SaleModels.SaleCartdrigeModel", b =>
+            modelBuilder.Entity("_3_Data.Models.SaleModels.SoldCartdrigeModel", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -341,10 +341,10 @@ namespace _3_Data.Migrations
 
                     b.HasIndex("IdRegion");
 
-                    b.ToTable("SaleCartdrige", (string)null);
+                    b.ToTable("SoldCartdrige", (string)null);
                 });
 
-            modelBuilder.Entity("_3_Data.Models.SaleModels.SaleConsoleModel", b =>
+            modelBuilder.Entity("_3_Data.Models.SaleModels.SoldConsoleModel", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -380,10 +380,10 @@ namespace _3_Data.Migrations
 
                     b.HasIndex("IdProductType");
 
-                    b.ToTable("SaleConsole", (string)null);
+                    b.ToTable("SoldConsole", (string)null);
                 });
 
-            modelBuilder.Entity("_3_Data.Models.SaleModels.SaleSleeveModel", b =>
+            modelBuilder.Entity("_3_Data.Models.SaleModels.SoldSleeveModel", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -407,7 +407,7 @@ namespace _3_Data.Migrations
 
                     b.HasIndex("IdSparePartType");
 
-                    b.ToTable("SaleSleeve", (string)null);
+                    b.ToTable("SoldSleeve", (string)null);
                 });
 
             modelBuilder.Entity("_3_Data.Models.ShopStatModel", b =>
@@ -595,7 +595,7 @@ namespace _3_Data.Migrations
                     b.Navigation("ProductType");
                 });
 
-            modelBuilder.Entity("_3_Data.Models.SaleModels.SaleCartdrigeModel", b =>
+            modelBuilder.Entity("_3_Data.Models.SaleModels.SoldCartdrigeModel", b =>
                 {
                     b.HasOne("_3_Data.Models.ConditionModel", "Condition")
                         .WithMany()
@@ -630,7 +630,7 @@ namespace _3_Data.Migrations
                     b.Navigation("Region");
                 });
 
-            modelBuilder.Entity("_3_Data.Models.SaleModels.SaleConsoleModel", b =>
+            modelBuilder.Entity("_3_Data.Models.SaleModels.SoldConsoleModel", b =>
                 {
                     b.HasOne("_3_Data.Models.ProductTypeModel", "ProductType")
                         .WithMany()
@@ -641,7 +641,7 @@ namespace _3_Data.Migrations
                     b.Navigation("ProductType");
                 });
 
-            modelBuilder.Entity("_3_Data.Models.SaleModels.SaleSleeveModel", b =>
+            modelBuilder.Entity("_3_Data.Models.SaleModels.SoldSleeveModel", b =>
                 {
                     b.HasOne("_3_Data.Models.Spare_Parts_Models.SparePartTypeModel", "SparePartType")
                         .WithMany()

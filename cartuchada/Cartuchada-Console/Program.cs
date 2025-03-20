@@ -1,8 +1,10 @@
 ﻿
 
+using _1_Entities.Product_Entities;
 using _2_Services.Services.Cartdrige_Services;
 using _2_Services.Services.Console_Services;
 using _2_Services.Services.Purchase_Services;
+using _2_Services.Services.SaleServices;
 using _2_Services.Services.Spare_Parts_Services;
 using _3_AccountingSystem;
 using _3_Data;
@@ -33,6 +35,7 @@ var configuration = new MapperConfiguration(cfg =>
     cfg.AddProfile(new ConsoleMappingProfile());
     cfg.AddProfile(new SparePartsPurchaseMappingProfile());
     cfg.AddProfile(new SpotMappingProfile());
+    cfg.AddProfile(new SoldCartdrigeMappingProfile());
 });
 
 // Crear el Mapper
@@ -47,6 +50,7 @@ var logger = new Logger(context);
 var cartdrigeValidator = new CartdrigeValidator(context);
 var consoleValidator = new ConsoleValidator(context);
 var sparePartsPurchaseValidator = new SparePartsPurchaseValidator(context);
+var soldCartdrigeValidator = new SoldCartdrigeValidator(context);
 
 ////////////////////////////////// SERVICIOS DE CARTDRIGE //////////////////////////////////
 
@@ -131,4 +135,19 @@ var sparePartsPurchaseValidator = new SparePartsPurchaseValidator(context);
 // VENTA DE CARTUCHO
 
 
+//var servicio = new GetAllSoldCartdrigesService(unitOfWork);
+//var cartuchos = await servicio.ExecuteAsync();
+//foreach (var c in cartuchos)
+//{
+//    Console.WriteLine($" id:{c.Id}, idproducttype: {c.IdProductType}, idgame: {c.IdGame}, " +
+//        $"idregion: {c.IdRegion}, idcondition: {c.IdCondition}, purchasedate: {c.PurchaseDate}, purchaseprice:{c.PurchasePrice}, " +
+//        $"saledate: {c.SaleDate}, saleprice: {c.SalePrice}, benefit: {c.Benefit}, name: {c.Name}");
+//}
+
+
+var servicio = new SellGameBoyCartdrigeService(unitOfWork, mapper, referenceSystem, statisticSystem, accountingSystem, logger, soldCartdrigeValidator);
+
+var cartucho = await unitOfWork.CartdrigeRepository.GetByIdAsync(1);
+
+await servicio.ExecuteAsync(cartucho, 100);
 

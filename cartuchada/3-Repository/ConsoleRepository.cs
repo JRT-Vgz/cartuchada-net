@@ -1,11 +1,9 @@
-
-using _1_Entities;
+using _1_Entities.Product_Entities;
 using _2_Services.Interfaces;
 using _3_Data;
 using _3_Data.Models;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
-using System;
 
 namespace _3_Repository
 {
@@ -39,7 +37,7 @@ namespace _3_Repository
 
             return _mapper.Map<VideoConsole>(consoleModel);
         }
-            
+
 
 
         public async Task AddAsync(VideoConsole console)
@@ -49,7 +47,7 @@ namespace _3_Repository
             await _context.Consoles.AddAsync(consoleModel);
         }
 
-        public void Delete(int id)
+        public void Delete(VideoConsole console)
         {
             throw new NotImplementedException();
         }

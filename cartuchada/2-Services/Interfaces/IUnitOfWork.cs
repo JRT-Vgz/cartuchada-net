@@ -1,5 +1,7 @@
 ﻿
-using _1_Entities;
+using _1_Entities.Product_Entities;
+using _1_Entities.Purchase_Entities;
+using _1_Entities.Sold_Product_Entities;
 
 namespace _2_Services.Interfaces
 {
@@ -9,6 +11,7 @@ namespace _2_Services.Interfaces
         public IRepository<VideoConsole> ConsoleRepository { get; }
         public IRepository<SparePartsPurchase> SparePartsPurchaseRepository { get; }
         public IRepository<Cartdrige> SpotRepository { get; }
+        public IRepository<SoldCartdrige> SoldCartdrigeRepository { get; }
 
         public Task SaveChangesAsync();
     }

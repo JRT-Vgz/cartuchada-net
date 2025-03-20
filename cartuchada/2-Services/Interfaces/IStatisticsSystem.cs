@@ -3,8 +3,9 @@ namespace _2_Services.Interfaces
 {
     public interface IStatisticsSystem
     {
-        Task SumOnePurchasedGameBoyCartdrigeToStatistics();
-        Task SumOnePurchasedGameBoyConsoleToStatistics();
-        Task SumOneSpotGameBoyCartdrigeToStatistics();
+        Task SumOnePurchasedGameBoyCartdrigeToStatisticsAsync();
+        Task SumOnePurchasedGameBoyConsoleToStatisticsAsync();
+        Task SumOneSpotGameBoyCartdrigeToStatisticsAsync();
+        Task SumOneSoldGameBoyCartdrigeToStatisticsAsync();
     }
 }

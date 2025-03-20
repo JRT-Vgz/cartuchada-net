@@ -4,12 +4,12 @@ using _2_Services.Interfaces;
 
 namespace _2_Services.Services.Console_Services
 {
-    public class SumToSparePartsPrice
+    public class SumSparePartsPriceToConsoleById
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly ILogger _logger;
 
-        public SumToSparePartsPrice(IUnitOfWork unitOfWork,
+        public SumSparePartsPriceToConsoleById(IUnitOfWork unitOfWork,
             ILogger logger)
         {
             _unitOfWork = unitOfWork;

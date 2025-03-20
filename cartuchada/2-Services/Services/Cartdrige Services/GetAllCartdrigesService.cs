@@ -1,5 +1,4 @@
-
-using _1_Entities;
+using _1_Entities.Product_Entities;
 using _2_Services.Interfaces;
 
 namespace _2_Services.Services.Cartdrige_Services

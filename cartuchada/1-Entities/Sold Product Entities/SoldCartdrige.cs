@@ -1,0 +1,36 @@
+
+namespace _1_Entities.Sold_Product_Entities
+{
+    public class SoldCartdrige
+    {
+        public int? Id { get; private set; }
+        public int IdProductType { get; private set; }
+        public int IdGame { get; private set; }
+        public int IdRegion { get; private set; }
+        public int IdCondition { get; private set; }
+        public DateTime PurchaseDate { get; private set; }
+        public decimal PurchasePrice { get; private set; }
+        public DateTime SaleDate { get; private set; }
+        public decimal SalePrice { get; private set; }
+        public decimal Benefit { get; private set; }
+        public string? Name { get; private set; }
+
+        public SoldCartdrige()
+        {
+            SaleDate = DateTime.Now.Date;
+        }
+
+        public void AssignSalePrice(decimal salePrice)
+        {
+            if (SalePrice != 0) { return; }
+
+            SalePrice = salePrice;
+            CalculateBenefit();
+        }
+
+        public void CalculateBenefit()
+        {
+            Benefit = SalePrice - PurchasePrice;
+        }
+    }
+}

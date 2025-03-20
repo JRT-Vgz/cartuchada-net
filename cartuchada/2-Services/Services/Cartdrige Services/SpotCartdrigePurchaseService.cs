@@ -1,5 +1,4 @@
-
-using _1_Entities;
+using _1_Entities.Product_Entities;
 using _2_Services.Exceptions;
 using _2_Services.Interfaces;
 using AutoMapper;
@@ -38,7 +37,7 @@ namespace _2_Services.Services.Cartdrige_Services
 
                 await _unitOfWork.SpotRepository.AddAsync(cartdrige);
 
-                await _statisticsSystem.SumOneSpotGameBoyCartdrigeToStatistics();
+                await _statisticsSystem.SumOneSpotGameBoyCartdrigeToStatisticsAsync();
 
                 string logEntry = $"SPOT: Cartucho Game Boy. Id del juego: {cartdrige.IdGame}, Nombre: {cartdrige.Name}, " +
                     $"Precio de spot: {cartdrige.PurchasePrice}€";

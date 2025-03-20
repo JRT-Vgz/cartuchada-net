@@ -1,5 +1,4 @@
-
-using _1_Entities;
+using _1_Entities.Purchase_Entities;
 using _2_Services.Exceptions;
 using _2_Services.Interfaces;
 using AutoMapper;
@@ -38,7 +37,7 @@ namespace _2_Services.Services.Purchase_Services
 
                 await _unitOfWork.SparePartsPurchaseRepository.AddAsync(sparePartsPurchase);
 
-                await _accountingSystem.SumPurchasePriceToExpenses(sparePartsPurchase.PurchaseDate, sparePartsPurchase.PurchasePrice);
+                await _accountingSystem.SumPurchasePriceToExpensesAsync(sparePartsPurchase.PurchaseDate, sparePartsPurchase.PurchasePrice);
 
                 string logEntry = $"COMPRA: Recambios. Tipo: {sparePartsPurchase.Name}, Concepto: {sparePartsPurchase.Concept}, " +
                     $"Precio de compra: {sparePartsPurchase.PurchasePrice}€";

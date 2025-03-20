@@ -1,4 +1,6 @@
 ﻿
+using System.Security.Principal;
+
 namespace _2_Services.Interfaces
 {
     public interface IRepository<TEntity>
@@ -7,6 +9,6 @@ namespace _2_Services.Interfaces
         Task<TEntity> GetByIdAsync(int id);
         Task AddAsync(TEntity entity);
         void Update(TEntity entity);
-        void Delete(int id);
+        void Delete(TEntity entity);
     }
 }

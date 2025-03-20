@@ -1,5 +1,4 @@
-
-using _1_Entities;
+using _1_Entities.Product_Entities;
 using _2_Services.Exceptions;
 using _2_Services.Interfaces;
 using AutoMapper;
@@ -39,14 +38,14 @@ namespace _2_Services.Services.Purchase_Services
                 var cartdrige = _mapper.Map<Cartdrige>(cartdrigeDto);
 
                 await _referenceSystem.AssignReferenceToProductAsync(cartdrige);
-                
+
                 bool productIsValid = await _cartdrigeValidator.ValidateProductAsync(cartdrige);
                 if (!productIsValid) { throw new ProductValidationException(_cartdrigeValidator.Errors); }
 
                 await _unitOfWork.CartdrigeRepository.AddAsync(cartdrige);
 
-                await _statisticsSystem.SumOnePurchasedGameBoyCartdrigeToStatistics();
-                await _accountingSystem.SumPurchasePriceToExpenses(cartdrige.PurchaseDate, cartdrige.PurchasePrice);
+                await _statisticsSystem.SumOnePurchasedGameBoyCartdrigeToStatisticsAsync();
+                await _accountingSystem.SumPurchasePriceToExpensesAsync(cartdrige.PurchaseDate, cartdrige.PurchasePrice);
 
                 string logEntry = $"COMPRA: Cartucho Game Boy. Ref: {cartdrige.Reference}, Nombre: {cartdrige.Name}, " +
                     $"Precio de compra: {cartdrige.PurchasePrice}€";
@@ -63,7 +62,7 @@ namespace _2_Services.Services.Purchase_Services
             {
                 Console.WriteLine(ex.Message);
             }
-            
+
         }
     }
 }

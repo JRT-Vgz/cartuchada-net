@@ -1,4 +1,4 @@
-﻿using _1_Entities;
+﻿using _1_Entities.Product_Entities;
 using _2_Services.Interfaces;
 using _3_Data;
 using _3_Data.Models;
@@ -29,6 +29,16 @@ namespace _3_Repository
             return cartdrigeModels.Select(c => _mapper.Map<Cartdrige>(c));
         }
 
+        public async Task<Cartdrige> GetByIdAsync(int id)
+        {
+            var cartdrigeModel = await _context.Cartdriges
+                .Include("Game")
+                .Include("Reference")
+                .FirstOrDefaultAsync(c => c.Id == id);
+
+            return _mapper.Map<Cartdrige>(cartdrigeModel);
+        }
+
         public async Task AddAsync(Cartdrige cartdrige)
         {
             var cartdrigeModel = _mapper.Map<CartdrigeModel>(cartdrige);
@@ -36,12 +46,7 @@ namespace _3_Repository
             await _context.Cartdriges.AddAsync(cartdrigeModel);
         }
 
-        public void Delete(int id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<Cartdrige> GetByIdAsync(int id)
+        public void Delete(Cartdrige cartdrige)
         {
             throw new NotImplementedException();
         }

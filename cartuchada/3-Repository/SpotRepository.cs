@@ -1,5 +1,4 @@
-
-using _1_Entities;
+using _1_Entities.Product_Entities;
 using _2_Services.Interfaces;
 using _3_Data;
 using _3_Data.Models.Product_Models;
@@ -36,7 +35,7 @@ namespace _3_Repository
             await _context.Spots.AddAsync(spotModel);
         }
 
-        public void Delete(int id)
+        public void Delete(Cartdrige cartdrige)
         {
             throw new NotImplementedException();
         }
@@ -46,7 +45,7 @@ namespace _3_Repository
             throw new NotImplementedException();
         }
 
-        public void Update(Cartdrige entity)
+        public void Update(Cartdrige cartdrige)
         {
             throw new NotImplementedException();
         }

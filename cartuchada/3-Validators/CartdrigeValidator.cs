@@ -1,5 +1,4 @@
-
-using _1_Entities;
+using _1_Entities.Product_Entities;
 using _2_Services.Interfaces;
 using _3_Data;
 using Microsoft.EntityFrameworkCore;
@@ -41,7 +40,7 @@ namespace _3_Validators
 
             if (cartdrige.PurchaseDate != DateTime.Now.Date) { Errors.Add("El campo 'PurchaseDate' no coincide con la fecha actual."); }
 
-            if (cartdrige.PurchasePrice < 0) { Errors.Add("El canpo 'PurchasePrice' no puede ser negativo."); }
+            if (cartdrige.PurchasePrice < 0) { Errors.Add("El campo 'PurchasePrice' no puede ser negativo."); }
 
             if (cartdrige.Name == null || cartdrige.Name == "") { Errors.Add("El campo 'Name' no puede ser nulo ni estar vacío."); }
 

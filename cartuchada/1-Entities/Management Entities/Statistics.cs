@@ -1,5 +1,5 @@
 
-namespace _1_Entities
+namespace _1_Entities.Management_Entities
 {
     public class Statistics
     {

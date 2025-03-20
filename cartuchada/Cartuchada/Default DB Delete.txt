@@ -1,7 +1,7 @@
 ﻿
-DELETE FROM SaleSleeve;
-DELETE FROM SaleCartdrige;
-DELETE FROM SaleConsole;
+DELETE FROM SoldSleeve;
+DELETE FROM SoldCartdrige;
+DELETE FROM SoldConsole;
 DELETE FROM Spot;
 DELETE FROM SparePartsPurchase;
 DELETE FROM Accounting;
@@ -18,9 +18,9 @@ DELETE FROM Logs;
 DELETE FROM __EFMigrationsHistory;
 
 
-DROP TABLE IF EXISTS SaleSleeve;
-DROP TABLE IF EXISTS SaleCartdrige;
-DROP TABLE IF EXISTS SaleConsole;
+DROP TABLE IF EXISTS SoldSleeve;
+DROP TABLE IF EXISTS SoldCartdrige;
+DROP TABLE IF EXISTS SoldConsole;
 DROP TABLE IF EXISTS Spot;
 DROP TABLE IF EXISTS SparePartsPurchase;
 DROP TABLE IF EXISTS Accounting;

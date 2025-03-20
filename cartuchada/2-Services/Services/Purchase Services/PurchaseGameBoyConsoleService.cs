@@ -1,5 +1,4 @@
-
-using _1_Entities;
+using _1_Entities.Product_Entities;
 using _2_Services.Exceptions;
 using _2_Services.Interfaces;
 using AutoMapper;
@@ -45,8 +44,8 @@ namespace _2_Services.Services.Purchase_Services
 
                 await _unitOfWork.ConsoleRepository.AddAsync(console);
 
-                await _statisticsSystem.SumOnePurchasedGameBoyConsoleToStatistics();
-                await _accountingSystem.SumPurchasePriceToExpenses(console.PurchaseDate, console.PurchasePrice);
+                await _statisticsSystem.SumOnePurchasedGameBoyConsoleToStatisticsAsync();
+                await _accountingSystem.SumPurchasePriceToExpensesAsync(console.PurchaseDate, console.PurchasePrice);
 
                 string logEntry = $"COMPRA: Consola Game Boy. Ref: {console.Reference}, Nombre: {console.Name}, " +
                     $"Precio de compra: {console.PurchasePrice}€";

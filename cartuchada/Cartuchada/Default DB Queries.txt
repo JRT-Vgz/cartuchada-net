@@ -89,19 +89,19 @@ VALUES
     ('1', '2024-03-01', 'Piezas de game boy', 20.25),
     ('2', '2024-03-01', 'Piezas de game gear', 25.25);
 
-INSERT INTO SaleCartdrige (IdProductType, IdGame, IdRegion, IdCondition, PurchaseDate, PurchasePrice, SaleDate, SalePrice, Benefit)
+INSERT INTO SoldCartdrige (IdProductType, IdGame, IdRegion, IdCondition, PurchaseDate, PurchasePrice, SaleDate, SalePrice, Benefit)
 VALUES
     (1, 1, 1, 5, '2025-03-12', 10, '2025-03-15', 20, 10),
     (1, 2, 2, 6, '2025-03-12', 15, '2025-03-15', 20, 5),
     (1, 3, 3, 7, '2025-03-12', 20, '2025-03-15',30, 10);
 
-INSERT INTO SaleConsole (IdProductType, PurchaseDate, PurchasePrice, SparePartsPrice, TotalPrice, SaleDate, SalePrice, Benefit)
+INSERT INTO SoldConsole (IdProductType, PurchaseDate, PurchasePrice, SparePartsPrice, TotalPrice, SaleDate, SalePrice, Benefit)
 VALUES
     (3, '2025-03-12', 30, 5, 35, '2025-03-15', 50, 15),
     (3, '2025-03-12', 40, 5, 45, '2025-03-15', 70, 25),
     (4, '2025-03-12', 50, 5, 55, '2025-03-15', 70, 15);
 
-INSERT INTO SaleSleeve (IdSparePartType, Quantity, SaleDate, SalePrice)
+INSERT INTO SoldSleeve (IdSparePartType, Quantity, SaleDate, SalePrice)
 VALUES
     (3, 20, '2025-03-15', 20),
     (5, 20, '2025-03-15', 40)

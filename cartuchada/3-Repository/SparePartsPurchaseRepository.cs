@@ -1,5 +1,4 @@
-
-using _1_Entities;
+using _1_Entities.Purchase_Entities;
 using _2_Services.Interfaces;
 using _3_Data;
 using _3_Data.Models.Spare_Parts_Models;
@@ -36,7 +35,7 @@ namespace _3_Repository
             await _context.SparePartsPurchases.AddAsync(sparePartsPurchaseModel);
         }
 
-        public void Delete(int id)
+        public void Delete(SparePartsPurchase sparePartsPurchase)
         {
             throw new NotImplementedException();
         }

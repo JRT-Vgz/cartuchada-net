@@ -1,5 +1,4 @@
-
-using _1_Entities;
+using _1_Entities.Purchase_Entities;
 using _3_Data.Models.Spare_Parts_Models;
 using _3_Mappers.DTOs.Purchase_Dtos;
 using AutoMapper;

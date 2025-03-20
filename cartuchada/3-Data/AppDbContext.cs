@@ -23,9 +23,9 @@ namespace _3_Data
         public DbSet<LogModel> Logs { get; set; }
         public DbSet<SparePartTypeModel> SparePartTypes { get; set; }
         public DbSet<SparePartsPurchaseModel> SparePartsPurchases { get; set; }
-        public DbSet<SaleCartdrigeModel> SaleCartdriges { get; set; }
-        public DbSet<SaleConsoleModel> SaleConsoles { get; set; }
-        public DbSet<SaleSleeveModel> SaleSleeves { get; set; }
+        public DbSet<SoldCartdrigeModel> SoldCartdriges { get; set; }
+        public DbSet<SoldConsoleModel> SoldConsoles { get; set; }
+        public DbSet<SoldSleeveModel> SoldSleeves { get; set; }
         public DbSet<SpotModel> Spots { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -40,9 +40,9 @@ namespace _3_Data
             modelBuilder.Entity<ShopStatModel>().ToTable("ShopStat");
             modelBuilder.Entity<SparePartTypeModel>().ToTable("SparePartType");
             modelBuilder.Entity<SparePartsPurchaseModel>().ToTable("SparePartsPurchase");
-            modelBuilder.Entity<SaleCartdrigeModel>().ToTable("SaleCartdrige");
-            modelBuilder.Entity<SaleConsoleModel>().ToTable("SaleConsole");
-            modelBuilder.Entity<SaleSleeveModel>().ToTable("SaleSleeve");
+            modelBuilder.Entity<SoldCartdrigeModel>().ToTable("SoldCartdrige");
+            modelBuilder.Entity<SoldConsoleModel>().ToTable("SoldConsole");
+            modelBuilder.Entity<SoldSleeveModel>().ToTable("SoldSleeve");
             modelBuilder.Entity<SpotModel>().ToTable("Spot");
 
             modelBuilder.Entity<GameCatalogueModel>()
@@ -75,7 +75,7 @@ namespace _3_Data
             //    .HasForeignKey(c => c.IdReference)
             //    .OnDelete(DeleteBehavior.NoAction);
 
-            modelBuilder.Entity<SaleCartdrigeModel>()
+            modelBuilder.Entity<SoldCartdrigeModel>()
                 .HasOne(c => c.ProductType)
                 .WithMany()
                 .HasForeignKey(c => c.IdProductType)

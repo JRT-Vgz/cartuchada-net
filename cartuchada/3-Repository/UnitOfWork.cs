@@ -1,5 +1,6 @@
-
-using _1_Entities;
+using _1_Entities.Product_Entities;
+using _1_Entities.Purchase_Entities;
+using _1_Entities.Sold_Product_Entities;
 using _2_Services.Interfaces;
 using _3_Data;
 using AutoMapper;
@@ -14,6 +15,7 @@ namespace _3_Repository
         private IRepository<VideoConsole> _consoleRepository;
         private IRepository<SparePartsPurchase> _sparePartsPurchaseRepository;
         private IRepository<Cartdrige> _spotRepository;
+        private IRepository<SoldCartdrige> _soldCartdrigeRepository;
 
         public IRepository<Cartdrige> CartdrigeRepository
         {
@@ -29,7 +31,7 @@ namespace _3_Repository
         {
             get
             {
-                return _consoleRepository == null? 
+                return _consoleRepository == null ?
                     _consoleRepository = new ConsoleRepository(_context, _mapper) :
                     _consoleRepository;
             }
@@ -54,6 +56,18 @@ namespace _3_Repository
                     _spotRepository;
             }
         }
+
+        public IRepository<SoldCartdrige> SoldCartdrigeRepository
+        {
+            get
+            {
+                return _soldCartdrigeRepository == null ?
+                    _soldCartdrigeRepository = new SoldCartdrigeRepository(_context, _mapper) :
+                    _soldCartdrigeRepository;
+            }
+        }
+
+
 
         public UnitOfWork(AppDbContext context,
             IMapper mapper)

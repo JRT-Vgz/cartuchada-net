@@ -1,5 +1,4 @@
-
-using _1_Entities;
+using _1_Entities.Product_Entities;
 using _3_Data.Models.Product_Models;
 using AutoMapper;
 
@@ -7,7 +6,7 @@ namespace _3_Mappers.Automapper
 {
     public class SpotMappingProfile : Profile
     {
-        public SpotMappingProfile() 
+        public SpotMappingProfile()
         {
             // From SpotModel to Cartdrige
             CreateMap<SpotModel, Cartdrige>()

@@ -34,21 +34,27 @@ namespace _3_StatisticSystem
             }
         }
 
-        public async Task SumOnePurchasedGameBoyCartdrigeToStatistics()
+        public async Task SumOnePurchasedGameBoyCartdrigeToStatisticsAsync()
         {
             string shopStatName = ShopStatConstants.JUEGOS_GAME_BOY_COMPRADOS;
             await SumOneToStatistic(shopStatName);
         }
 
-        public async Task SumOnePurchasedGameBoyConsoleToStatistics()
+        public async Task SumOnePurchasedGameBoyConsoleToStatisticsAsync()
         {
             string shopStatName = ShopStatConstants.GAME_BOY_COMPRADAS;
             await SumOneToStatistic(shopStatName);
         }
 
-        public async Task SumOneSpotGameBoyCartdrigeToStatistics()
+        public async Task SumOneSpotGameBoyCartdrigeToStatisticsAsync()
         {
             string shopStatName = ShopStatConstants.JUEGOS_GAME_BOY_SPOTEADOS;
+            await SumOneToStatistic(shopStatName);
+        }
+
+        public async Task SumOneSoldGameBoyCartdrigeToStatisticsAsync()
+        {
+            string shopStatName = ShopStatConstants.JUEGOS_GAME_BOY_VENDIDOS;
             await SumOneToStatistic(shopStatName);
         }
     }

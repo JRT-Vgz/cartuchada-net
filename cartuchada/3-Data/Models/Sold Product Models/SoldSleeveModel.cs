@@ -5,7 +5,7 @@ using _3_Data.Models.Spare_Parts_Models;
 
 namespace _3_Data.Models.SaleModels
 {
-    public class SaleSleeveModel
+    public class SoldSleeveModel
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]

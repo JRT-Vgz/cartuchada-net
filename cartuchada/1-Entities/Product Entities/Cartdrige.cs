@@ -1,34 +1,23 @@
+﻿using _1_Entities.Interfaces;
 
-using _1_Entities.Interfaces;
-
-namespace _1_Entities
+namespace _1_Entities.Product_Entities
 {
-    public class VideoConsole : IProduct
+    public class Cartdrige : IProduct
     {
-        public int Id { get; private set; }
+        public int? Id { get; private set; }
         public int IdReference { get; private set; }
         public int IdProductType { get; private set; }
+        public int IdGame { get; private set; }
+        public int IdRegion { get; private set; }
+        public int IdCondition { get; private set; }
         public DateTime PurchaseDate { get; private set; }
         public decimal PurchasePrice { get; private set; }
-        public decimal SparePartsPrice { get; private set; }
-        public decimal TotalPrice { get; private set; }
         public string? Name { get; private set; }
         public string? Reference { get; private set; }
 
-        public VideoConsole()
+        public Cartdrige()
         {
             PurchaseDate = DateTime.Now.Date;
-        }
-
-        public void CalculateTotalPrice()
-        {
-            TotalPrice = PurchasePrice + SparePartsPrice;
-        }
-
-        public void SumToSparePartsPrice(decimal sparePartsPrice)
-        {
-            SparePartsPrice += sparePartsPrice;
-            CalculateTotalPrice();
         }
 
         public void AssignReference(int idReference, string reference)
