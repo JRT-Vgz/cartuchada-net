@@ -1,4 +1,4 @@
-using _1_Entities.Purchase_Entities;
+using _1_Domain.Purchase_Entities;
 using _2_Services.Exceptions;
 using _2_Services.Interfaces;
 using AutoMapper;

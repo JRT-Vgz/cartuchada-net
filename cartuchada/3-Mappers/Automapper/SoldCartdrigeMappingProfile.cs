@@ -1,6 +1,6 @@
 
-using _1_Entities.Product_Entities;
-using _1_Entities.Sold_Product_Entities;
+using _1_Domain.Product_Entities;
+using _1_Domain.Sold_Product_Entities;
 using _3_Data.Models.SaleModels;
 using AutoMapper;
 

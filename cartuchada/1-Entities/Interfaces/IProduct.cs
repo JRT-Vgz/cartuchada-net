@@ -1,5 +1,5 @@
 ﻿
-namespace _1_Entities.Interfaces
+namespace _1_Domain.Interfaces
 {
     public interface IProduct
     {

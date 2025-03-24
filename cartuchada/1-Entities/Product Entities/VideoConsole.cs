@@ -1,7 +1,7 @@
 
-using _1_Entities.Interfaces;
+using _1_Domain.Interfaces;
 
-namespace _1_Entities.Product_Entities
+namespace _1_Domain.Product_Entities
 {
     public class VideoConsole : IProduct
     {

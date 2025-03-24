@@ -1,5 +1,5 @@
 
-using _1_Entities.Sold_Product_Entities;
+using _1_Domain.Sold_Product_Entities;
 using _2_Services.Interfaces;
 using _3_Data.Models.SaleModels;
 using _3_Data;

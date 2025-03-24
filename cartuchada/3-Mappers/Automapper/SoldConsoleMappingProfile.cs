@@ -1,9 +1,7 @@
 
-using _1_Entities.Product_Entities;
-using _1_Entities.Sold_Product_Entities;
-using _3_Data.Models;
+using _1_Domain.Product_Entities;
+using _1_Domain.Sold_Product_Entities;
 using _3_Data.Models.SaleModels;
-using _3_Mappers.DTOs.Purchase_Dtos;
 using AutoMapper;
 
 namespace _3_Mappers.Automapper

@@ -1,5 +1,5 @@
 
-namespace _1_Entities.Sold_Product_Entities
+namespace _1_Domain.Sold_Product_Entities
 {
     public class SoldCartdrige
     {

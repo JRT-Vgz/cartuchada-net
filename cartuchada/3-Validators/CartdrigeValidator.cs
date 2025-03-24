@@ -1,5 +1,5 @@
-using _1_Entities.Product_Entities;
-using _1_Entities.Constants;
+using _1_Domain.Product_Entities;
+using _1_Domain.Constants;
 using _2_Services.Interfaces;
 using _3_Data;
 using Microsoft.EntityFrameworkCore;

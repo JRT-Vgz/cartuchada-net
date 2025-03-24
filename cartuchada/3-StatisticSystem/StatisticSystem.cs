@@ -1,4 +1,4 @@
-﻿using _1_Entities.Constants;
+﻿using _1_Domain.Constants;
 using _2_Services.Exceptions;
 using _2_Services.Interfaces;
 using _3_Data;

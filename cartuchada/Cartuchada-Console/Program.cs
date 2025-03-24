@@ -1,7 +1,7 @@
 ﻿
 
-using _1_Entities.Product_Entities;
-using _1_Entities.Sold_Product_Entities;
+using _1_Domain.Product_Entities;
+using _1_Domain.Sold_Product_Entities;
 using _2_Services.Services.Cartdrige_Services;
 using _2_Services.Services.Console_Services;
 using _2_Services.Services.Purchase_Services;
@@ -158,14 +158,14 @@ var soldConsoleValidator = new SoldConsoleValidator(context);
 
 // VENTA DE CONSOLA
 
-//var servicio = new GetAllSoldConsolesService(unitOfWork);
-//var consolas = await servicio.ExecuteAsync();
-//foreach (var c in consolas)
-//{
-//    Console.WriteLine($" id:{c.Id}, idproducttype: {c.IdProductType}, purchasedate: {c.PurchaseDate}, purchaseprice:{c.PurchasePrice}, " +
-//        $"sparepartsprice: {c.SparePartsPrice}, totalprice: {c.TotalPrice}, saledate: {c.SaleDate}, saleprice: {c.SalePrice}, benefit: {c.Benefit}, " +
-//        $"name: {c.Name}");
-//}
+var servicio = new GetAllSoldConsolesService(unitOfWork);
+var consolas = await servicio.ExecuteAsync();
+foreach (var c in consolas)
+{
+    Console.WriteLine($" id:{c.Id}, idproducttype: {c.IdProductType}, purchasedate: {c.PurchaseDate}, purchaseprice:{c.PurchasePrice}, " +
+        $"sparepartsprice: {c.SparePartsPrice}, totalprice: {c.TotalPrice}, saledate: {c.SaleDate}, saleprice: {c.SalePrice}, benefit: {c.Benefit}, " +
+        $"name: {c.Name}");
+}
 
 
 //var servicio = new SellConsoleService(unitOfWork, mapper, referenceSystem, statisticSystem, accountingSystem, logger, soldConsoleValidator);

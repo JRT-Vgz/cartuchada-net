@@ -1,4 +1,4 @@
-﻿using _1_Entities.Interfaces;
+﻿using _1_Domain.Interfaces;
 
 namespace _2_Services.Interfaces
 {

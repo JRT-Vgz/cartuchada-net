@@ -5,7 +5,7 @@ VisualStudioVersion = 17.10.35201.131
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cartuchada", "Cartuchada\Cartuchada.csproj", "{71B9A702-B98C-4CDD-8642-EFE97D28AFE8}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "1-Entities", "1-Entities\1-Entities.csproj", "{FC052DE7-247D-45C8-BAEB-24AD9E0C485A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "1-Domain", "1-Entities\1-Domain.csproj", "{FC052DE7-247D-45C8-BAEB-24AD9E0C485A}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cartuchada-Console", "Cartuchada-Console\Cartuchada-Console.csproj", "{41B51CD9-5E26-48FA-91BC-7F319AE384BD}"
 EndProject
@@ -23,9 +23,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "3-StatisticSystem", "3-Stat
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "3-AccountingSystem", "3-AccountingSystem\3-AccountingSystem.csproj", "{7C5C8FF3-6FD4-4E20-AC84-FC1B2A0029A9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "3-Loggers", "3-Loggers\3-Loggers.csproj", "{42282008-228C-4396-9ABF-B1D084A2BBEA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "3-Loggers", "3-Loggers\3-Loggers.csproj", "{42282008-228C-4396-9ABF-B1D084A2BBEA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "3-Validators", "3-Validators\3-Validators.csproj", "{0769FBBC-FEB2-4900-8D4F-C4A2AE371880}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "3-Validators", "3-Validators\3-Validators.csproj", "{0769FBBC-FEB2-4900-8D4F-C4A2AE371880}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

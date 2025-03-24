@@ -1,5 +1,5 @@
 
-namespace _1_Entities.Purchase_Entities
+namespace _1_Domain.Purchase_Entities
 {
     public class SparePartsPurchase
     {

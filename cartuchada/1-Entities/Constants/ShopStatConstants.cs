@@ -1,5 +1,5 @@
 
-namespace _1_Entities.Constants
+namespace _1_Domain.Constants
 {
     public struct ShopStatConstants
     {
