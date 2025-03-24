@@ -5,7 +5,7 @@ using AutoMapper;
 
 namespace _2_Services.Services.Purchase_Services
 {
-    public class PurchaseGameBoyConsoleService<TDto>
+    public class PurchaseConsoleService<TDto>
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
@@ -14,7 +14,7 @@ namespace _2_Services.Services.Purchase_Services
         private readonly IAccountingSystem _accountingSystem;
         private readonly ILogger _logger;
         private readonly IProductValidator<VideoConsole> _consoleValidator;
-        public PurchaseGameBoyConsoleService(IUnitOfWork unitOfWork,
+        public PurchaseConsoleService(IUnitOfWork unitOfWork,
             IMapper mapper,
             IReferenceSystem referenceSystem,
             IStatisticsSystem statisticsSystem,
@@ -44,10 +44,10 @@ namespace _2_Services.Services.Purchase_Services
 
                 await _unitOfWork.ConsoleRepository.AddAsync(console);
 
-                await _statisticsSystem.SumOnePurchasedGameBoyConsoleToStatisticsAsync();
+                await _statisticsSystem.SumOnePurchasedConsoleToStatisticsAsync(console.IdProductType);
                 await _accountingSystem.SumPurchasePriceToExpensesAsync(console.PurchaseDate, console.PurchasePrice);
 
-                string logEntry = $"COMPRA: Consola Game Boy. Ref: {console.Reference}, Nombre: {console.Name}, " +
+                string logEntry = $"COMPRA: Consola. Ref: {console.Reference}, Nombre: {console.Name}, " +
                     $"Precio de compra: {console.PurchasePrice}€";
                 await _logger.WriteLogEntryAsync(logEntry);
 

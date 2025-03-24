@@ -5,7 +5,7 @@ using _2_Services.Interfaces;
 using _3_Data;
 using Microsoft.EntityFrameworkCore;
 
-namespace _3_Validators
+namespace _3_Validators.Entity_Validators
 {
     public class SoldConsoleValidator : IProductValidator<SoldVideoConsole>
     {

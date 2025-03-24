@@ -17,6 +17,7 @@ namespace _3_Repository
         private IRepository<Cartdrige> _spotRepository;
         private IRepository<SoldCartdrige> _soldCartdrigeRepository;
         private IRepository<SoldVideoConsole> _soldConsoleRepository;
+        private IRepository<SoldSleeve> _soldSleeveRepository;
 
         public IRepository<Cartdrige> CartdrigeRepository
         {
@@ -75,6 +76,16 @@ namespace _3_Repository
                 return _soldConsoleRepository == null ?
                     _soldConsoleRepository = new SoldConsoleRepository(_context, _mapper) :
                     _soldConsoleRepository;
+            }
+        }
+
+        public IRepository<SoldSleeve> SoldSleeveRepository
+        {
+            get
+            {
+                return _soldSleeveRepository == null ?
+                    _soldSleeveRepository = new SoldSleeveRepository(_context, _mapper) :
+                    _soldSleeveRepository;
             }
         }
 

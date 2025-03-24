@@ -6,6 +6,7 @@ using _2_Services.Services.Cartdrige_Services;
 using _2_Services.Services.Console_Services;
 using _2_Services.Services.Purchase_Services;
 using _2_Services.Services.SaleServices;
+using _2_Services.Services.Sleeve_Services;
 using _2_Services.Services.Spare_Parts_Services;
 using _3_AccountingSystem;
 using _3_Data;
@@ -13,10 +14,11 @@ using _3_Loggers;
 using _3_Mappers.Automapper;
 using _3_Mappers.DTOs;
 using _3_Mappers.DTOs.Purchase_Dtos;
+using _3_Mappers.DTOs.Sale_Dtos;
 using _3_ReferenceSystem;
 using _3_Repository;
 using _3_StatisticSystem;
-using _3_Validators;
+using _3_Validators.Entity_Validators;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 
@@ -38,6 +40,7 @@ var configuration = new MapperConfiguration(cfg =>
     cfg.AddProfile(new SpotMappingProfile());
     cfg.AddProfile(new SoldCartdrigeMappingProfile());
     cfg.AddProfile(new SoldConsoleMappingProfile());
+    cfg.AddProfile(new SoldSleeveMappingProfile());
 });
 
 // Crear el Mapper
@@ -54,6 +57,7 @@ var consoleValidator = new ConsoleValidator(context);
 var sparePartsPurchaseValidator = new SparePartsPurchaseValidator(context);
 var soldCartdrigeValidator = new SoldCartdrigeValidator(context);
 var soldConsoleValidator = new SoldConsoleValidator(context);
+var soldSleeveValidator = new SoldSleeveValidator(context);
 
 ////////////////////////////////// SERVICIOS DE CARTDRIGE //////////////////////////////////
 
@@ -85,8 +89,8 @@ var soldConsoleValidator = new SoldConsoleValidator(context);
 
 
 
-//var servicio = new PurchaseGameBoyConsoleService<ConsolePurchaseDto>(unitOfWork, mapper, referenceSystem, statisticSystem, accountingSystem, logger, consoleValidator);
-//var consoleDto = new ConsolePurchaseDto() { IdProductType = 3, PurchasePrice = 100, Name = "Consola 1" };
+//var servicio = new PurchaseConsoleService<ConsolePurchaseDto>(unitOfWork, mapper, referenceSystem, statisticSystem, accountingSystem, logger, consoleValidator);
+//var consoleDto = new ConsolePurchaseDto() { IdProductType = 4, PurchasePrice = 150, Name = "Videoconsola Game Gear" };
 
 //await servicio.ExecuteAsync(consoleDto);
 
@@ -158,23 +162,40 @@ var soldConsoleValidator = new SoldConsoleValidator(context);
 
 // VENTA DE CONSOLA
 
-var servicio = new GetAllSoldConsolesService(unitOfWork);
-var consolas = await servicio.ExecuteAsync();
-foreach (var c in consolas)
-{
-    Console.WriteLine($" id:{c.Id}, idproducttype: {c.IdProductType}, purchasedate: {c.PurchaseDate}, purchaseprice:{c.PurchasePrice}, " +
-        $"sparepartsprice: {c.SparePartsPrice}, totalprice: {c.TotalPrice}, saledate: {c.SaleDate}, saleprice: {c.SalePrice}, benefit: {c.Benefit}, " +
-        $"name: {c.Name}");
-}
+//var servicio = new GetAllSoldConsolesService(unitOfWork);
+//var consolas = await servicio.ExecuteAsync();
+//foreach (var c in consolas)
+//{
+//    Console.WriteLine($" id:{c.Id}, idproducttype: {c.IdProductType}, purchasedate: {c.PurchaseDate}, purchaseprice:{c.PurchasePrice}, " +
+//        $"sparepartsprice: {c.SparePartsPrice}, totalprice: {c.TotalPrice}, saledate: {c.SaleDate}, saleprice: {c.SalePrice}, benefit: {c.Benefit}, " +
+//        $"name: {c.Name}");
+//}
 
 
 //var servicio = new SellConsoleService(unitOfWork, mapper, referenceSystem, statisticSystem, accountingSystem, logger, soldConsoleValidator);
 
-//var consola = await unitOfWork.ConsoleRepository.GetByIdAsync(2);
+//var consola = await unitOfWork.ConsoleRepository.GetByIdAsync(4);
 
 //await servicio.ExecuteAsync(consola, 200);
 
 
+
+// VENTA DE FUNDAS
+
+//var servicio = new GetAllSoldSleevesService(unitOfWork);
+//var fundas = await servicio.ExecuteAsync();
+//foreach (var f in fundas)
+//{
+//    Console.WriteLine($" id:{f.Id}, idspareparttype: {f.IdSparePartType}, quantity; {f.Quantity}, saledate: {f.SaleDate}, " +
+//        $"saleprice: {f.SalePrice}, name: {f.Name}");
+//}
+
+
+//var servicio = new SellSleeveService<SleeveSaleDto>(unitOfWork, mapper, statisticSystem, accountingSystem, logger, soldSleeveValidator);
+
+//var fundaDto = new SleeveSaleDto() { IdSparePartType = 3, Quantity = 30, SalePrice = 30, Name = "Funda" };
+
+//await servicio.ExecuteAsync(fundaDto);
 
 
 

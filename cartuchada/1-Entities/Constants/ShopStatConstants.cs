@@ -15,6 +15,8 @@ namespace _1_Domain.Constants
 
         public const string FUNDAS_ORIGINALES_GAME_BOY_VENDIDAS = "Fundas Originales Game Boy Vendidas";
         public const string FUNDAS_PIRATA_GAME_BOY_VENDIDAS = "Fundas Pirata Game Boy Vendidas";
+        public const string FUNDAS_ORIGINALES_GAME_GEAR_VENDIDAS = "Fundas Originales Game Gear Vendidas";
+        public const string FUNDAS_PIRATA_GAME_GEAR_VENDIDAS = "Fundas Pirata Game Gear Vendidas";
 
         public const string JUEGOS_GAME_BOY_SPOTEADOS = "Juegos de Game Boy Spoteados";
     }

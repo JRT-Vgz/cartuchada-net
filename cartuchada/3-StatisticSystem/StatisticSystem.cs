@@ -14,7 +14,7 @@ namespace _3_StatisticSystem
             _context = context;
         }
 
-        public async Task SumOneToStatistic(string shopStatName)
+        public async Task SumToStatistic(string shopStatName, int quantity)
         {
             var shopStatModel = await _context.ShopStats.FirstOrDefaultAsync(s => s.Name == shopStatName);
 
@@ -23,7 +23,7 @@ namespace _3_StatisticSystem
                 throw new StatisticSystemException($"No se encontró la estadística con el nombre '{shopStatName}' en la tabla 'shopStat'");
             }
 
-            shopStatModel.Quantity += 1;
+            shopStatModel.Quantity += quantity;
 
             try
             {
@@ -38,25 +38,28 @@ namespace _3_StatisticSystem
         public async Task SumOnePurchasedGameBoyCartdrigeToStatisticsAsync()
         {
             string shopStatName = ShopStatConstants.JUEGOS_GAME_BOY_COMPRADOS;
-            await SumOneToStatistic(shopStatName);
+            await SumToStatistic(shopStatName, 1);
         }
 
-        public async Task SumOnePurchasedGameBoyConsoleToStatisticsAsync()
+        public async Task SumOnePurchasedConsoleToStatisticsAsync(int idProductType)
         {
-            string shopStatName = ShopStatConstants.GAME_BOY_COMPRADAS;
-            await SumOneToStatistic(shopStatName);
+            string shopStatName = string.Empty;
+            if (idProductType == ProductTypeConstants._PRODUCT_TYPE_GAME_BOY_CONSOLE) { shopStatName = ShopStatConstants.GAME_BOY_COMPRADAS; }
+            else if (idProductType == ProductTypeConstants._PRODUCT_TYPE_GAME_GEAR_CONSOLE) { shopStatName = ShopStatConstants.GAME_GEAR_COMPRADAS; }
+
+            await SumToStatistic(shopStatName, 1);
         }
 
         public async Task SumOneSpotGameBoyCartdrigeToStatisticsAsync()
         {
             string shopStatName = ShopStatConstants.JUEGOS_GAME_BOY_SPOTEADOS;
-            await SumOneToStatistic(shopStatName);
+            await SumToStatistic(shopStatName, 1);
         }
 
         public async Task SumOneSoldGameBoyCartdrigeToStatisticsAsync()
         {
             string shopStatName = ShopStatConstants.JUEGOS_GAME_BOY_VENDIDOS;
-            await SumOneToStatistic(shopStatName);
+            await SumToStatistic(shopStatName, 1);
         }
 
         public async Task SumOneSoldConsoleToStatisticsAsync(int idProductType)
@@ -65,7 +68,22 @@ namespace _3_StatisticSystem
             if (idProductType == ProductTypeConstants._PRODUCT_TYPE_GAME_BOY_CONSOLE) { shopStatName = ShopStatConstants.GAME_BOY_VENDIDAS; }
             else if (idProductType == ProductTypeConstants._PRODUCT_TYPE_GAME_GEAR_CONSOLE) { shopStatName = ShopStatConstants.GAME_GEAR_VENDIDAS; }
 
-            await SumOneToStatistic(shopStatName);
+            await SumToStatistic(shopStatName, 1);
+        }
+
+        public async Task SumSleevesToStatisticsAsync(int idSparePartType, int quantity)
+        {
+            string shopStatName = string.Empty;
+            if (idSparePartType == SparePartTypeConstants._SPARE_PART_TYPE_FAKE_GAME_BOY_SLEEVE)
+            { shopStatName = ShopStatConstants.FUNDAS_PIRATA_GAME_BOY_VENDIDAS; }
+            else if (idSparePartType == SparePartTypeConstants._SPARE_PART_TYPE_FAKE_GAME_GEAR_SLEEVE)
+            { shopStatName = ShopStatConstants.FUNDAS_PIRATA_GAME_GEAR_VENDIDAS; }
+            else if (idSparePartType == SparePartTypeConstants._SPARE_PART_TYPE_ORIGINAL_GAME_BOY_SLEEVE)
+            { shopStatName = ShopStatConstants.FUNDAS_ORIGINALES_GAME_BOY_VENDIDAS; }
+            else if (idSparePartType == SparePartTypeConstants._SPARE_PART_TYPE_ORIGINAL_GAME_GEAR_SLEEVE)
+            { shopStatName = ShopStatConstants.FUNDAS_ORIGINALES_GAME_GEAR_VENDIDAS; }
+
+            await SumToStatistic(shopStatName, quantity);
         }
     }
 }

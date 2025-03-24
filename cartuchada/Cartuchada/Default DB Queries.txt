@@ -32,10 +32,10 @@ INSERT INTO SparePartType (Name)
 VALUES
     ('Recambios de Game Boy'),
     ('Recambios de Game Gear'),
-    ('Fundas pirata Game Boy'),
-    ('Fundas pirata Game Gear'),
-    ('Fundas originales Game Boy'),
-    ('Fundas originales Game Gear')
+    ('Fundas pirata de Game Boy'),
+    ('Fundas pirata de Game Gear'),
+    ('Fundas originales de Game Boy'),
+    ('Fundas originales de Game Gear')
 
 INSERT INTO Reference (IdProductType, Name, Assigned)
 VALUES
@@ -76,6 +76,8 @@ VALUES
     ('Game Gear Vendidas', 0),
     ('Fundas Originales Game Boy Vendidas', 0),
     ('Fundas Pirata Game Boy Vendidas', 0),
+    ('Fundas Pirata Game Gear Vendidas'),
+    ('Fundas Pirata Game Gear Vendidas'),
     ('Juegos de Game Boy Spoteados', 0);
 
 INSERT INTO Accounting (Date, Income, Expenses)
