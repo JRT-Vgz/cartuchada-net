@@ -38,7 +38,7 @@ namespace _3_Repository
             await _context.SoldCartdriges.AddAsync(soldCartdrigeModel);
         }
 
-        public void Delete(SoldCartdrige cartdrige)
+        public Task Delete(SoldCartdrige cartdrige)
         {
             throw new NotImplementedException();
         }

@@ -1,4 +1,5 @@
 using _1_Entities.Product_Entities;
+using _1_Entities.Constants;
 using _2_Services.Interfaces;
 using _3_Data;
 using Microsoft.EntityFrameworkCore;
@@ -21,8 +22,8 @@ namespace _3_Validators
             var productTypeExists = await _context.ProductTypes.AnyAsync(p => p.Id == console.IdProductType);
             if (!productTypeExists) { Errors.Add($"No existe ningún tipo de producto con Id {console.IdProductType} en la tabla 'ProductType'."); }
 
-            if (console.IdProductType != ValidationConstants._PRODUCT_TYPE_GAME_BOY_CONSOLE &&
-                console.IdProductType != ValidationConstants._PRODUCT_TYPE_GAME_GEAR_CONSOLE)
+            if (console.IdProductType != ProductTypeConstants._PRODUCT_TYPE_GAME_BOY_CONSOLE &&
+                console.IdProductType != ProductTypeConstants._PRODUCT_TYPE_GAME_GEAR_CONSOLE)
             {
                 Errors.Add($"El tipo de producto con Id {console.IdProductType} en la tabla 'ProductType' no corresponde con ninguna videoconsola.");
             }
@@ -31,7 +32,7 @@ namespace _3_Validators
 
             if (console.IdReference == 0 || console.Reference == null) { Errors.Add($"La consola que intentas comprar no tiene una referencia asignada."); }
 
-            if (console.PurchasePrice < 0) { Errors.Add("El canpo 'PurchasePrice' no puede ser negativo."); }
+            if (console.PurchasePrice < 0) { Errors.Add("El campo 'PurchasePrice' no puede ser negativo."); }
 
             if (console.TotalPrice < 0) { Errors.Add("El campo 'TotalPrice' no puede ser negativo."); }
 

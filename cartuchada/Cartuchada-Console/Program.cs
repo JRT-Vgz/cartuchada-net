@@ -1,6 +1,7 @@
 ﻿
 
 using _1_Entities.Product_Entities;
+using _1_Entities.Sold_Product_Entities;
 using _2_Services.Services.Cartdrige_Services;
 using _2_Services.Services.Console_Services;
 using _2_Services.Services.Purchase_Services;
@@ -36,6 +37,7 @@ var configuration = new MapperConfiguration(cfg =>
     cfg.AddProfile(new SparePartsPurchaseMappingProfile());
     cfg.AddProfile(new SpotMappingProfile());
     cfg.AddProfile(new SoldCartdrigeMappingProfile());
+    cfg.AddProfile(new SoldConsoleMappingProfile());
 });
 
 // Crear el Mapper
@@ -51,6 +53,7 @@ var cartdrigeValidator = new CartdrigeValidator(context);
 var consoleValidator = new ConsoleValidator(context);
 var sparePartsPurchaseValidator = new SparePartsPurchaseValidator(context);
 var soldCartdrigeValidator = new SoldCartdrigeValidator(context);
+var soldConsoleValidator = new SoldConsoleValidator(context);
 
 ////////////////////////////////// SERVICIOS DE CARTDRIGE //////////////////////////////////
 
@@ -145,9 +148,34 @@ var soldCartdrigeValidator = new SoldCartdrigeValidator(context);
 //}
 
 
-var servicio = new SellGameBoyCartdrigeService(unitOfWork, mapper, referenceSystem, statisticSystem, accountingSystem, logger, soldCartdrigeValidator);
+//var servicio = new SellGameBoyCartdrigeService(unitOfWork, mapper, referenceSystem, statisticSystem, accountingSystem, logger, soldCartdrigeValidator);
 
-var cartucho = await unitOfWork.CartdrigeRepository.GetByIdAsync(1);
+//var cartucho = await unitOfWork.CartdrigeRepository.GetByIdAsync(4);
 
-await servicio.ExecuteAsync(cartucho, 100);
+//await servicio.ExecuteAsync(cartucho, 100);
+
+
+
+// VENTA DE CONSOLA
+
+//var servicio = new GetAllSoldConsolesService(unitOfWork);
+//var consolas = await servicio.ExecuteAsync();
+//foreach (var c in consolas)
+//{
+//    Console.WriteLine($" id:{c.Id}, idproducttype: {c.IdProductType}, purchasedate: {c.PurchaseDate}, purchaseprice:{c.PurchasePrice}, " +
+//        $"sparepartsprice: {c.SparePartsPrice}, totalprice: {c.TotalPrice}, saledate: {c.SaleDate}, saleprice: {c.SalePrice}, benefit: {c.Benefit}, " +
+//        $"name: {c.Name}");
+//}
+
+
+//var servicio = new SellConsoleService(unitOfWork, mapper, referenceSystem, statisticSystem, accountingSystem, logger, soldConsoleValidator);
+
+//var consola = await unitOfWork.ConsoleRepository.GetByIdAsync(2);
+
+//await servicio.ExecuteAsync(consola, 200);
+
+
+
+
+
 

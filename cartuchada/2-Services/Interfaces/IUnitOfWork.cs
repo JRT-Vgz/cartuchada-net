@@ -12,6 +12,7 @@ namespace _2_Services.Interfaces
         public IRepository<SparePartsPurchase> SparePartsPurchaseRepository { get; }
         public IRepository<Cartdrige> SpotRepository { get; }
         public IRepository<SoldCartdrige> SoldCartdrigeRepository { get; }
+        public IRepository<SoldVideoConsole> SoldConsoleRepository { get; }
 
         public Task SaveChangesAsync();
     }

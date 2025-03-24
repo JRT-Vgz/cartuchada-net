@@ -46,9 +46,13 @@ namespace _3_Repository
             await _context.Cartdriges.AddAsync(cartdrigeModel);
         }
 
-        public void Delete(Cartdrige cartdrige)
+        public async Task Delete(Cartdrige cartdrige)
         {
-            throw new NotImplementedException();
+            var cartdrigeModel = await _context.Cartdriges.FirstOrDefaultAsync(c => c.Id == cartdrige.Id);
+
+            if (cartdrigeModel == null) { return; }
+
+            _context.Cartdriges.Remove(cartdrigeModel);
         }
 
         public void Update(Cartdrige cartdrige)

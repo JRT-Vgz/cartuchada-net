@@ -1,7 +1,7 @@
 
-namespace _3_StatisticSystem
+namespace _1_Entities.Constants
 {
-    internal struct ShopStatConstants
+    public struct ShopStatConstants
     {
         public const string JUEGOS_GAME_BOY_COMPRADOS = "Juegos Game Boy Comprados";
         public const string JUEGOS_GAME_BOY_VENDIDOS = "Juegos Game Boy Vendidos";

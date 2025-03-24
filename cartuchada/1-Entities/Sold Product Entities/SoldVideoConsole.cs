@@ -1,22 +1,21 @@
 
 namespace _1_Entities.Sold_Product_Entities
 {
-    public class SoldCartdrige
+    public class SoldVideoConsole
     {
         public int? Id { get; private set; }
         public int IdProductType { get; private set; }
-        public int IdGame { get; private set; }
-        public int IdRegion { get; private set; }
-        public int IdCondition { get; private set; }
         public DateTime PurchaseDate { get; private set; }
         public decimal PurchasePrice { get; private set; }
+        public decimal SparePartsPrice { get; private set; }
+        public decimal TotalPrice { get; private set; }
         public DateTime SaleDate { get; private set; }
         public decimal SalePrice { get; private set; }
         public decimal Benefit { get; private set; }
         public string? Name { get; private set; }
-        public int IdCartdrige { get; private set; }
+        public int IdConsole { get; private set; }
 
-        public SoldCartdrige()
+        public SoldVideoConsole()
         {
             SaleDate = DateTime.Now.Date;
         }
@@ -31,7 +30,7 @@ namespace _1_Entities.Sold_Product_Entities
 
         public void CalculateBenefit()
         {
-            Benefit = SalePrice - PurchasePrice;
+            Benefit = SalePrice - TotalPrice;
         }
     }
 }

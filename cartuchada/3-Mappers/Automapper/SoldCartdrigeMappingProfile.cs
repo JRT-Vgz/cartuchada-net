@@ -15,13 +15,14 @@ namespace _3_Mappers.Automapper
                 .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Game.Name));
 
             // From SoldCartdrige to SoldCartdrigeModel
-            CreateMap<Cartdrige, SoldCartdrigeModel>();
+            CreateMap<SoldCartdrige, SoldCartdrigeModel>();
 
             // From CartdrigePurchaseDto to Cartdrige
             //CreateMap<CartdrigePurchaseDto, Cartdrige>();
 
             //From Cartdrige to SoldCartdrige
             CreateMap<Cartdrige, SoldCartdrige>()
+                .ForMember(dest => dest.IdCartdrige, opt => opt.MapFrom(src => src.Id))
                 .ForMember(dest => dest.Id, map => map.Ignore());
         }
     }

@@ -35,7 +35,7 @@ namespace _3_Repository
             await _context.Spots.AddAsync(spotModel);
         }
 
-        public void Delete(Cartdrige cartdrige)
+        public Task Delete(Cartdrige cartdrige)
         {
             throw new NotImplementedException();
         }

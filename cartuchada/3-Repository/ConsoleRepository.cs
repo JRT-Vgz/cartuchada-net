@@ -47,9 +47,13 @@ namespace _3_Repository
             await _context.Consoles.AddAsync(consoleModel);
         }
 
-        public void Delete(VideoConsole console)
+        public async Task Delete(VideoConsole console)
         {
-            throw new NotImplementedException();
+            var consoleModel = await _context.Consoles.FirstOrDefaultAsync(c => c.Id == console.Id);
+
+            if (consoleModel == null) { return; }
+
+            _context.Consoles.Remove(consoleModel);
         }
 
         public async void Update(VideoConsole console)

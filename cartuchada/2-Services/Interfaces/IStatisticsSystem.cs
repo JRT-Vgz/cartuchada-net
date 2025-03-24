@@ -7,5 +7,6 @@ namespace _2_Services.Interfaces
         Task SumOnePurchasedGameBoyConsoleToStatisticsAsync();
         Task SumOneSpotGameBoyCartdrigeToStatisticsAsync();
         Task SumOneSoldGameBoyCartdrigeToStatisticsAsync();
+        Task SumOneSoldConsoleToStatisticsAsync(int idProductType);
     }
 }

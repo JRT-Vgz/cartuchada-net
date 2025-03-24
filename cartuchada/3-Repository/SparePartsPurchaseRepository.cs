@@ -35,7 +35,7 @@ namespace _3_Repository
             await _context.SparePartsPurchases.AddAsync(sparePartsPurchaseModel);
         }
 
-        public void Delete(SparePartsPurchase sparePartsPurchase)
+        public Task Delete(SparePartsPurchase sparePartsPurchase)
         {
             throw new NotImplementedException();
         }

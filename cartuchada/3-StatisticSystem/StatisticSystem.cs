@@ -1,4 +1,5 @@
-﻿using _2_Services.Exceptions;
+﻿using _1_Entities.Constants;
+using _2_Services.Exceptions;
 using _2_Services.Interfaces;
 using _3_Data;
 using Microsoft.EntityFrameworkCore;
@@ -55,6 +56,15 @@ namespace _3_StatisticSystem
         public async Task SumOneSoldGameBoyCartdrigeToStatisticsAsync()
         {
             string shopStatName = ShopStatConstants.JUEGOS_GAME_BOY_VENDIDOS;
+            await SumOneToStatistic(shopStatName);
+        }
+
+        public async Task SumOneSoldConsoleToStatisticsAsync(int idProductType)
+        {
+            string shopStatName = string.Empty;
+            if (idProductType == ProductTypeConstants._PRODUCT_TYPE_GAME_BOY_CONSOLE) { shopStatName = ShopStatConstants.GAME_BOY_VENDIDAS; }
+            else if (idProductType == ProductTypeConstants._PRODUCT_TYPE_GAME_GEAR_CONSOLE) { shopStatName = ShopStatConstants.GAME_GEAR_VENDIDAS; }
+
             await SumOneToStatistic(shopStatName);
         }
     }

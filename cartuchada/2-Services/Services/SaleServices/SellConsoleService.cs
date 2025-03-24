@@ -7,7 +7,7 @@ using AutoMapper;
 
 namespace _2_Services.Services.SaleServices
 {
-    public class SellGameBoyCartdrigeService
+    public class SellConsoleService
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
@@ -15,14 +15,14 @@ namespace _2_Services.Services.SaleServices
         private readonly IStatisticsSystem _statisticsSystem;
         private readonly IAccountingSystem _accountingSystem;
         private readonly ILogger _logger;
-        private readonly IProductValidator<SoldCartdrige> _soldCartdrigeValidator;
-        public SellGameBoyCartdrigeService(IUnitOfWork unitOfWork,
+        private readonly IProductValidator<SoldVideoConsole> _soldConsoleValidator;
+        public SellConsoleService(IUnitOfWork unitOfWork,
             IMapper mapper,
             IReferenceSystem referenceSystem,
             IStatisticsSystem statisticsSystem,
             IAccountingSystem accountingSystem,
             ILogger logger,
-            IProductValidator<SoldCartdrige> soldCartdrigeValidator)
+            IProductValidator<SoldVideoConsole> soldConsoleValidator)
         {
             _unitOfWork = unitOfWork;
             _mapper = mapper;
@@ -30,28 +30,28 @@ namespace _2_Services.Services.SaleServices
             _statisticsSystem = statisticsSystem;
             _accountingSystem = accountingSystem;
             _logger = logger;
-            _soldCartdrigeValidator = soldCartdrigeValidator;
+            _soldConsoleValidator = soldConsoleValidator;
         }
 
-        public async Task ExecuteAsync(Cartdrige cartdrige, decimal salePrice)
+        public async Task ExecuteAsync(VideoConsole videoConsole, decimal salePrice)
         {
             try
             {
-                var soldCartdrige = _mapper.Map<SoldCartdrige>(cartdrige);
-                soldCartdrige.AssignSalePrice(salePrice);
+                var soldVideoConsole = _mapper.Map<SoldVideoConsole>(videoConsole);
+                soldVideoConsole.AssignSalePrice(salePrice);
 
-                bool productIsValid = await _soldCartdrigeValidator.ValidateProductAsync(soldCartdrige);
-                if (!productIsValid) { throw new ProductValidationException(_soldCartdrigeValidator.Errors); }
+                bool productIsValid = await _soldConsoleValidator.ValidateProductAsync(soldVideoConsole);
+                if (!productIsValid) { throw new ProductValidationException(_soldConsoleValidator.Errors); }
 
-                await _referenceSystem.ReleaseReferenceByIdAsync(cartdrige.IdReference);
+                await _referenceSystem.ReleaseReferenceByIdAsync(videoConsole.IdReference);
 
-                await _unitOfWork.CartdrigeRepository.Delete(cartdrige);
-                await _unitOfWork.SoldCartdrigeRepository.AddAsync(soldCartdrige);
+                await _unitOfWork.ConsoleRepository.Delete(videoConsole);
+                await _unitOfWork.SoldConsoleRepository.AddAsync(soldVideoConsole);
 
-                await _statisticsSystem.SumOneSoldGameBoyCartdrigeToStatisticsAsync();
-                await _accountingSystem.SumSalePriceToIncomeAsync(soldCartdrige.SaleDate, salePrice);
+                await _statisticsSystem.SumOneSoldConsoleToStatisticsAsync(soldVideoConsole.IdProductType);
+                await _accountingSystem.SumSalePriceToIncomeAsync(soldVideoConsole.SaleDate, salePrice);
 
-                string logEntry = $"VENTA: Cartucho Game Boy. Ref: {cartdrige.Reference}, Nombre: {cartdrige.Name}, " +
+                string logEntry = $"VENTA: Consola. Ref: {videoConsole.Reference}, Nombre: {videoConsole.Name}, " +
                     $"Precio de venta: {salePrice}€";
                 await _logger.WriteLogEntryAsync(logEntry);
 
@@ -66,7 +66,6 @@ namespace _2_Services.Services.SaleServices
             {
                 Console.WriteLine(ex.Message);
             }
-
         }
     }
 }
