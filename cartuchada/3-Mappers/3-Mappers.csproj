@@ -14,7 +14,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\1-Entities\1-Domain.csproj" />
+    <ProjectReference Include="..\1-Domain\1-Domain.csproj" />
     <ProjectReference Include="..\2-Services\2-Services.csproj" />
     <ProjectReference Include="..\3-Data\3-Data.csproj" />
   </ItemGroup>

@@ -61,14 +61,14 @@ var soldSleeveValidator = new SoldSleeveValidator(context);
 
 ////////////////////////////////// SERVICIOS DE CARTDRIGE //////////////////////////////////
 
-//var servicio = new GetAllCartdrigesService(unitOfWork);
-//var cartuchos = await servicio.ExecuteAsync();
-//foreach (var c in cartuchos)
-//{
-//    Console.WriteLine($" id:{c.Id}, ref:{c.IdReference}, idproducttype: {c.IdProductType}, idgame: {c.IdGame}, " +
-//        $"idregion: {c.IdRegion}, idcondition: {c.IdCondition}, purchasedate: {c.PurchaseDate}, purchaseprice:{c.PurchasePrice}, " +
-//        $"name: {c.Name}, reference: {c.Reference}");
-//}
+var servicio = new GetAllCartdrigesService(unitOfWork);
+var cartuchos = await servicio.ExecuteAsync();
+foreach (var c in cartuchos)
+{
+    Console.WriteLine($" id:{c.Id}, ref:{c.IdReference}, idproducttype: {c.IdProductType}, idgame: {c.IdGame}, " +
+        $"idregion: {c.IdRegion}, idcondition: {c.IdCondition}, purchasedate: {c.PurchaseDate}, purchaseprice:{c.PurchasePrice}, " +
+        $"name: {c.Name}, reference: {c.Reference}");
+}
 
 //var servicio = new PurchaseGameBoyCartdrigeService<CartdrigePurchaseDto>(unitOfWork, mapper, referenceSystem, statisticSystem, accountingSystem, logger, cartdrigeValidator);
 //var cartuchoDto = new CartdrigePurchaseDto() { IdProductType = 1, IdGame = 1, IdRegion = 1, IdCondition = 7, PurchasePrice = 50, Name = "Juego 1" };
