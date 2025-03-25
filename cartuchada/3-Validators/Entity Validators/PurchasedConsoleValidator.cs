@@ -6,12 +6,12 @@ using Microsoft.EntityFrameworkCore;
 
 namespace _3_Validators.Entity_Validators
 {
-    public class ConsoleValidator : IProductValidator<VideoConsole>
+    public class PurchasedConsoleValidator : IProductValidator<VideoConsole>
     {
         public List<string> Errors { get; set; }
         private readonly AppDbContext _context;
 
-        public ConsoleValidator(AppDbContext context)
+        public PurchasedConsoleValidator(AppDbContext context)
         {
             Errors = new List<string>();
             _context = context;
@@ -32,11 +32,7 @@ namespace _3_Validators.Entity_Validators
 
             if (console.IdReference == 0 || console.Reference == null) { Errors.Add($"La consola que intentas comprar no tiene una referencia asignada."); }
 
-            if (console.PurchasePrice < 0) { Errors.Add("El campo 'PurchasePrice' no puede ser negativo."); }
-
             if (console.TotalPrice < 0) { Errors.Add("El campo 'TotalPrice' no puede ser negativo."); }
-
-            if (console.Name == null || console.Name == "") { Errors.Add("El campo 'Name' no puede ser nulo ni estar vacío."); }
 
             if (Errors.Count > 0) { return false; }
             return true;

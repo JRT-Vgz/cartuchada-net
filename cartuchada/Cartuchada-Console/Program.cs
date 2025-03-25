@@ -19,8 +19,11 @@ using _3_Mappers.DTOs.Sale_Dtos;
 using _3_ReferenceSystem;
 using _3_Repository;
 using _3_StatisticSystem;
+using _3_Validators.Data_Validators.Purchase_Dto_Validators;
+using _3_Validators.Data_Validators.Sale_Dto_Validators;
 using _3_Validators.Entity_Validators;
 using AutoMapper;
+using FluentValidation;
 using Microsoft.EntityFrameworkCore;
 
 
@@ -53,12 +56,17 @@ var referenceSystem = new ReferenceSystem(context);
 var statisticSystem = new StatisticSystem(context);
 var accountingSystem = new AccountingSystem(context);
 var logger = new Logger(context);
-var cartdrigeValidator = new CartdrigeValidator(context);
-var consoleValidator = new ConsoleValidator(context);
+var cartdrigeValidator = new PurchasedCartdrigeValidator(context);
+var consoleValidator = new PurchasedConsoleValidator(context);
 var sparePartsPurchaseValidator = new SparePartsPurchaseValidator(context);
 var soldCartdrigeValidator = new SoldCartdrigeValidator(context);
 var soldConsoleValidator = new SoldConsoleValidator(context);
 var soldSleeveValidator = new SoldSleeveValidator(context);
+
+var cartdrigeDtoValidator = new CartdrigePurchaseDtoValidator();
+var consoleDtoValidator = new ConsolePurchaseDtoValidator();
+var sparePartsPurchaseDtoValidator = new SparePartsPurchaseDtoValidator();
+var sleeveSaleDtoValidator = new SleeveSaleDtoValidator();
 
 ////////////////////////////////// SERVICIOS DE CARTDRIGE //////////////////////////////////
 
@@ -71,8 +79,8 @@ var soldSleeveValidator = new SoldSleeveValidator(context);
 //        $"name: {c.Name}, reference: {c.Reference}");
 //}
 
-//var servicio = new PurchaseGameBoyCartdrigeService<CartdrigePurchaseDto>(unitOfWork, mapper, referenceSystem, statisticSystem, accountingSystem, logger, cartdrigeValidator);
-//var cartuchoDto = new CartdrigePurchaseDto() { IdProductType = 1, IdGame = 1, IdRegion = 1, IdCondition = 7, PurchasePrice = 500, Name = "Juego prueba" };
+//var servicio = new PurchaseGameBoyCartdrigeService<CartdrigePurchaseDto>(unitOfWork, mapper, referenceSystem, statisticSystem, accountingSystem, logger, cartdrigeValidator, cartdrigeDtoValidator);
+//var cartuchoDto = new CartdrigePurchaseDto() { IdProductType = 1, IdGame = 1, IdRegion = 1, IdCondition = 7, PurchasePrice = 50, Name = "Juego 1" };
 
 //await servicio.ExecuteAsync(cartuchoDto);
 
@@ -90,7 +98,7 @@ var soldSleeveValidator = new SoldSleeveValidator(context);
 
 
 
-//var servicio = new PurchaseConsoleService<ConsolePurchaseDto>(unitOfWork, mapper, referenceSystem, statisticSystem, accountingSystem, logger, consoleValidator);
+//var servicio = new PurchaseConsoleService<ConsolePurchaseDto>(unitOfWork, mapper, referenceSystem, statisticSystem, accountingSystem, logger, consoleValidator, consoleDtoValidator);
 //var consoleDto = new ConsolePurchaseDto() { IdProductType = 4, PurchasePrice = 150, Name = "Videoconsola Game Gear" };
 
 //await servicio.ExecuteAsync(consoleDto);
@@ -112,8 +120,8 @@ var soldSleeveValidator = new SoldSleeveValidator(context);
 //        $"purchaseprice:{c.PurchasePrice}, name: {c.Name}");
 //}
 
-//var servicio = new PurchaseSparePartsService<SparePartsPurchaseDto>(unitOfWork, mapper, sparePartsPurchaseValidator, accountingSystem, logger);
-//var sparePartsPurchaseDto = new SparePartsPurchaseDto() { IdSparePartType = 1, Concept = "cepto piezasconcepto piezasconcepto piezasconcepto piezasconcepto piezasconcepto piezasconcepto piezasconcepto piezasconcepto piezasconcepto piezasconcepto piezasconcepto piezas", PurchasePrice = 100, Name = "Recambios game boy" };
+//var servicio = new PurchaseSparePartsService<SparePartsPurchaseDto>(unitOfWork, mapper, sparePartsPurchaseValidator, accountingSystem, logger, sparePartsPurchaseDtoValidator);
+//var sparePartsPurchaseDto = new SparePartsPurchaseDto() { IdSparePartType = 1, Concept = "concepto", PurchasePrice = 100, Name = "Recambios game boy" };
 
 //await servicio.ExecuteAsync(sparePartsPurchaseDto);
 
@@ -132,7 +140,7 @@ var soldSleeveValidator = new SoldSleeveValidator(context);
 //}
 
 
-//var servicio = new SpotCartdrigePurchaseService<CartdrigePurchaseDto>(unitOfWork, mapper, statisticSystem, logger, cartdrigeValidator);
+//var servicio = new SpotCartdrigePurchaseService<CartdrigePurchaseDto>(unitOfWork, mapper, statisticSystem, logger, cartdrigeValidator, cartdrigeDtoValidator);
 //var cartuchoDto = new CartdrigePurchaseDto() { IdProductType = 1, IdGame = 1, IdRegion = 1, IdCondition = 7, PurchasePrice = 50, Name = "Juego 1" };
 
 //await servicio.ExecuteAsync(cartuchoDto);
@@ -175,7 +183,7 @@ var soldSleeveValidator = new SoldSleeveValidator(context);
 
 //var servicio = new SellConsoleService(unitOfWork, mapper, referenceSystem, statisticSystem, accountingSystem, logger, soldConsoleValidator);
 
-//var consola = await unitOfWork.ConsoleRepository.GetByIdAsync(4);
+//var consola = await unitOfWork.ConsoleRepository.GetByIdAsync(2);
 
 //await servicio.ExecuteAsync(consola, 200);
 
@@ -192,7 +200,7 @@ var soldSleeveValidator = new SoldSleeveValidator(context);
 //}
 
 
-//var servicio = new SellSleeveService<SleeveSaleDto>(unitOfWork, mapper, statisticSystem, accountingSystem, logger, soldSleeveValidator);
+//var servicio = new SellSleeveService<SleeveSaleDto>(unitOfWork, mapper, statisticSystem, accountingSystem, logger, soldSleeveValidator, sleeveSaleDtoValidator);
 
 //var fundaDto = new SleeveSaleDto() { IdSparePartType = 3, Quantity = 30, SalePrice = 30, Name = "Funda" };
 

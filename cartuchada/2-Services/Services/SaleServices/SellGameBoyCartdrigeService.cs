@@ -37,6 +37,8 @@ namespace _2_Services.Services.SaleServices
         {
             try
             {
+                if (cartdrige == null) { throw new Exception("Error: El cartucho que intenta venderse tiene un valor nulo."); }
+
                 var soldCartdrige = _mapper.Map<SoldCartdrige>(cartdrige);
                 soldCartdrige.AssignSalePrice(salePrice);
 

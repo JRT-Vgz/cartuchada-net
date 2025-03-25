@@ -2,6 +2,7 @@ using _1_Domain.Product_Entities;
 using _2_Services.Exceptions;
 using _2_Services.Interfaces;
 using AutoMapper;
+using FluentValidation;
 
 namespace _2_Services.Services.Cartdrige_Services
 {
@@ -12,23 +13,36 @@ namespace _2_Services.Services.Cartdrige_Services
         private readonly IStatisticsSystem _statisticsSystem;
         private readonly ILogger _logger;
         private readonly IProductValidator<Cartdrige> _cartdrigeValidator;
+        private readonly IValidator<TDto> _cartdrigePurchaseDtoValidator;
         public SpotCartdrigePurchaseService(IUnitOfWork unitOfWork,
             IMapper mapper,
             IStatisticsSystem statisticsSystem,
             ILogger logger,
-            IProductValidator<Cartdrige> cartdrigeValidator)
+            IProductValidator<Cartdrige> cartdrigeValidator,
+            IValidator<TDto> cartdrigePurchaseDtoValidator)
         {
             _unitOfWork = unitOfWork;
             _mapper = mapper;
             _statisticsSystem = statisticsSystem;
             _logger = logger;
             _cartdrigeValidator = cartdrigeValidator;
+            _cartdrigePurchaseDtoValidator = cartdrigePurchaseDtoValidator;
         }
 
         public async Task ExecuteAsync(TDto cartdrigeDto)
         {
             try
             {
+                var dataValidationResult = _cartdrigePurchaseDtoValidator.Validate(cartdrigeDto);
+                if (!dataValidationResult.IsValid)
+                {
+                    var errors = dataValidationResult.Errors
+                    .Select(e => e.ErrorMessage)
+                    .ToList();
+
+                    throw new DataValidationException(errors);
+                }
+
                 var cartdrige = _mapper.Map<Cartdrige>(cartdrigeDto);
                 cartdrige.AssignReference(0, "N/A");
 
@@ -44,6 +58,11 @@ namespace _2_Services.Services.Cartdrige_Services
                 await _logger.WriteLogEntryAsync(logEntry);
 
                 await _unitOfWork.SaveChangesAsync();
+            }
+            catch (DataValidationException ex)
+            {
+                Console.WriteLine(ex.Message);
+                foreach (var error in ex.Errors) { Console.WriteLine(error); }
             }
             catch (ProductValidationException ex)
             {

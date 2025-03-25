@@ -2,6 +2,7 @@ using _1_Domain.Product_Entities;
 using _2_Services.Exceptions;
 using _2_Services.Interfaces;
 using AutoMapper;
+using FluentValidation;
 
 namespace _2_Services.Services.Purchase_Services
 {
@@ -14,13 +15,15 @@ namespace _2_Services.Services.Purchase_Services
         private readonly IAccountingSystem _accountingSystem;
         private readonly ILogger _logger;
         private readonly IProductValidator<Cartdrige> _cartdrigeValidator;
+        private readonly IValidator<TDto> _cartdrigePurchaseDtoValidator;
         public PurchaseGameBoyCartdrigeService(IUnitOfWork unitOfWork,
             IMapper mapper,
             IReferenceSystem referenceSystem,
             IStatisticsSystem statisticsSystem,
             IAccountingSystem accountingSystem,
             ILogger logger,
-            IProductValidator<Cartdrige> cartdrigeValidator)
+            IProductValidator<Cartdrige> cartdrigeValidator,
+            IValidator<TDto> cartdrigePurchaseDtoValidator)
         {
             _unitOfWork = unitOfWork;
             _mapper = mapper;
@@ -29,12 +32,23 @@ namespace _2_Services.Services.Purchase_Services
             _accountingSystem = accountingSystem;
             _logger = logger;
             _cartdrigeValidator = cartdrigeValidator;
+            _cartdrigePurchaseDtoValidator = cartdrigePurchaseDtoValidator;
         }
 
         public async Task ExecuteAsync(TDto cartdrigeDto)
         {
             try
             {
+                var dataValidationResult = _cartdrigePurchaseDtoValidator.Validate(cartdrigeDto);
+                if (!dataValidationResult.IsValid)
+                {
+                    var errors = dataValidationResult.Errors
+                    .Select(e => e.ErrorMessage)
+                    .ToList();
+
+                    throw new DataValidationException(errors);
+                }
+
                 var cartdrige = _mapper.Map<Cartdrige>(cartdrigeDto);
 
                 await _referenceSystem.AssignReferenceToProductAsync(cartdrige);
@@ -52,6 +66,11 @@ namespace _2_Services.Services.Purchase_Services
                 await _logger.WriteLogEntryAsync(logEntry);
 
                 await _unitOfWork.SaveChangesAsync();
+            }
+            catch (DataValidationException ex)
+            {
+                Console.WriteLine(ex.Message);
+                foreach (var error in ex.Errors) { Console.WriteLine(error); }
             }
             catch (ProductValidationException ex)
             {

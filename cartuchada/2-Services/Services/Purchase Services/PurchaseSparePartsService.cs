@@ -2,6 +2,7 @@ using _1_Domain.Purchase_Entities;
 using _2_Services.Exceptions;
 using _2_Services.Interfaces;
 using AutoMapper;
+using FluentValidation;
 
 namespace _2_Services.Services.Purchase_Services
 {
@@ -12,24 +13,37 @@ namespace _2_Services.Services.Purchase_Services
         private readonly IProductValidator<SparePartsPurchase> _sparePartsPurchaseValdiator;
         private readonly IAccountingSystem _accountingSystem;
         private readonly ILogger _logger;
+        private readonly IValidator<TDto> _sparePartsPurchaseDtoValidator;
 
         public PurchaseSparePartsService(IUnitOfWork unitOfWork,
             IMapper mapper,
-            IProductValidator<SparePartsPurchase> sparePartsPurchaseValdiator,
+            IProductValidator<SparePartsPurchase> sparePartsPurchaseValidator,
             IAccountingSystem accountingSystem,
-            ILogger logger)
+            ILogger logger,
+            IValidator<TDto> sparePartsPurchaseDtoValidator)
         {
             _unitOfWork = unitOfWork;
             _mapper = mapper;
-            _sparePartsPurchaseValdiator = sparePartsPurchaseValdiator;
+            _sparePartsPurchaseValdiator = sparePartsPurchaseValidator;
             _accountingSystem = accountingSystem;
             _logger = logger;
+            _sparePartsPurchaseDtoValidator = sparePartsPurchaseDtoValidator;
         }
 
         public async Task ExecuteAsync(TDto sparePartsPurchaseDto)
         {
             try
             {
+                var dataValidationResult = _sparePartsPurchaseDtoValidator.Validate(sparePartsPurchaseDto);
+                if (!dataValidationResult.IsValid)
+                {
+                    var errors = dataValidationResult.Errors
+                    .Select(e => e.ErrorMessage)
+                    .ToList();
+
+                    throw new DataValidationException(errors);
+                }
+
                 var sparePartsPurchase = _mapper.Map<SparePartsPurchase>(sparePartsPurchaseDto);
 
                 bool productIsValid = await _sparePartsPurchaseValdiator.ValidateProductAsync(sparePartsPurchase);
@@ -44,6 +58,11 @@ namespace _2_Services.Services.Purchase_Services
                 await _logger.WriteLogEntryAsync(logEntry);
 
                 await _unitOfWork.SaveChangesAsync();
+            }
+            catch (DataValidationException ex)
+            {
+                Console.WriteLine(ex.Message);
+                foreach (var error in ex.Errors) { Console.WriteLine(error); }
             }
             catch (ProductValidationException ex)
             {

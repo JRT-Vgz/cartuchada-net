@@ -37,11 +37,13 @@ namespace _2_Services.Services.SaleServices
         {
             try
             {
+                if (videoConsole == null) { throw new Exception("Error: El objeto que intenta venderse tiene un valor nulo."); }
+
                 var soldVideoConsole = _mapper.Map<SoldVideoConsole>(videoConsole);
                 soldVideoConsole.AssignSalePrice(salePrice);
 
-                bool productIsValid = await _soldConsoleValidator.ValidateProductAsync(soldVideoConsole);
-                if (!productIsValid) { throw new ProductValidationException(_soldConsoleValidator.Errors); }
+                bool soldProductIsValid = await _soldConsoleValidator.ValidateProductAsync(soldVideoConsole);
+                if (!soldProductIsValid) { throw new ProductValidationException(_soldConsoleValidator.Errors); }
 
                 await _referenceSystem.ReleaseReferenceByIdAsync(videoConsole.IdReference);
 
