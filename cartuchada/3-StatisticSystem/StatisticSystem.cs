@@ -23,6 +23,8 @@ namespace _3_StatisticSystem
                 throw new StatisticSystemException($"No se encontró la estadística con el nombre '{shopStatName}' en la tabla 'shopStat'");
             }
 
+            if (quantity <= 0) { throw new StatisticSystemException($"La cantidad a sumar no puede ser 0 ni negativa."); }
+
             shopStatModel.Quantity += quantity;
 
             try
@@ -41,12 +43,9 @@ namespace _3_StatisticSystem
             await SumToStatistic(shopStatName, 1);
         }
 
-        public async Task SumOnePurchasedConsoleToStatisticsAsync(int idProductType)
+        public async Task SumOneSoldGameBoyCartdrigeToStatisticsAsync()
         {
-            string shopStatName = string.Empty;
-            if (idProductType == ProductTypeConstants._PRODUCT_TYPE_GAME_BOY_CONSOLE) { shopStatName = ShopStatConstants.GAME_BOY_COMPRADAS; }
-            else if (idProductType == ProductTypeConstants._PRODUCT_TYPE_GAME_GEAR_CONSOLE) { shopStatName = ShopStatConstants.GAME_GEAR_COMPRADAS; }
-
+            string shopStatName = ShopStatConstants.JUEGOS_GAME_BOY_VENDIDOS;
             await SumToStatistic(shopStatName, 1);
         }
 
@@ -56,9 +55,12 @@ namespace _3_StatisticSystem
             await SumToStatistic(shopStatName, 1);
         }
 
-        public async Task SumOneSoldGameBoyCartdrigeToStatisticsAsync()
+        public async Task SumOnePurchasedConsoleToStatisticsAsync(int idProductType)
         {
-            string shopStatName = ShopStatConstants.JUEGOS_GAME_BOY_VENDIDOS;
+            string shopStatName = string.Empty;
+            if (idProductType == ProductTypeConstants._PRODUCT_TYPE_GAME_BOY_CONSOLE) { shopStatName = ShopStatConstants.GAME_BOY_COMPRADAS; }
+            else if (idProductType == ProductTypeConstants._PRODUCT_TYPE_GAME_GEAR_CONSOLE) { shopStatName = ShopStatConstants.GAME_GEAR_COMPRADAS; }
+
             await SumToStatistic(shopStatName, 1);
         }
 
@@ -71,7 +73,7 @@ namespace _3_StatisticSystem
             await SumToStatistic(shopStatName, 1);
         }
 
-        public async Task SumSleevesToStatisticsAsync(int idSparePartType, int quantity)
+        public async Task SumSoldSleevesToStatisticsAsync(int idSparePartType, int quantity)
         {
             string shopStatName = string.Empty;
             if (idSparePartType == SparePartTypeConstants._SPARE_PART_TYPE_FAKE_GAME_BOY_SLEEVE)

@@ -55,7 +55,7 @@ namespace _2_Services.Services.SaleServices
 
                 await _unitOfWork.SoldSleeveRepository.AddAsync(soldSleeve);
 
-                await _statisticsSystem.SumSleevesToStatisticsAsync(soldSleeve.IdSparePartType, soldSleeve.Quantity);
+                await _statisticsSystem.SumSoldSleevesToStatisticsAsync(soldSleeve.IdSparePartType, soldSleeve.Quantity);
                 await _accountingSystem.SumSalePriceToIncomeAsync(soldSleeve.SaleDate, soldSleeve.SalePrice);
 
                 string logEntry = $"VENTA: Fundas. Nombre: {soldSleeve.Name}, Cantidad: {soldSleeve.Quantity}, " +
