@@ -29,6 +29,15 @@ namespace _3_Repository
             return soldCartdrigeModels.Select(c => _mapper.Map<SoldCartdrige>(c));
         }
 
+        public async Task<SoldCartdrige> GetByIdAsync(int id)
+        {
+            var soldCartdrigeModel = await _context.SoldCartdriges
+                .Include("Game")
+                .FirstOrDefaultAsync();
+
+            return _mapper.Map<SoldCartdrige>(soldCartdrigeModel);
+        }
+
         public async Task AddAsync(SoldCartdrige soldCartdrige)
         {
             var soldCartdrigeModel = _mapper.Map<SoldCartdrigeModel>(soldCartdrige);
@@ -36,19 +45,13 @@ namespace _3_Repository
             await _context.SoldCartdriges.AddAsync(soldCartdrigeModel);
         }
 
-        public Task Delete(SoldCartdrige cartdrige)
+        public async Task Delete(SoldCartdrige soldCartdrige)
         {
-            throw new NotImplementedException();
-        }
+            var soldCartdrigeModel = await _context.SoldCartdriges.FirstOrDefaultAsync(c => c.Id == soldCartdrige.Id);
 
-        public Task<SoldCartdrige> GetByIdAsync(int id)
-        {
-            throw new NotImplementedException();
-        }
+            if (soldCartdrigeModel == null) { return; }
 
-        public void Update(SoldCartdrige cartdrige)
-        {
-            throw new NotImplementedException();
+            _context.SoldCartdriges.Remove(soldCartdrigeModel);
         }
     }
 }

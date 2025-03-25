@@ -1,4 +1,5 @@
-﻿using _3_Data.Models;
+﻿using _2_Services.Interfaces;
+using _3_Data.Models;
 using _3_Data.Models.Management_Models;
 using _3_Data.Models.Product_Models;
 using _3_Data.Models.SaleModels;
@@ -21,6 +22,7 @@ namespace _3_Data
         public DbSet<ShopStatModel> ShopStats { get; set; }
         public DbSet<AccountingModel> Accounting { get; set; }
         public DbSet<LogModel> Logs { get; set; }
+        public DbSet<WarningModel> Warnings { get; set; }
         public DbSet<SparePartTypeModel> SparePartTypes { get; set; }
         public DbSet<SparePartsPurchaseModel> SparePartsPurchases { get; set; }
         public DbSet<SoldCartdrigeModel> SoldCartdriges { get; set; }
@@ -45,41 +47,193 @@ namespace _3_Data
             modelBuilder.Entity<SoldSleeveModel>().ToTable("SoldSleeve");
             modelBuilder.Entity<SpotModel>().ToTable("Spot");
 
+
+
+            // GAME CATALOGUE
             modelBuilder.Entity<GameCatalogueModel>()
                 .HasOne(c => c.ProductType)
                 .WithMany()
                 .HasForeignKey(c => c.IdProductType)
-                .OnDelete(DeleteBehavior.NoAction);
+                .OnDelete(DeleteBehavior.Restrict);
 
+
+            // REFERENCE 
             modelBuilder.Entity<ReferenceModel>()
                 .HasOne(c => c.ProductType)
                 .WithMany()
                 .HasForeignKey(c => c.IdProductType)
-                .OnDelete(DeleteBehavior.NoAction);
+                .OnDelete(DeleteBehavior.Restrict);
+
+
+            // CARTDRIGE
+            modelBuilder.Entity<CartdrigeModel>()
+                .HasOne(c => c.Reference)
+                .WithMany()
+                .HasForeignKey(c => c.IdReference)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<CartdrigeModel>()
+                .HasOne(c => c.ProductType)
+                .WithMany()
+                .HasForeignKey(c => c.IdProductType)
+                .OnDelete(DeleteBehavior.Restrict);
 
             modelBuilder.Entity<CartdrigeModel>()
                 .HasOne(c => c.Game)
                 .WithMany()
                 .HasForeignKey(c => c.IdGame)
-                .OnDelete(DeleteBehavior.NoAction);
+                .OnDelete(DeleteBehavior.Restrict);
 
-            //modelBuilder.Entity<CartdrigeModel>()
-            //    .HasOne(c => c.ProductType)
-            //    .WithMany()
-            //    .HasForeignKey(c => c.IdProductType)
-            //    .OnDelete(DeleteBehavior.NoAction);
+            modelBuilder.Entity<CartdrigeModel>()
+                .HasOne(c => c.Region)
+                .WithMany()
+                .HasForeignKey(c => c.IdRegion)
+                .OnDelete(DeleteBehavior.Restrict);
 
-            //modelBuilder.Entity<CartdrigeModel>()
-            //    .HasOne(c => c.Reference)
-            //    .WithMany()
-            //    .HasForeignKey(c => c.IdReference)
-            //    .OnDelete(DeleteBehavior.NoAction);
+            modelBuilder.Entity<CartdrigeModel>()
+                .HasOne(c => c.Condition)
+                .WithMany()
+                .HasForeignKey(c => c.IdCondition)
+                .OnDelete(DeleteBehavior.Restrict);
 
+
+            //CONSOLE
+            modelBuilder.Entity<ConsoleModel>()
+                .HasOne(c => c.Reference)
+                .WithMany()
+                .HasForeignKey(c => c.IdReference)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<ConsoleModel>()
+                .HasOne(c => c.ProductType)
+                .WithMany()
+                .HasForeignKey(c => c.IdProductType)
+                .OnDelete(DeleteBehavior.Restrict);
+
+
+            // SPARE PARTS PURCHASE
+            modelBuilder.Entity<SparePartsPurchaseModel>()
+                .HasOne(s => s.SparePartType)
+                .WithMany()
+                .HasForeignKey(s => s.IdSparePartType)
+                .OnDelete(DeleteBehavior.Restrict);
+
+
+            // SOLD CARTDRIGE
             modelBuilder.Entity<SoldCartdrigeModel>()
                 .HasOne(c => c.ProductType)
                 .WithMany()
                 .HasForeignKey(c => c.IdProductType)
-                .OnDelete(DeleteBehavior.NoAction);
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<SoldCartdrigeModel>()
+                .HasOne(c => c.Game)
+                .WithMany()
+                .HasForeignKey(c => c.IdGame)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<SoldCartdrigeModel>()
+                .HasOne(c => c.Region)
+                .WithMany()
+                .HasForeignKey(c => c.IdRegion)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<SoldCartdrigeModel>()
+                .HasOne(c => c.Condition)
+                .WithMany()
+                .HasForeignKey(c => c.IdCondition)
+                .OnDelete(DeleteBehavior.Restrict);
+
+
+            // SOLD CONSOLE
+            modelBuilder.Entity<SoldConsoleModel>()
+                .HasOne(c => c.ProductType)
+                .WithMany()
+                .HasForeignKey(c => c.IdProductType)
+                .OnDelete(DeleteBehavior.Restrict);
+
+
+            // SOLD SLEEVE
+            modelBuilder.Entity<SoldSleeveModel>()
+                .HasOne(s => s.SparePartType)
+                .WithMany()
+                .HasForeignKey(s => s.IdSparePartType)
+                .OnDelete(DeleteBehavior.Restrict);
+
+
+            // SPOT
+            modelBuilder.Entity<SpotModel>()
+                .HasOne(c => c.ProductType)
+                .WithMany()
+                .HasForeignKey(c => c.IdProductType)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<SpotModel>()
+                .HasOne(c => c.Game)
+                .WithMany()
+                .HasForeignKey(c => c.IdGame)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<SpotModel>()
+                .HasOne(c => c.Region)
+                .WithMany()
+                .HasForeignKey(c => c.IdRegion)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<SpotModel>()
+                .HasOne(c => c.Condition)
+                .WithMany()
+                .HasForeignKey(c => c.IdCondition)
+                .OnDelete(DeleteBehavior.Restrict);
+
+
+
+        }
+
+        private void ProtectNonDeletableModels(List<Microsoft.EntityFrameworkCore.ChangeTracking.EntityEntry> deletedEntities) 
+        {
+            foreach (var entity in deletedEntities)
+            {
+                if (entity.Entity is GameCatalogueModel
+                    || entity.Entity is ReferenceModel
+                    || entity.Entity is ProductTypeModel
+                    || entity.Entity is RegionModel
+                    || entity.Entity is ConditionModel
+                    || entity.Entity is SparePartTypeModel
+                    || entity.Entity is ShopStatModel
+                    || entity.Entity is AccountingModel
+                    || entity.Entity is WarningModel
+                    || entity.Entity is LogModel)
+                {
+                    entity.State = EntityState.Unchanged;
+
+                    string warningEntry = $"DELETE WRN: Se ha intentado borrar una entrada del tipo '{entity.Entity.GetType().Name}'.";
+                    var warningModel = new WarningModel() { Date = DateTime.Now, Entry = warningEntry };
+                    this.Warnings.AddAsync(warningModel);
+                }
+            }
+        }
+
+        public override int SaveChanges()
+        {
+            var deletedEntities = ChangeTracker.Entries()
+                .Where(e => e.State == EntityState.Deleted)
+                .ToList();
+
+            ProtectNonDeletableModels(deletedEntities);
+
+            return base.SaveChanges();
+        }
+
+        public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
+        {
+            var deletedEntities = ChangeTracker.Entries()
+                .Where(e => e.State == EntityState.Deleted)
+                .ToList();
+
+            ProtectNonDeletableModels(deletedEntities);
+
+            return await base.SaveChangesAsync(cancellationToken);
         }
     }
 }

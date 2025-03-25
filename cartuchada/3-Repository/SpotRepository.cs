@@ -1,4 +1,5 @@
 using _1_Domain.Product_Entities;
+using _1_Domain.Purchase_Entities;
 using _2_Services.Interfaces;
 using _3_Data;
 using _3_Data.Models.Product_Models;
@@ -27,6 +28,14 @@ namespace _3_Repository
 
             return spotModels.Select(c => _mapper.Map<Cartdrige>(c));
         }
+        public async Task<Cartdrige> GetByIdAsync(int id)
+        {
+            var spotModel = await _context.Spots
+                .Include("Game")
+                .FirstOrDefaultAsync();
+
+            return _mapper.Map<Cartdrige>(spotModel);
+        }
 
         public async Task AddAsync(Cartdrige cartdrige)
         {
@@ -35,19 +44,20 @@ namespace _3_Repository
             await _context.Spots.AddAsync(spotModel);
         }
 
-        public Task Delete(Cartdrige cartdrige)
+        public async Task Delete(Cartdrige cartdrige)
         {
-            throw new NotImplementedException();
-        }
+            var spotModel = await _context.Spots
+                .Where(s => s.IdProductType == cartdrige.IdProductType 
+                    && s.IdGame == cartdrige.IdGame
+                    && s.IdRegion == cartdrige.IdRegion
+                    && s.IdCondition == cartdrige.IdCondition
+                    && s.SpotDate == cartdrige.PurchaseDate
+                    && s.SpotPrice == cartdrige.PurchasePrice)
+                .FirstOrDefaultAsync();
 
-        public Task<Cartdrige> GetByIdAsync(int id)
-        {
-            throw new NotImplementedException();
-        }
+            if (spotModel == null) { return; }
 
-        public void Update(Cartdrige cartdrige)
-        {
-            throw new NotImplementedException();
+            _context.Spots.Remove(spotModel);
         }
     }
 }

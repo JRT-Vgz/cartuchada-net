@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace _3_Repository
 {
-    public class ConsoleRepository : IRepository<VideoConsole>
+    public class ConsoleRepository : IRepository<VideoConsole>, IRepositoryUpdate<VideoConsole>
     {
         private readonly AppDbContext _context;
         private readonly IMapper _mapper;
@@ -37,8 +37,6 @@ namespace _3_Repository
 
             return _mapper.Map<VideoConsole>(consoleModel);
         }
-
-
 
         public async Task AddAsync(VideoConsole console)
         {

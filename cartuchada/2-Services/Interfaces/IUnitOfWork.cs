@@ -9,6 +9,7 @@ namespace _2_Services.Interfaces
     {
         public IRepository<Cartdrige> CartdrigeRepository { get; }
         public IRepository<VideoConsole> ConsoleRepository { get; }
+        public IRepositoryUpdate<VideoConsole> ConsoleRepositoryUpdate { get; }
         public IRepository<SparePartsPurchase> SparePartsPurchaseRepository { get; }
         public IRepository<Cartdrige> SpotRepository { get; }
         public IRepository<SoldCartdrige> SoldCartdrigeRepository { get; }

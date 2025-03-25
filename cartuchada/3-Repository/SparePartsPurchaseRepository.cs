@@ -1,4 +1,5 @@
 using _1_Domain.Purchase_Entities;
+using _1_Domain.Sold_Product_Entities;
 using _2_Services.Interfaces;
 using _3_Data;
 using _3_Data.Models.Spare_Parts_Models;
@@ -28,6 +29,15 @@ namespace _3_Repository
             return sparePartsPurchaseModels.Select(c => _mapper.Map<SparePartsPurchase>(c));
         }
 
+        public async Task<SparePartsPurchase> GetByIdAsync(int id)
+        {
+            var sparePartsPurchaseModel = await _context.SparePartsPurchases
+                .Include("SparePartType")
+                .FirstOrDefaultAsync();
+
+            return _mapper.Map<SparePartsPurchase>(sparePartsPurchaseModel);
+        }
+
         public async Task AddAsync(SparePartsPurchase sparePartsPurchase)
         {
             var sparePartsPurchaseModel = _mapper.Map<SparePartsPurchaseModel>(sparePartsPurchase);
@@ -35,19 +45,13 @@ namespace _3_Repository
             await _context.SparePartsPurchases.AddAsync(sparePartsPurchaseModel);
         }
 
-        public Task Delete(SparePartsPurchase sparePartsPurchase)
+        public async Task Delete(SparePartsPurchase sparePartsPurchase)
         {
-            throw new NotImplementedException();
-        }
+            var sparePartsPurchaseModel = await _context.SparePartsPurchases.FirstOrDefaultAsync(c => c.Id == sparePartsPurchase.Id);
 
-        public Task<SparePartsPurchase> GetByIdAsync(int id)
-        {
-            throw new NotImplementedException();
-        }
+            if (sparePartsPurchaseModel == null) { return; }
 
-        public void Update(SparePartsPurchase sparePartsPurchase)
-        {
-            throw new NotImplementedException();
+            _context.SparePartsPurchases.Remove(sparePartsPurchaseModel);
         }
     }
 }

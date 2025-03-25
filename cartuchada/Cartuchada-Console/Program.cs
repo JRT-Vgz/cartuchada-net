@@ -10,6 +10,7 @@ using _2_Services.Services.Sleeve_Services;
 using _2_Services.Services.Spare_Parts_Services;
 using _3_AccountingSystem;
 using _3_Data;
+using _3_Data.Models;
 using _3_Loggers;
 using _3_Mappers.Automapper;
 using _3_Mappers.DTOs;
@@ -71,7 +72,7 @@ var soldSleeveValidator = new SoldSleeveValidator(context);
 //}
 
 //var servicio = new PurchaseGameBoyCartdrigeService<CartdrigePurchaseDto>(unitOfWork, mapper, referenceSystem, statisticSystem, accountingSystem, logger, cartdrigeValidator);
-//var cartuchoDto = new CartdrigePurchaseDto() { IdProductType = 1, IdGame = 1, IdRegion = 1, IdCondition = 7, PurchasePrice = 50, Name = "Juego 1" };
+//var cartuchoDto = new CartdrigePurchaseDto() { IdProductType = 1, IdGame = 1, IdRegion = 1, IdCondition = 7, PurchasePrice = 500, Name = "Juego prueba" };
 
 //await servicio.ExecuteAsync(cartuchoDto);
 
@@ -96,8 +97,8 @@ var soldSleeveValidator = new SoldSleeveValidator(context);
 
 
 
-//var servicio = new SumToSparePartsPrice(unitOfWork, logger);
-//await servicio.ExecuteAsync(1, 50);
+//var servicio = new SumSparePartsPriceToConsoleById(unitOfWork, logger);
+//await servicio.ExecuteAsync(3, 50);
 
 
 
@@ -107,7 +108,7 @@ var soldSleeveValidator = new SoldSleeveValidator(context);
 //var sparePartPurchases = await servicio.ExecuteAsync();
 //foreach (var c in sparePartPurchases)
 //{
-//    Console.WriteLine($" idSparePartType:{c.IdSparePartType}, purchasedate: {c.PurchaseDate}, concept: {c.Concept}, " +
+//    Console.WriteLine($" id: {c.Id}, idSparePartType:{c.IdSparePartType}, purchasedate: {c.PurchaseDate}, concept: {c.Concept}, " +
 //        $"purchaseprice:{c.PurchasePrice}, name: {c.Name}");
 //}
 
@@ -196,6 +197,26 @@ var soldSleeveValidator = new SoldSleeveValidator(context);
 //var fundaDto = new SleeveSaleDto() { IdSparePartType = 3, Quantity = 30, SalePrice = 30, Name = "Funda" };
 
 //await servicio.ExecuteAsync(fundaDto);
+
+
+
+// PRUEBAS DELETE EN CASCADA
+//var refModel = new ReferenceModel() { Id = 1, IdProductType = 1, Name = "GB-1", Assigned = true };
+////var refModel = new ReferenceModel() { Id = 4, IdProductType = 1, Name = "GB-1", Assigned = true };
+
+//context.References.Remove(refModel);
+//context.SaveChanges();
+
+
+//var regionModel = new RegionModel() { Id = 2, Name = "Cartucho Game Boy" };
+//context.Regions.Remove(regionModel);
+//context.SaveChanges();
+
+
+//var cartdrige = await context.Cartdriges.FindAsync(1);
+
+//context.Cartdriges.Remove(cartdrige);
+//context.SaveChanges();
 
 
 

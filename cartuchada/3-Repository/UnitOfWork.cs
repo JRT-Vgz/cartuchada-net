@@ -13,6 +13,7 @@ namespace _3_Repository
         private readonly IMapper _mapper;
         private IRepository<Cartdrige> _cartdrigeRepository;
         private IRepository<VideoConsole> _consoleRepository;
+        private IRepositoryUpdate<VideoConsole> _consoleRepositoryUpdate;
         private IRepository<SparePartsPurchase> _sparePartsPurchaseRepository;
         private IRepository<Cartdrige> _spotRepository;
         private IRepository<SoldCartdrige> _soldCartdrigeRepository;
@@ -36,6 +37,16 @@ namespace _3_Repository
                 return _consoleRepository == null ?
                     _consoleRepository = new ConsoleRepository(_context, _mapper) :
                     _consoleRepository;
+            }
+        }
+
+        public IRepositoryUpdate<VideoConsole> ConsoleRepositoryUpdate
+        {
+            get
+            {
+                return _consoleRepositoryUpdate == null ?
+                    _consoleRepositoryUpdate = (IRepositoryUpdate<VideoConsole>)ConsoleRepository :
+                    _consoleRepositoryUpdate;
             }
         }
 

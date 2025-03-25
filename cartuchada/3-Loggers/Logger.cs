@@ -45,5 +45,18 @@ namespace _3_Loggers
                 _context.Logs.RemoveRange(logsToDelete);
             }
         }
+
+        public async Task WriteWarningEntryAsync(string warningEntry)
+        {
+            if (warningEntry.Length > 255) { throw new LoggerException("La entrada para un warning no puede superar los 255 caracteres."); }
+
+            var warningModel = new WarningModel
+            {
+                Date = DateTime.Now,
+                Entry = warningEntry
+            };
+
+            await _context.Warnings.AddAsync(warningModel);
+        }
     }
 }

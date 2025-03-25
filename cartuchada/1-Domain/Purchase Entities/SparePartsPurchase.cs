@@ -3,6 +3,7 @@ namespace _1_Domain.Purchase_Entities
 {
     public class SparePartsPurchase
     {
+        public int Id { get; private set; }
         public int IdSparePartType { get; private set; }
         public DateTime PurchaseDate { get; private set; }
         public string Concept { get; private set; }

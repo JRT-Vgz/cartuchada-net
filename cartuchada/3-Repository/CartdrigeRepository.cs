@@ -54,10 +54,5 @@ namespace _3_Repository
 
             _context.Cartdriges.Remove(cartdrigeModel);
         }
-
-        public void Update(Cartdrige cartdrige)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

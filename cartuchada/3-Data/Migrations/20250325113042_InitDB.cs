@@ -108,6 +108,20 @@ namespace _3_Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Warnings",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Date = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Entry = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Warnings", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "GameCatalogue",
                 columns: table => new
                 {
@@ -126,7 +140,8 @@ namespace _3_Data.Migrations
                         name: "FK_GameCatalogue_ProductType_IdProductType",
                         column: x => x.IdProductType,
                         principalTable: "ProductType",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -146,7 +161,8 @@ namespace _3_Data.Migrations
                         name: "FK_Reference_ProductType_IdProductType",
                         column: x => x.IdProductType,
                         principalTable: "ProductType",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -172,7 +188,7 @@ namespace _3_Data.Migrations
                         column: x => x.IdProductType,
                         principalTable: "ProductType",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -194,7 +210,7 @@ namespace _3_Data.Migrations
                         column: x => x.IdSparePartType,
                         principalTable: "SparePartType",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -216,7 +232,7 @@ namespace _3_Data.Migrations
                         column: x => x.IdSparePartType,
                         principalTable: "SparePartType",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -243,24 +259,25 @@ namespace _3_Data.Migrations
                         column: x => x.IdCondition,
                         principalTable: "Condition",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_SoldCartdrige_GameCatalogue_IdGame",
                         column: x => x.IdGame,
                         principalTable: "GameCatalogue",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_SoldCartdrige_ProductType_IdProductType",
                         column: x => x.IdProductType,
                         principalTable: "ProductType",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_SoldCartdrige_Region_IdRegion",
                         column: x => x.IdRegion,
                         principalTable: "Region",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -284,25 +301,25 @@ namespace _3_Data.Migrations
                         column: x => x.IdCondition,
                         principalTable: "Condition",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Spot_GameCatalogue_IdGame",
                         column: x => x.IdGame,
                         principalTable: "GameCatalogue",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Spot_ProductType_IdProductType",
                         column: x => x.IdProductType,
                         principalTable: "ProductType",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Spot_Region_IdRegion",
                         column: x => x.IdRegion,
                         principalTable: "Region",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -327,30 +344,31 @@ namespace _3_Data.Migrations
                         column: x => x.IdCondition,
                         principalTable: "Condition",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Cartdrige_GameCatalogue_IdGame",
                         column: x => x.IdGame,
                         principalTable: "GameCatalogue",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Cartdrige_ProductType_IdProductType",
                         column: x => x.IdProductType,
                         principalTable: "ProductType",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Cartdrige_Reference_IdReference",
                         column: x => x.IdReference,
                         principalTable: "Reference",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Cartdrige_Region_IdRegion",
                         column: x => x.IdRegion,
                         principalTable: "Region",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -374,13 +392,13 @@ namespace _3_Data.Migrations
                         column: x => x.IdProductType,
                         principalTable: "ProductType",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Console_Reference_IdReference",
                         column: x => x.IdReference,
                         principalTable: "Reference",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateIndex(
@@ -516,6 +534,9 @@ namespace _3_Data.Migrations
 
             migrationBuilder.DropTable(
                 name: "Spot");
+
+            migrationBuilder.DropTable(
+                name: "Warnings");
 
             migrationBuilder.DropTable(
                 name: "Reference");

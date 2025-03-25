@@ -192,6 +192,27 @@ namespace _3_Data.Migrations
                     b.ToTable("Logs");
                 });
 
+            modelBuilder.Entity("_3_Data.Models.Management_Models.WarningModel", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Entry")
+                        .IsRequired()
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Warnings");
+                });
+
             modelBuilder.Entity("_3_Data.Models.ProductTypeModel", b =>
                 {
                     b.Property<int>("Id")
@@ -478,31 +499,31 @@ namespace _3_Data.Migrations
                     b.HasOne("_3_Data.Models.ConditionModel", "Condition")
                         .WithMany()
                         .HasForeignKey("IdCondition")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("_3_Data.Models.GameCatalogueModel", "Game")
                         .WithMany()
                         .HasForeignKey("IdGame")
-                        .OnDelete(DeleteBehavior.NoAction)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("_3_Data.Models.ProductTypeModel", "ProductType")
                         .WithMany()
                         .HasForeignKey("IdProductType")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("_3_Data.Models.ReferenceModel", "Reference")
                         .WithMany()
                         .HasForeignKey("IdReference")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("_3_Data.Models.RegionModel", "Region")
                         .WithMany()
                         .HasForeignKey("IdRegion")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Condition");
@@ -521,13 +542,13 @@ namespace _3_Data.Migrations
                     b.HasOne("_3_Data.Models.ProductTypeModel", "ProductType")
                         .WithMany()
                         .HasForeignKey("IdProductType")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("_3_Data.Models.ReferenceModel", "Reference")
                         .WithMany()
                         .HasForeignKey("IdReference")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("ProductType");
@@ -540,7 +561,7 @@ namespace _3_Data.Migrations
                     b.HasOne("_3_Data.Models.ProductTypeModel", "ProductType")
                         .WithMany()
                         .HasForeignKey("IdProductType")
-                        .OnDelete(DeleteBehavior.NoAction)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("ProductType");
@@ -551,25 +572,25 @@ namespace _3_Data.Migrations
                     b.HasOne("_3_Data.Models.ConditionModel", "Condition")
                         .WithMany()
                         .HasForeignKey("IdCondition")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("_3_Data.Models.GameCatalogueModel", "Game")
                         .WithMany()
                         .HasForeignKey("IdGame")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("_3_Data.Models.ProductTypeModel", "ProductType")
                         .WithMany()
                         .HasForeignKey("IdProductType")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("_3_Data.Models.RegionModel", "Region")
                         .WithMany()
                         .HasForeignKey("IdRegion")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Condition");
@@ -586,7 +607,7 @@ namespace _3_Data.Migrations
                     b.HasOne("_3_Data.Models.ProductTypeModel", "ProductType")
                         .WithMany()
                         .HasForeignKey("IdProductType")
-                        .OnDelete(DeleteBehavior.NoAction)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("ProductType");
@@ -597,25 +618,25 @@ namespace _3_Data.Migrations
                     b.HasOne("_3_Data.Models.ConditionModel", "Condition")
                         .WithMany()
                         .HasForeignKey("IdCondition")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("_3_Data.Models.GameCatalogueModel", "Game")
                         .WithMany()
                         .HasForeignKey("IdGame")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("_3_Data.Models.ProductTypeModel", "ProductType")
                         .WithMany()
                         .HasForeignKey("IdProductType")
-                        .OnDelete(DeleteBehavior.NoAction)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("_3_Data.Models.RegionModel", "Region")
                         .WithMany()
                         .HasForeignKey("IdRegion")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Condition");
@@ -632,7 +653,7 @@ namespace _3_Data.Migrations
                     b.HasOne("_3_Data.Models.ProductTypeModel", "ProductType")
                         .WithMany()
                         .HasForeignKey("IdProductType")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("ProductType");
@@ -643,7 +664,7 @@ namespace _3_Data.Migrations
                     b.HasOne("_3_Data.Models.Spare_Parts_Models.SparePartTypeModel", "SparePartType")
                         .WithMany()
                         .HasForeignKey("IdSparePartType")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("SparePartType");
@@ -654,7 +675,7 @@ namespace _3_Data.Migrations
                     b.HasOne("_3_Data.Models.Spare_Parts_Models.SparePartTypeModel", "SparePartType")
                         .WithMany()
                         .HasForeignKey("IdSparePartType")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("SparePartType");

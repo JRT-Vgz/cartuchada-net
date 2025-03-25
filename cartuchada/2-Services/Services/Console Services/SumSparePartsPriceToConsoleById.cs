@@ -28,7 +28,7 @@ namespace _2_Services.Services.Console_Services
 
                 console.SumToSparePartsPrice(sparePartsPrice);
 
-                _unitOfWork.ConsoleRepository.Update(console);
+                _unitOfWork.ConsoleRepositoryUpdate.Update(console);
 
                 string logEntry = $"SUMADO PRECIO DE RECAMBIOS. Id: {idConsole}, Ref: {console.Reference}, Nombre: {console.Name.ToUpper()}, " +
                     $"Precio añadido: {sparePartsPrice}€";

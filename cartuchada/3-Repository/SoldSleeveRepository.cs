@@ -29,6 +29,15 @@ namespace _3_Repository
             return soldSleeveModels.Select(c => _mapper.Map<SoldSleeve>(c));
         }
 
+        public async Task<SoldSleeve> GetByIdAsync(int id)
+        {
+            var soldSleeveModel = await _context.SoldSleeves
+                .Include("SparePartType")
+                .FirstOrDefaultAsync();
+
+            return _mapper.Map<SoldSleeve>(soldSleeveModel);
+        }
+
         public async Task AddAsync(SoldSleeve soldSleeve)
         {
             var soldSleeveModel = _mapper.Map<SoldSleeveModel>(soldSleeve);
@@ -36,19 +45,13 @@ namespace _3_Repository
             await _context.SoldSleeves.AddAsync(soldSleeveModel);
         }
 
-        public Task Delete(SoldSleeve soldSleeve)
+        public async Task Delete(SoldSleeve soldSleeve)
         {
-            throw new NotImplementedException();
-        }
+            var soldSleeveeModel = await _context.SoldSleeves.FirstOrDefaultAsync(c => c.Id == soldSleeve.Id);
 
-        public Task<SoldSleeve> GetByIdAsync(int id)
-        {
-            throw new NotImplementedException();
-        }
+            if (soldSleeveeModel == null) { return; }
 
-        public void Update(SoldSleeve soldSleeve)
-        {
-            throw new NotImplementedException();
+            _context.SoldSleeves.Remove(soldSleeveeModel);
         }
     }
 }

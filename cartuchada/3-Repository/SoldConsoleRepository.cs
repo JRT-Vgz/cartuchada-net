@@ -29,6 +29,15 @@ namespace _3_Repository
             return soldConsoleModels.Select(c => _mapper.Map<SoldVideoConsole>(c));
         }
 
+        public async Task<SoldVideoConsole> GetByIdAsync(int id)
+        {
+            var soldConsoleModel = await _context.SoldConsoles
+                .Include("ProductType")
+                .FirstOrDefaultAsync();
+
+            return _mapper.Map<SoldVideoConsole>(soldConsoleModel);
+        }
+
         public async Task AddAsync(SoldVideoConsole soldVideoConsole)
         {
             var soldConsoleModel = _mapper.Map<SoldConsoleModel>(soldVideoConsole);
@@ -36,19 +45,13 @@ namespace _3_Repository
             await _context.SoldConsoles.AddAsync(soldConsoleModel);
         }
 
-        public Task Delete(SoldVideoConsole soldVideoConsole)
+        public async Task Delete(SoldVideoConsole soldVideoConsole)
         {
-            throw new NotImplementedException();
-        }
+            var soldVideoConsoleModel = await _context.SoldConsoles.FirstOrDefaultAsync(c => c.Id == soldVideoConsole.Id);
 
-        public Task<SoldVideoConsole> GetByIdAsync(int id)
-        {
-            throw new NotImplementedException();
-        }
+            if (soldVideoConsoleModel == null) { return; }
 
-        public void Update(SoldVideoConsole soldVideoConsole)
-        {
-            throw new NotImplementedException();
+            _context.SoldConsoles.Remove(soldVideoConsoleModel);
         }
     }
 }
