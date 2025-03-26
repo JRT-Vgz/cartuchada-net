@@ -10,7 +10,7 @@ namespace _2_Services.Services.Purchase_Services
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
-        private readonly IProductValidator<SparePartsPurchase> _sparePartsPurchaseValdiator;
+        private readonly IProductValidator<SparePartsPurchase> _sparePartsPurchaseValidator;
         private readonly IAccountingSystem _accountingSystem;
         private readonly ILogger _logger;
         private readonly IValidator<TDto> _sparePartsPurchaseDtoValidator;
@@ -24,7 +24,7 @@ namespace _2_Services.Services.Purchase_Services
         {
             _unitOfWork = unitOfWork;
             _mapper = mapper;
-            _sparePartsPurchaseValdiator = sparePartsPurchaseValidator;
+            _sparePartsPurchaseValidator = sparePartsPurchaseValidator;
             _accountingSystem = accountingSystem;
             _logger = logger;
             _sparePartsPurchaseDtoValidator = sparePartsPurchaseDtoValidator;
@@ -46,8 +46,8 @@ namespace _2_Services.Services.Purchase_Services
 
                 var sparePartsPurchase = _mapper.Map<SparePartsPurchase>(sparePartsPurchaseDto);
 
-                bool productIsValid = await _sparePartsPurchaseValdiator.ValidateProductAsync(sparePartsPurchase);
-                if (!productIsValid) { throw new ProductValidationException(_sparePartsPurchaseValdiator.Errors); }
+                bool productIsValid = await _sparePartsPurchaseValidator.ValidateProductAsync(sparePartsPurchase);
+                if (!productIsValid) { throw new ProductValidationException(_sparePartsPurchaseValidator.Errors); }
 
                 await _unitOfWork.SparePartsPurchaseRepository.AddAsync(sparePartsPurchase);
 

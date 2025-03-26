@@ -11,8 +11,10 @@ namespace _2_Services.Interfaces
         Task SumSoldSleevesToStatisticsAsync(int idSparePartType, int quantity);
 
         Task WithdrawOnePurchasedGameBoyCartdrigeFromStatisticsAsync();
-        Task WithdrawOneSpotGameBoyCartdrigeFromStatisticsAsync();
         Task WithdrawOnePurchasedConsoleFromStatisticsAsync(int idProductType);
+        Task WithdrawOneSpotGameBoyCartdrigeFromStatisticsAsync();
+        Task WithdrawOneSoldGameBoyCartdrigeFromStatisticsAsync();
+        Task WithdrawOneSoldConsoleFromStatisticsAsync(int idProductType);
         Task WithdrawSoldSleevesFromStatisticsAsync(int idSparePartType, int quantity);
 
     }

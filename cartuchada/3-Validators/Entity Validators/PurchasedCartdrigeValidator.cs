@@ -3,6 +3,7 @@ using _1_Domain.Constants;
 using _2_Services.Interfaces;
 using _3_Data;
 using Microsoft.EntityFrameworkCore;
+using _1_Domain.Sold_Product_Entities;
 
 namespace _3_Validators.Entity_Validators
 {
@@ -38,8 +39,6 @@ namespace _3_Validators.Entity_Validators
             if (!conditionExists) { Errors.Add($"No existe ninguna condición con Id {cartdrige.IdCondition} en la tabla 'Condition'."); }
 
             if (cartdrige.IdReference == 0 && cartdrige.Reference == null) { Errors.Add($"El cartucho que intentas comprar no tiene una referencia asignada."); }
-
-            if (cartdrige.PurchaseDate != DateTime.Now.Date) { Errors.Add("El campo 'PurchaseDate' no coincide con la fecha actual."); }
 
             if (Errors.Count > 0) { return false; }
             return true;

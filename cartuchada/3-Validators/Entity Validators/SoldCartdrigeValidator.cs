@@ -39,7 +39,7 @@ namespace _3_Validators.Entity_Validators
             if (!conditionExists) { Errors.Add($"No existe ninguna condición con Id {soldCartdrige.IdCondition} en la tabla 'Condition'."); }
 
             var cartdrigeExists = await _context.Cartdriges.AnyAsync(c => c.Id == soldCartdrige.IdCartdrige);
-            if (!conditionExists) { Errors.Add($"No existe ningun cartucho con Id {soldCartdrige.IdCartdrige} en la tabla 'Cartdrige'."); }
+            if (!cartdrigeExists) { Errors.Add($"No existe ningun cartucho con Id {soldCartdrige.IdCartdrige} en la tabla 'Cartdrige'."); }
 
             if (soldCartdrige.PurchasePrice < 0) { Errors.Add("El campo 'PurchasePrice' no puede ser negativo."); }
 

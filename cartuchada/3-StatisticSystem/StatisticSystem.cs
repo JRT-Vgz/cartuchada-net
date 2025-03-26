@@ -66,9 +66,12 @@ namespace _3_StatisticSystem
             await SumToStatistic(shopStatName, 1);
         }
 
-        public async Task SumOneSoldGameBoyCartdrigeToStatisticsAsync()
+        public async Task SumOnePurchasedConsoleToStatisticsAsync(int idProductType)
         {
-            string shopStatName = ShopStatConstants.JUEGOS_GAME_BOY_VENDIDOS;
+            string shopStatName = string.Empty;
+            if (idProductType == ProductTypeConstants._PRODUCT_TYPE_GAME_BOY_CONSOLE) { shopStatName = ShopStatConstants.GAME_BOY_COMPRADAS; }
+            else if (idProductType == ProductTypeConstants._PRODUCT_TYPE_GAME_GEAR_CONSOLE) { shopStatName = ShopStatConstants.GAME_GEAR_COMPRADAS; }
+
             await SumToStatistic(shopStatName, 1);
         }
 
@@ -78,12 +81,9 @@ namespace _3_StatisticSystem
             await SumToStatistic(shopStatName, 1);
         }
 
-        public async Task SumOnePurchasedConsoleToStatisticsAsync(int idProductType)
+        public async Task SumOneSoldGameBoyCartdrigeToStatisticsAsync()
         {
-            string shopStatName = string.Empty;
-            if (idProductType == ProductTypeConstants._PRODUCT_TYPE_GAME_BOY_CONSOLE) { shopStatName = ShopStatConstants.GAME_BOY_COMPRADAS; }
-            else if (idProductType == ProductTypeConstants._PRODUCT_TYPE_GAME_GEAR_CONSOLE) { shopStatName = ShopStatConstants.GAME_GEAR_COMPRADAS; }
-
+            string shopStatName = ShopStatConstants.JUEGOS_GAME_BOY_VENDIDOS;
             await SumToStatistic(shopStatName, 1);
         }
 
@@ -118,17 +118,32 @@ namespace _3_StatisticSystem
             await WithdrawFromStatistic(shopStatName, 1);
         }
 
+        public async Task WithdrawOnePurchasedConsoleFromStatisticsAsync(int idProductType)
+        {
+            string shopStatName = string.Empty;
+            if (idProductType == ProductTypeConstants._PRODUCT_TYPE_GAME_BOY_CONSOLE) { shopStatName = ShopStatConstants.GAME_BOY_COMPRADAS; }
+            else if (idProductType == ProductTypeConstants._PRODUCT_TYPE_GAME_GEAR_CONSOLE) { shopStatName = ShopStatConstants.GAME_GEAR_COMPRADAS; }
+
+            await WithdrawFromStatistic(shopStatName, 1);
+        }
+
         public async Task WithdrawOneSpotGameBoyCartdrigeFromStatisticsAsync()
         {
             string shopStatName = ShopStatConstants.JUEGOS_GAME_BOY_SPOTEADOS;
             await WithdrawFromStatistic(shopStatName, 1);
         }
 
-        public async Task WithdrawOnePurchasedConsoleFromStatisticsAsync(int idProductType)
+        public async Task WithdrawOneSoldGameBoyCartdrigeFromStatisticsAsync()
+        {
+            string shopStatName = ShopStatConstants.JUEGOS_GAME_BOY_VENDIDOS;
+            await WithdrawFromStatistic(shopStatName, 1);
+        }
+
+        public async Task WithdrawOneSoldConsoleFromStatisticsAsync(int idProductType)
         {
             string shopStatName = string.Empty;
-            if (idProductType == ProductTypeConstants._PRODUCT_TYPE_GAME_BOY_CONSOLE) { shopStatName = ShopStatConstants.GAME_BOY_COMPRADAS; }
-            else if (idProductType == ProductTypeConstants._PRODUCT_TYPE_GAME_GEAR_CONSOLE) { shopStatName = ShopStatConstants.GAME_GEAR_COMPRADAS; }
+            if (idProductType == ProductTypeConstants._PRODUCT_TYPE_GAME_BOY_CONSOLE) { shopStatName = ShopStatConstants.GAME_BOY_VENDIDAS; }
+            else if (idProductType == ProductTypeConstants._PRODUCT_TYPE_GAME_GEAR_CONSOLE) { shopStatName = ShopStatConstants.GAME_GEAR_VENDIDAS; }
 
             await WithdrawFromStatistic(shopStatName, 1);
         }
@@ -145,7 +160,7 @@ namespace _3_StatisticSystem
             else if (idSparePartType == SparePartTypeConstants._SPARE_PART_TYPE_ORIGINAL_GAME_GEAR_SLEEVE)
             { shopStatName = ShopStatConstants.FUNDAS_ORIGINALES_GAME_GEAR_VENDIDAS; }
 
-            await WithdrawFromStatistic(shopStatName, 1);
+            await WithdrawFromStatistic(shopStatName, quantity);
         }
     }
 }

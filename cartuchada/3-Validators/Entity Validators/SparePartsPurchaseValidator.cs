@@ -1,4 +1,5 @@
 using _1_Domain.Purchase_Entities;
+using _1_Domain.Sold_Product_Entities;
 using _2_Services.Interfaces;
 using _3_Data;
 using Microsoft.EntityFrameworkCore;
@@ -20,8 +21,6 @@ namespace _3_Validators.Entity_Validators
         {
             var sparePartTypeExists = await _context.SparePartTypes.AnyAsync(s => s.Id == sparePartsPurchase.IdSparePartType);
             if (!sparePartTypeExists) { Errors.Add($"No existe ningún tipo de recambio con Id {sparePartsPurchase.IdSparePartType} en la tabla 'SparePartType'."); }
-
-            if (sparePartsPurchase.PurchaseDate != DateTime.Now.Date) { Errors.Add("El campo 'PurchaseDate' no coincide con la fecha actual."); }
 
             if (Errors.Count > 0) { return false; }
             return true;

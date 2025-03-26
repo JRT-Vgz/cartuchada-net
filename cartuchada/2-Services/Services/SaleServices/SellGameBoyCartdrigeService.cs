@@ -15,6 +15,7 @@ namespace _2_Services.Services.SaleServices
         private readonly IStatisticsSystem _statisticsSystem;
         private readonly IAccountingSystem _accountingSystem;
         private readonly ILogger _logger;
+        private readonly IProductValidator<Cartdrige> _cartdrigeValidator;
         private readonly IProductValidator<SoldCartdrige> _soldCartdrigeValidator;
         public SellGameBoyCartdrigeService(IUnitOfWork unitOfWork,
             IMapper mapper,
@@ -22,6 +23,7 @@ namespace _2_Services.Services.SaleServices
             IStatisticsSystem statisticsSystem,
             IAccountingSystem accountingSystem,
             ILogger logger,
+            IProductValidator<Cartdrige> cartdrigeValidator,
             IProductValidator<SoldCartdrige> soldCartdrigeValidator)
         {
             _unitOfWork = unitOfWork;
@@ -30,6 +32,7 @@ namespace _2_Services.Services.SaleServices
             _statisticsSystem = statisticsSystem;
             _accountingSystem = accountingSystem;
             _logger = logger;
+            _cartdrigeValidator = cartdrigeValidator;
             _soldCartdrigeValidator = soldCartdrigeValidator;
         }
 
@@ -39,11 +42,14 @@ namespace _2_Services.Services.SaleServices
             {
                 if (cartdrige == null) { throw new Exception("Error: El cartucho que intenta venderse tiene un valor nulo."); }
 
+                bool productIsValid = await _cartdrigeValidator.ValidateProductAsync(cartdrige);
+                if (!productIsValid) { throw new ProductValidationException(_cartdrigeValidator.Errors); }
+
                 var soldCartdrige = _mapper.Map<SoldCartdrige>(cartdrige);
                 soldCartdrige.AssignSalePrice(salePrice);
 
-                bool productIsValid = await _soldCartdrigeValidator.ValidateProductAsync(soldCartdrige);
-                if (!productIsValid) { throw new ProductValidationException(_soldCartdrigeValidator.Errors); }
+                bool soldProductIsValid = await _soldCartdrigeValidator.ValidateProductAsync(soldCartdrige);
+                if (!soldProductIsValid) { throw new ProductValidationException(_soldCartdrigeValidator.Errors); }
 
                 await _referenceSystem.ReleaseReferenceByIdAsync(cartdrige.IdReference);
 
@@ -68,7 +74,6 @@ namespace _2_Services.Services.SaleServices
             {
                 Console.WriteLine(ex.Message);
             }
-
         }
     }
 }

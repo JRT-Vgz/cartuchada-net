@@ -49,7 +49,8 @@ namespace _3_Repository
         {
             var soldCartdrigeModel = await _context.SoldCartdriges.FirstOrDefaultAsync(c => c.Id == soldCartdrige.Id);
 
-            if (soldCartdrigeModel == null) { return; }
+            if (soldCartdrigeModel == null) { throw new Exception($"No se ha encontrado ninguna venta de cartucho " +
+                $"con Id {soldCartdrige.Id} en la tabla 'SoldCartdrige'."); }
 
             _context.SoldCartdriges.Remove(soldCartdrigeModel);
         }

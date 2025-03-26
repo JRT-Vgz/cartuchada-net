@@ -31,6 +31,14 @@ namespace _1_Domain.Product_Entities
             CalculateTotalPrice();
         }
 
+        public void WithdrawFromSparePartsPrice(decimal sparePartsPriceToWithdraw)
+        {
+            SparePartsPrice -= sparePartsPriceToWithdraw;
+
+            if (SparePartsPrice < 0) { SparePartsPrice = 0; }
+            CalculateTotalPrice();
+        }
+
         public void AssignReference(int idReference, string reference)
         {
             if (IdReference != 0) { return; }

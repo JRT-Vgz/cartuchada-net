@@ -31,14 +31,6 @@ namespace _3_Validators.Entity_Validators
                 Errors.Add($"El tipo de recambio con Id {soldSleeve.IdSparePartType} en la tabla 'SparePartType' no corresponde con ninguna funda.");
             }
 
-            if (soldSleeve.Quantity <= 0) { Errors.Add($"El campo 'Quantity' tiene que ser mayor que 0."); }
-
-            if (soldSleeve.SaleDate != DateTime.Now.Date) { Errors.Add("El campo 'SaleDate' no coincide con la fecha actual."); }
-
-            if (soldSleeve.SalePrice < 0) { Errors.Add("El campo 'SalePrice' no puede ser negativo."); }
-
-            if (soldSleeve.Name == null || soldSleeve.Name == "") { Errors.Add("El campo 'Name' no puede ser nulo ni estar vacío."); }
-
             if (Errors.Count > 0) { return false; }
             return true;
         }

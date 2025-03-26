@@ -28,8 +28,6 @@ namespace _3_Validators.Entity_Validators
                 Errors.Add($"El tipo de producto con Id {console.IdProductType} en la tabla 'ProductType' no corresponde con ninguna videoconsola.");
             }
 
-            if (console.PurchaseDate != DateTime.Now.Date) { Errors.Add("El campo 'PurchaseDate' no coincide con la fecha actual."); }
-
             if (console.IdReference == 0 || console.Reference == null) { Errors.Add($"La consola que intentas comprar no tiene una referencia asignada."); }
 
             if (console.TotalPrice < 0) { Errors.Add("El campo 'TotalPrice' no puede ser negativo."); }

@@ -15,6 +15,7 @@ namespace _2_Services.Services.SaleServices
         private readonly IStatisticsSystem _statisticsSystem;
         private readonly IAccountingSystem _accountingSystem;
         private readonly ILogger _logger;
+        private readonly IProductValidator<VideoConsole> _consoleValidator;
         private readonly IProductValidator<SoldVideoConsole> _soldConsoleValidator;
         public SellConsoleService(IUnitOfWork unitOfWork,
             IMapper mapper,
@@ -22,6 +23,7 @@ namespace _2_Services.Services.SaleServices
             IStatisticsSystem statisticsSystem,
             IAccountingSystem accountingSystem,
             ILogger logger,
+            IProductValidator<VideoConsole> consoleValidator,
             IProductValidator<SoldVideoConsole> soldConsoleValidator)
         {
             _unitOfWork = unitOfWork;
@@ -30,6 +32,7 @@ namespace _2_Services.Services.SaleServices
             _statisticsSystem = statisticsSystem;
             _accountingSystem = accountingSystem;
             _logger = logger;
+            _consoleValidator = consoleValidator;
             _soldConsoleValidator = soldConsoleValidator;
         }
 
@@ -38,6 +41,9 @@ namespace _2_Services.Services.SaleServices
             try
             {
                 if (videoConsole == null) { throw new Exception("Error: El objeto que intenta venderse tiene un valor nulo."); }
+
+                bool productIsValid = await _consoleValidator.ValidateProductAsync(videoConsole);
+                if (!productIsValid) { throw new ProductValidationException(_consoleValidator.Errors); }
 
                 var soldVideoConsole = _mapper.Map<SoldVideoConsole>(videoConsole);
                 soldVideoConsole.AssignSalePrice(salePrice);

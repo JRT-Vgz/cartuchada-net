@@ -1,20 +1,23 @@
 
 using _1_Domain.Product_Entities;
+using _1_Domain.Sold_Product_Entities;
 using _2_Services.Exceptions;
 using _2_Services.Interfaces;
-using FluentValidation;
+using AutoMapper;
 
-namespace _2_Services.Services.Purchase_Services
+namespace _2_Services.Services.SaleServices
 {
-    public class RevertPurchaseConsoleService
+    public class RevertSellConsoleService
     {
         private readonly IUnitOfWork _unitOfWork;
+        private readonly IMapper _mapper;
         private readonly IReferenceSystem _referenceSystem;
         private readonly IStatisticsSystem _statisticsSystem;
         private readonly IAccountingSystem _accountingSystem;
         private readonly ILogger _logger;
         private readonly IProductValidator<VideoConsole> _consoleValidator;
-        public RevertPurchaseConsoleService(IUnitOfWork unitOfWork,
+        public RevertSellConsoleService(IUnitOfWork unitOfWork,
+            IMapper mapper,
             IReferenceSystem referenceSystem,
             IStatisticsSystem statisticsSystem,
             IAccountingSystem accountingSystem,
@@ -22,6 +25,7 @@ namespace _2_Services.Services.Purchase_Services
             IProductValidator<VideoConsole> consoleValidator)
         {
             _unitOfWork = unitOfWork;
+            _mapper = mapper;
             _referenceSystem = referenceSystem;
             _statisticsSystem = statisticsSystem;
             _accountingSystem = accountingSystem;
@@ -29,24 +33,26 @@ namespace _2_Services.Services.Purchase_Services
             _consoleValidator = consoleValidator;
         }
 
-        public async Task ExecuteAsync(VideoConsole console)
+        public async Task ExecuteAsync(SoldVideoConsole soldVideoConsole)
         {
             try
             {
-                if (console == null) { throw new Exception("Error: La consola cuya compra intenta revertirse tiene un valor nulo."); }
+                if (soldVideoConsole == null) { throw new Exception("Error: La venta de consola que intenta revertirse tiene un valor nulo."); }
+
+                var console = _mapper.Map<VideoConsole>(soldVideoConsole);
+                await _referenceSystem.AssignReferenceToProductAsync(console);
 
                 bool productIsValid = await _consoleValidator.ValidateProductAsync(console);
                 if (!productIsValid) { throw new ProductValidationException(_consoleValidator.Errors); }
 
-                await _referenceSystem.ReleaseReferenceByIdAsync(console.IdReference);
+                await _unitOfWork.SoldConsoleRepository.Delete(soldVideoConsole);
+                await _unitOfWork.ConsoleRepository.AddAsync(console);
 
-                await _unitOfWork.ConsoleRepository.Delete(console);
+                await _statisticsSystem.WithdrawOneSoldConsoleFromStatisticsAsync(soldVideoConsole.IdProductType);
+                await _accountingSystem.WithdrawSalePriceFromIncomeAsync(soldVideoConsole.SaleDate, soldVideoConsole.SalePrice);
 
-                await _statisticsSystem.WithdrawOnePurchasedConsoleFromStatisticsAsync(console.IdProductType);
-                await _accountingSystem.WithdrawPurchasePriceFromExpensesAsync(console.PurchaseDate, console.PurchasePrice);
-
-                string logEntry = $"REVERTIR COMPRA: Consola. Ref: {console.Reference}, Nombre: {console.Name}, " +
-                    $"Fecha de compra: {console.PurchaseDate.ToString("yyyy-MM-dd")}, Precio de compra: {console.PurchasePrice}€";
+                string logEntry = $"REVERTIR VENTA: Consola. Nueva ref: {console.Reference}, Nombre: {console.Name}, " +
+                    $"Fecha de venta: {soldVideoConsole.SaleDate.ToString("yyyy-MM-dd")}, Precio de venta: {soldVideoConsole.SalePrice}€";
                 await _logger.WriteLogEntryAsync(logEntry);
 
                 await _unitOfWork.SaveChangesAsync();
@@ -60,7 +66,6 @@ namespace _2_Services.Services.Purchase_Services
             {
                 Console.WriteLine(ex.Message);
             }
-
         }
     }
 }

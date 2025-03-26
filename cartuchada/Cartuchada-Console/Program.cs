@@ -110,6 +110,11 @@ var sleeveSaleDtoValidator = new SleeveSaleDtoValidator();
 
 
 
+//var servicio = new WithdrawSparePartsPriceFromConsoleById(unitOfWork, logger);
+//await servicio.ExecuteAsync(3, 20.25m);
+
+
+
 ////////////////////////////////// SERVICIOS DE SPARE PARTS //////////////////////////////////
 
 //var servicio = new GetAllSparePartsPurchases(unitOfWork);
@@ -161,7 +166,7 @@ var sleeveSaleDtoValidator = new SleeveSaleDtoValidator();
 //}
 
 
-//var servicio = new SellGameBoyCartdrigeService(unitOfWork, mapper, referenceSystem, statisticSystem, accountingSystem, logger, soldCartdrigeValidator);
+//var servicio = new SellGameBoyCartdrigeService(unitOfWork, mapper, referenceSystem, statisticSystem, accountingSystem, logger, cartdrigeValidator, soldCartdrigeValidator);
 
 //var cartucho = await unitOfWork.CartdrigeRepository.GetByIdAsync(4);
 
@@ -181,9 +186,9 @@ var sleeveSaleDtoValidator = new SleeveSaleDtoValidator();
 //}
 
 
-//var servicio = new SellConsoleService(unitOfWork, mapper, referenceSystem, statisticSystem, accountingSystem, logger, soldConsoleValidator);
+//var servicio = new SellConsoleService(unitOfWork, mapper, referenceSystem, statisticSystem, accountingSystem, logger, consoleValidator, soldConsoleValidator);
 
-//var consola = await unitOfWork.ConsoleRepository.GetByIdAsync(2);
+//var consola = await unitOfWork.ConsoleRepository.GetByIdAsync(3);
 
 //await servicio.ExecuteAsync(consola, 200);
 
@@ -232,24 +237,24 @@ var sleeveSaleDtoValidator = new SleeveSaleDtoValidator();
 
 ////////////////////////////////// REVERT COMPRA CARTUCHO //////////////////////////////////
 
-//var servicio = new RevertPurchaseGameBoyCartdrigeService(unitOfWork, referenceSystem, statisticSystem, accountingSystem, logger);
-//var cartucho = await unitOfWork.CartdrigeRepository.GetByIdAsync(8);
+//var servicio = new RevertPurchaseGameBoyCartdrigeService(unitOfWork, referenceSystem, statisticSystem, accountingSystem, logger, cartdrigeValidator);
+//var cartucho = await unitOfWork.CartdrigeRepository.GetByIdAsync(6);
 
 //await servicio.ExecuteAsync(cartucho);
 
 
 ////////////////////////////////// REVERT COMPRA CONSOLA //////////////////////////////////
 
-//var servicio = new RevertPurchaseConsoleService(unitOfWork, referenceSystem, statisticSystem, accountingSystem, logger);
-//var consola = await unitOfWork.ConsoleRepository.GetByIdAsync(5);
+//var servicio = new RevertPurchaseConsoleService(unitOfWork, referenceSystem, statisticSystem, accountingSystem, logger, consoleValidator);
+//var consola = await unitOfWork.ConsoleRepository.GetByIdAsync(1);
 
 //await servicio.ExecuteAsync(consola);
 
 
 ////////////////////////////////// REVERT COMPRA SPARE PARTS //////////////////////////////////
 
-//var servicio = new RevertPurchaseSparePartsService(unitOfWork, accountingSystem, logger);
-//var sparePartsPurchase = await unitOfWork.SparePartsPurchaseRepository.GetByIdAsync(4);
+//var servicio = new RevertPurchaseSparePartsService(unitOfWork, accountingSystem, logger, sparePartsPurchaseValidator);
+//var sparePartsPurchase = await unitOfWork.SparePartsPurchaseRepository.GetByIdAsync(3);
 
 //await servicio.ExecuteAsync(sparePartsPurchase);
 
@@ -257,6 +262,30 @@ var sleeveSaleDtoValidator = new SleeveSaleDtoValidator();
 ////////////////////////////////// REVERT SPOT CARTUCHO //////////////////////////////////
 
 //var servicio = new RevertSpotCartdrigePurchaseService(unitOfWork, statisticSystem, logger);
-//var cartdrige = await unitOfWork.SpotRepository.GetByIdAsync(1);
+//var cartdrige = await unitOfWork.SpotRepository.GetByIdAsync(3);
 
 //await servicio.ExecuteAsync(cartdrige);
+
+
+////////////////////////////////// REVERT VENTA CARTUCHO //////////////////////////////////
+
+//var servicio = new RevertSellGameBoyCartdrigeService(unitOfWork, mapper, referenceSystem, statisticSystem, accountingSystem, logger, cartdrigeValidator);
+//var soldCartdrige = await unitOfWork.SoldCartdrigeRepository.GetByIdAsync(3);
+
+//await servicio.ExecuteAsync(soldCartdrige);
+
+
+////////////////////////////////// REVERT VENTA CONSOLA //////////////////////////////////
+
+//var servicio = new RevertSellConsoleService(unitOfWork, mapper, referenceSystem, statisticSystem, accountingSystem, logger, consoleValidator);
+//var soldConsole = await unitOfWork.SoldConsoleRepository.GetByIdAsync(3);
+
+//await servicio.ExecuteAsync(soldConsole);
+
+
+////////////////////////////////// REVERT SOLD SLEEVE //////////////////////////////////
+
+//var servicio = new RevertSellSleeveService(unitOfWork, mapper, statisticSystem, accountingSystem, logger, soldSleeveValidator);
+//var soldSleeve = await unitOfWork.SoldSleeveRepository.GetByIdAsync(1);
+
+//await servicio.ExecuteAsync(soldSleeve);

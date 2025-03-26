@@ -28,6 +28,10 @@ namespace _3_Mappers.Automapper
             CreateMap<VideoConsole, SoldVideoConsole>()
                 .ForMember(dest => dest.IdConsole, opt => opt.MapFrom(src => src.Id))
                 .ForMember(dest => dest.Id, map => map.Ignore());
+
+            //From SoldVideoConsole to VideoConsole
+            CreateMap<SoldVideoConsole, VideoConsole>()
+                .ForMember(dest => dest.Id, map => map.Ignore());
         }
     }
 }

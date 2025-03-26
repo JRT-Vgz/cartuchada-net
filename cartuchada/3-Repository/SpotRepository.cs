@@ -55,7 +55,8 @@ namespace _3_Repository
                     && s.SpotPrice == cartdrige.PurchasePrice)
                 .FirstOrDefaultAsync();
 
-            if (spotModel == null) { throw new Exception("No se ha encontrado el cartucho en la tabla 'Spot'."); }
+            if (spotModel == null) { throw new Exception($"No se ha encontrado ningún cartucho en la tabla 'Spot' " +
+                $"que cumpla con todas las condiciones descritas."); }
 
             _context.Spots.Remove(spotModel);
         }
