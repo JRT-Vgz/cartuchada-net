@@ -81,7 +81,6 @@ namespace _2_Services.Services.Purchase_Services
             {
                 Console.WriteLine(ex.Message);
             }
-
         }
     }
 }

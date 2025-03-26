@@ -10,6 +10,8 @@ namespace _3_Mappers.Automapper
         {
             // From SpotModel to Cartdrige
             CreateMap<SpotModel, Cartdrige>()
+                .ForMember(dest => dest.PurchaseDate, opt => opt.MapFrom(src => src.SpotDate))
+                .ForMember(dest => dest.PurchasePrice, opt => opt.MapFrom(src => src.SpotPrice))
                 .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Game.Name));
 
             // From Cartdrige to SpotModel

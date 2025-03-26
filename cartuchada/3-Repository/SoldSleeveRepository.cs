@@ -33,7 +33,7 @@ namespace _3_Repository
         {
             var soldSleeveModel = await _context.SoldSleeves
                 .Include("SparePartType")
-                .FirstOrDefaultAsync();
+                .FirstOrDefaultAsync(s => s.Id == id);
 
             return _mapper.Map<SoldSleeve>(soldSleeveModel);
         }

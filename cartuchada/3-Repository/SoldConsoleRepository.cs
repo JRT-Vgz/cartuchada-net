@@ -33,7 +33,7 @@ namespace _3_Repository
         {
             var soldConsoleModel = await _context.SoldConsoles
                 .Include("ProductType")
-                .FirstOrDefaultAsync();
+                .FirstOrDefaultAsync(s => s.Id == id);
 
             return _mapper.Map<SoldVideoConsole>(soldConsoleModel);
         }

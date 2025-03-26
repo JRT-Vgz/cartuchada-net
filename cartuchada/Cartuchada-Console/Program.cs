@@ -229,3 +229,34 @@ var sleeveSaleDtoValidator = new SleeveSaleDtoValidator();
 
 
 
+
+////////////////////////////////// REVERT COMPRA CARTUCHO //////////////////////////////////
+
+//var servicio = new RevertPurchaseGameBoyCartdrigeService(unitOfWork, referenceSystem, statisticSystem, accountingSystem, logger);
+//var cartucho = await unitOfWork.CartdrigeRepository.GetByIdAsync(8);
+
+//await servicio.ExecuteAsync(cartucho);
+
+
+////////////////////////////////// REVERT COMPRA CONSOLA //////////////////////////////////
+
+//var servicio = new RevertPurchaseConsoleService(unitOfWork, referenceSystem, statisticSystem, accountingSystem, logger);
+//var consola = await unitOfWork.ConsoleRepository.GetByIdAsync(5);
+
+//await servicio.ExecuteAsync(consola);
+
+
+////////////////////////////////// REVERT COMPRA SPARE PARTS //////////////////////////////////
+
+//var servicio = new RevertPurchaseSparePartsService(unitOfWork, accountingSystem, logger);
+//var sparePartsPurchase = await unitOfWork.SparePartsPurchaseRepository.GetByIdAsync(4);
+
+//await servicio.ExecuteAsync(sparePartsPurchase);
+
+
+////////////////////////////////// REVERT SPOT CARTUCHO //////////////////////////////////
+
+//var servicio = new RevertSpotCartdrigePurchaseService(unitOfWork, statisticSystem, logger);
+//var cartdrige = await unitOfWork.SpotRepository.GetByIdAsync(1);
+
+//await servicio.ExecuteAsync(cartdrige);

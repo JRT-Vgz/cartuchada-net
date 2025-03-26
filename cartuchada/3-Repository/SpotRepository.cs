@@ -32,7 +32,7 @@ namespace _3_Repository
         {
             var spotModel = await _context.Spots
                 .Include("Game")
-                .FirstOrDefaultAsync();
+                .FirstOrDefaultAsync(s => s.Id == id);
 
             return _mapper.Map<Cartdrige>(spotModel);
         }
@@ -55,7 +55,7 @@ namespace _3_Repository
                     && s.SpotPrice == cartdrige.PurchasePrice)
                 .FirstOrDefaultAsync();
 
-            if (spotModel == null) { return; }
+            if (spotModel == null) { throw new Exception("No se ha encontrado el cartucho en la tabla 'Spot'."); }
 
             _context.Spots.Remove(spotModel);
         }

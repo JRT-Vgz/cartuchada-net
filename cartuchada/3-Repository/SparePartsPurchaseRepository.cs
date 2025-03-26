@@ -33,7 +33,7 @@ namespace _3_Repository
         {
             var sparePartsPurchaseModel = await _context.SparePartsPurchases
                 .Include("SparePartType")
-                .FirstOrDefaultAsync();
+                .FirstOrDefaultAsync(s => s.Id == id);
 
             return _mapper.Map<SparePartsPurchase>(sparePartsPurchaseModel);
         }

@@ -33,7 +33,7 @@ namespace _3_Repository
         {
             var soldCartdrigeModel = await _context.SoldCartdriges
                 .Include("Game")
-                .FirstOrDefaultAsync();
+                .FirstOrDefaultAsync(s => s.Id == id);
 
             return _mapper.Map<SoldCartdrige>(soldCartdrigeModel);
         }
