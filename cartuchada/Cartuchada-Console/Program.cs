@@ -23,6 +23,7 @@ using _3_Validators.Data_Validators.Purchase_Dto_Validators;
 using _3_Validators.Data_Validators.Sale_Dto_Validators;
 using _3_Validators.Entity_Validators;
 using AutoMapper;
+using Cartuchada_Console;
 using FluentValidation;
 using Microsoft.EntityFrameworkCore;
 
@@ -80,7 +81,7 @@ var sleeveSaleDtoValidator = new SleeveSaleDtoValidator();
 //}
 
 //var servicio = new PurchaseGameBoyCartdrigeService<CartdrigePurchaseDto>(unitOfWork, mapper, referenceSystem, statisticSystem, accountingSystem, logger, cartdrigeValidator, cartdrigeDtoValidator);
-//var cartuchoDto = new CartdrigePurchaseDto() { IdProductType = 1, IdGame = 1, IdRegion = 1, IdCondition = 7, PurchasePrice = 50, Name = "Juego 1" };
+//var cartuchoDto = new CartdrigePurchaseDto() { IdProductType = 1, IdGame = 1612, IdRegion = 2, IdCondition = 7, PurchasePrice = 50, Name = "Juego 1" };
 
 //await servicio.ExecuteAsync(cartuchoDto);
 
@@ -106,12 +107,12 @@ var sleeveSaleDtoValidator = new SleeveSaleDtoValidator();
 
 
 //var servicio = new SumSparePartsPriceToConsoleById(unitOfWork, logger);
-//await servicio.ExecuteAsync(3, 50);
+//await servicio.ExecuteAsync(7, 50);
 
 
 
 //var servicio = new WithdrawSparePartsPriceFromConsoleById(unitOfWork, logger);
-//await servicio.ExecuteAsync(3, 20.25m);
+//await servicio.ExecuteAsync(7, 20.25m);
 
 
 
@@ -141,7 +142,7 @@ var sleeveSaleDtoValidator = new SleeveSaleDtoValidator();
 //{
 //    Console.WriteLine($" id:{c.Id}, idproducttype: {c.IdProductType}, idgame: {c.IdGame}, " +
 //        $"idregion: {c.IdRegion}, idcondition: {c.IdCondition}, purchasedate: {c.PurchaseDate}, purchaseprice:{c.PurchasePrice}, " +
-//        $"name: {c.Name}, reference: {c.Reference}");
+//        $"name: {c.Name}");
 //}
 
 
@@ -168,7 +169,7 @@ var sleeveSaleDtoValidator = new SleeveSaleDtoValidator();
 
 //var servicio = new SellGameBoyCartdrigeService(unitOfWork, mapper, referenceSystem, statisticSystem, accountingSystem, logger, cartdrigeValidator, soldCartdrigeValidator);
 
-//var cartucho = await unitOfWork.CartdrigeRepository.GetByIdAsync(4);
+//var cartucho = await unitOfWork.CartdrigeRepository.GetByIdAsync(14);
 
 //await servicio.ExecuteAsync(cartucho, 100);
 
@@ -188,7 +189,7 @@ var sleeveSaleDtoValidator = new SleeveSaleDtoValidator();
 
 //var servicio = new SellConsoleService(unitOfWork, mapper, referenceSystem, statisticSystem, accountingSystem, logger, consoleValidator, soldConsoleValidator);
 
-//var consola = await unitOfWork.ConsoleRepository.GetByIdAsync(3);
+//var consola = await unitOfWork.ConsoleRepository.GetByIdAsync(7);
 
 //await servicio.ExecuteAsync(consola, 200);
 
@@ -238,7 +239,7 @@ var sleeveSaleDtoValidator = new SleeveSaleDtoValidator();
 ////////////////////////////////// REVERT COMPRA CARTUCHO //////////////////////////////////
 
 //var servicio = new RevertPurchaseGameBoyCartdrigeService(unitOfWork, referenceSystem, statisticSystem, accountingSystem, logger, cartdrigeValidator);
-//var cartucho = await unitOfWork.CartdrigeRepository.GetByIdAsync(6);
+//var cartucho = await unitOfWork.CartdrigeRepository.GetByIdAsync(15);
 
 //await servicio.ExecuteAsync(cartucho);
 
@@ -246,7 +247,7 @@ var sleeveSaleDtoValidator = new SleeveSaleDtoValidator();
 ////////////////////////////////// REVERT COMPRA CONSOLA //////////////////////////////////
 
 //var servicio = new RevertPurchaseConsoleService(unitOfWork, referenceSystem, statisticSystem, accountingSystem, logger, consoleValidator);
-//var consola = await unitOfWork.ConsoleRepository.GetByIdAsync(1);
+//var consola = await unitOfWork.ConsoleRepository.GetByIdAsync(8);
 
 //await servicio.ExecuteAsync(consola);
 
@@ -254,7 +255,7 @@ var sleeveSaleDtoValidator = new SleeveSaleDtoValidator();
 ////////////////////////////////// REVERT COMPRA SPARE PARTS //////////////////////////////////
 
 //var servicio = new RevertPurchaseSparePartsService(unitOfWork, accountingSystem, logger, sparePartsPurchaseValidator);
-//var sparePartsPurchase = await unitOfWork.SparePartsPurchaseRepository.GetByIdAsync(3);
+//var sparePartsPurchase = await unitOfWork.SparePartsPurchaseRepository.GetByIdAsync(5);
 
 //await servicio.ExecuteAsync(sparePartsPurchase);
 
@@ -262,7 +263,7 @@ var sleeveSaleDtoValidator = new SleeveSaleDtoValidator();
 ////////////////////////////////// REVERT SPOT CARTUCHO //////////////////////////////////
 
 //var servicio = new RevertSpotCartdrigePurchaseService(unitOfWork, statisticSystem, logger);
-//var cartdrige = await unitOfWork.SpotRepository.GetByIdAsync(3);
+//var cartdrige = await unitOfWork.SpotRepository.GetByIdAsync(6);
 
 //await servicio.ExecuteAsync(cartdrige);
 
@@ -270,7 +271,7 @@ var sleeveSaleDtoValidator = new SleeveSaleDtoValidator();
 ////////////////////////////////// REVERT VENTA CARTUCHO //////////////////////////////////
 
 //var servicio = new RevertSellGameBoyCartdrigeService(unitOfWork, mapper, referenceSystem, statisticSystem, accountingSystem, logger, cartdrigeValidator);
-//var soldCartdrige = await unitOfWork.SoldCartdrigeRepository.GetByIdAsync(3);
+//var soldCartdrige = await unitOfWork.SoldCartdrigeRepository.GetByIdAsync(5);
 
 //await servicio.ExecuteAsync(soldCartdrige);
 
@@ -278,7 +279,7 @@ var sleeveSaleDtoValidator = new SleeveSaleDtoValidator();
 ////////////////////////////////// REVERT VENTA CONSOLA //////////////////////////////////
 
 //var servicio = new RevertSellConsoleService(unitOfWork, mapper, referenceSystem, statisticSystem, accountingSystem, logger, consoleValidator);
-//var soldConsole = await unitOfWork.SoldConsoleRepository.GetByIdAsync(3);
+//var soldConsole = await unitOfWork.SoldConsoleRepository.GetByIdAsync(8);
 
 //await servicio.ExecuteAsync(soldConsole);
 
@@ -286,6 +287,7 @@ var sleeveSaleDtoValidator = new SleeveSaleDtoValidator();
 ////////////////////////////////// REVERT SOLD SLEEVE //////////////////////////////////
 
 //var servicio = new RevertSellSleeveService(unitOfWork, mapper, statisticSystem, accountingSystem, logger, soldSleeveValidator);
-//var soldSleeve = await unitOfWork.SoldSleeveRepository.GetByIdAsync(1);
+//var soldSleeve = await unitOfWork.SoldSleeveRepository.GetByIdAsync(4);
 
 //await servicio.ExecuteAsync(soldSleeve);
+
