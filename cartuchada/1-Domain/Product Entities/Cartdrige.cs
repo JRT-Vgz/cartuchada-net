@@ -20,6 +20,21 @@ namespace _1_Domain.Product_Entities
             PurchaseDate = DateTime.Now.Date;
         }
 
+        public Cartdrige(int id, int idReference, int idProductType, int idGame, int idRegion, int idCondition, 
+            DateTime purchaseDate, decimal purchasePrice, string name, string reference)
+        {
+            Id = id;
+            IdReference = idReference;
+            IdProductType = idProductType;
+            IdGame = idGame;
+            IdRegion = idRegion;
+            IdCondition = idCondition;
+            PurchaseDate = purchaseDate;
+            PurchasePrice = purchasePrice;
+            Name = name;
+            Reference = reference;
+        }
+
         public void AssignReference(int idReference, string reference)
         {
             if (IdReference != 0) { return; }
