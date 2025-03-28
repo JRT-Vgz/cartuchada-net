@@ -6,7 +6,7 @@ using Moq;
 
 namespace _2_Services.Tests.Services.Cartdrige_Services
 {
-    public class GetAllCartdrigeServiceTests
+    public class GetAllCartdrigeServiceTest
     {
         [Fact]
         public async Task When_ExistingCartdriges_Expect_ReturnsFullList()

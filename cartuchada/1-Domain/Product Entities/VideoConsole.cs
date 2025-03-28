@@ -20,6 +20,20 @@ namespace _1_Domain.Product_Entities
             PurchaseDate = DateTime.Now.Date;
         }
 
+        public VideoConsole(int id, int idReference, int idProductType, DateTime purchaseDate, decimal purchasePrice, 
+            decimal sparePartsPrice, decimal totalPrice, string name, string reference)
+        {
+            Id = id;
+            IdReference = idReference;
+            IdProductType = idProductType;
+            PurchaseDate = purchaseDate;
+            PurchasePrice = purchasePrice;
+            SparePartsPrice = sparePartsPrice;
+            TotalPrice = totalPrice;
+            Name = name;
+            Reference = reference;
+        }
+
         public void CalculateTotalPrice()
         {
             TotalPrice = PurchasePrice + SparePartsPrice;

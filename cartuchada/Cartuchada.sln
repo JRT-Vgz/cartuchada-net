@@ -29,9 +29,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "1-Domain", "1-Domain\1-Doma
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UnitTests", "UnitTests", "{B1953024-A53F-4F72-B79D-51D5AF31B33E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "2-Services.Tests", "2-Services.Tests\2-Services.Tests.csproj", "{B807FF48-C446-41CA-94D6-9BCF0EF7C47A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "2-Services.Tests", "2-Services.Tests\2-Services.Tests.csproj", "{B807FF48-C446-41CA-94D6-9BCF0EF7C47A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "3-Validators.Tests", "3-Validators.Tests\3-Validators.Tests.csproj", "{F2803034-64FE-4147-ADB7-D4C184705A6F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "3-Validators.Tests", "3-Validators.Tests\3-Validators.Tests.csproj", "{F2803034-64FE-4147-ADB7-D4C184705A6F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "3-AccountingSystemTests", "3-AccountingSystemTests\3-AccountingSystemTests.csproj", "{2A615D70-74B9-4F5E-A645-6309EFA322B4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -95,6 +97,10 @@ Global
 		{F2803034-64FE-4147-ADB7-D4C184705A6F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F2803034-64FE-4147-ADB7-D4C184705A6F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F2803034-64FE-4147-ADB7-D4C184705A6F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2A615D70-74B9-4F5E-A645-6309EFA322B4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2A615D70-74B9-4F5E-A645-6309EFA322B4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2A615D70-74B9-4F5E-A645-6309EFA322B4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2A615D70-74B9-4F5E-A645-6309EFA322B4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -102,6 +108,7 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{B807FF48-C446-41CA-94D6-9BCF0EF7C47A} = {B1953024-A53F-4F72-B79D-51D5AF31B33E}
 		{F2803034-64FE-4147-ADB7-D4C184705A6F} = {B1953024-A53F-4F72-B79D-51D5AF31B33E}
+		{2A615D70-74B9-4F5E-A645-6309EFA322B4} = {B1953024-A53F-4F72-B79D-51D5AF31B33E}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {C19F2C96-E8D6-4D3B-8F28-72D22D062898}

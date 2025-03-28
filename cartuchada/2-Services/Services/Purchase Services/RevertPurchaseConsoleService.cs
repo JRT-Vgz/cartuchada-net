@@ -2,7 +2,6 @@
 using _1_Domain.Product_Entities;
 using _2_Services.Exceptions;
 using _2_Services.Interfaces;
-using FluentValidation;
 
 namespace _2_Services.Services.Purchase_Services
 {

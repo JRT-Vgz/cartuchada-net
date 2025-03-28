@@ -8,6 +8,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="9.0.3" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\2-Services\2-Services.csproj" />
     <ProjectReference Include="..\3-Data\3-Data.csproj" />
   </ItemGroup>
