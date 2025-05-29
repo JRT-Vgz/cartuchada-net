@@ -2,18 +2,14 @@
 
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
-    <RootNamespace>_3_AccountingSystem</RootNamespace>
+    <RootNamespace>_3_Presenters</RootNamespace>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="8.0.14" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\2-Services\2-Services.csproj" />
-    <ProjectReference Include="..\3-Data\3-Data.csproj" />
+    <ProjectReference Include="..\3-Mappers\3-Mappers.csproj" />
   </ItemGroup>
 
 </Project>

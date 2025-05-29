@@ -36,14 +36,16 @@ namespace _3_Validators.Data_Validators.Purchase_Dto_Validators
                 .NotEmpty()
                     .WithMessage("El campo 'PurchasePrice' es obligatorio.")
                 .GreaterThan(0)
-                    .WithMessage("El valor del campo 'PurchasePrice' debe ser mayor a 0.");
+                    .WithMessage("El valor del campo 'PurchasePrice' debe ser mayor a 0.")
+                .Must(value => decimal.Round(value, 2) == value)
+                    .WithMessage("El campo 'PurchasePrice' no puede tener más de dos decimales.");
 
             RuleFor(dto => dto.Name)
                 .NotEmpty()
                     .WithMessage("El campo 'Name' es obligatorio.")
                 .MaximumLength(100)
                     .WithMessage("El campo 'Name' no puede superar los 100 caracteres.")
-                .Matches("^[a-zA-Z0-9áéíóúÁÉÍÓÚàèìòùÀÈÌÒÙäëïöüÄËÏÖÜÑñçÇ ]*$")
+                .Matches("^[a-zA-Z0-9áéíóúÁÉÍÓÚàèìòùÀÈÌÒÙäëïöüÄËÏÖÜÑñçÇ& ]*$")
                     .WithMessage("El campo 'Name' solo puede contener caracteres alfanuméricos y espacios.");
         }
     }
