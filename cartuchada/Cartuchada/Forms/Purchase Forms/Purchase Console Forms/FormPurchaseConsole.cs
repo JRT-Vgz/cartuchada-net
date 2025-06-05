@@ -5,84 +5,40 @@ using _3_Mappers.DTOs.Purchase_Dtos;
 using _3_Presenters.View_Models;
 using _3_Repository.Query_Objects;
 
-
-namespace Cartuchada.Forms.Purchase_Forms.Purchase_Cartdrige_Forms
+namespace Cartuchada.Forms.Purchase_Forms.Purchase_Console_Forms
 {
-    public partial class FormPurchaseCartdrige : Form
+    public partial class FormPurchaseConsole : Form
     {
-        private readonly PurchaseGameBoyCartdrigeService<CartdrigePurchaseDto, CartdrigePurchaseViewModel> _purchaseGameBoyCartdrigeService;
-        private readonly GetAllRegionsQuery _getAllRegionsQuery;
-        private readonly GetAllConditionsQuery _getAllConditionsQuery;
+        private readonly GetAllConsoleProductTypesQuery _getAllConsoleProductTypesQuery;
+        private readonly PurchaseConsoleService<ConsolePurchaseDto, ConsolePurchaseViewModel> _purchaseConsoleService;
 
-        private CartdrigePurchaseDto _cartdrigePurchaseDto;
         private const int MAX_LENGTH_PRICE = 6;
 
-        public FormPurchaseCartdrige(
-            PurchaseGameBoyCartdrigeService<CartdrigePurchaseDto, CartdrigePurchaseViewModel> purchaseGameBoyCartdrigeService,
-            GetAllRegionsQuery getAllRegionsQuery,
-            GetAllConditionsQuery getAllConditionsQuery)
+        public FormPurchaseConsole(GetAllConsoleProductTypesQuery getAllConsoleProductTypesQuery,
+            PurchaseConsoleService<ConsolePurchaseDto, ConsolePurchaseViewModel> purchaseConsoleService)
         {
             InitializeComponent();
-            _purchaseGameBoyCartdrigeService = purchaseGameBoyCartdrigeService;
-            _getAllRegionsQuery = getAllRegionsQuery;
-            _getAllConditionsQuery = getAllConditionsQuery;
+            _getAllConsoleProductTypesQuery = getAllConsoleProductTypesQuery;
+            _purchaseConsoleService = purchaseConsoleService;
         }
 
         // -------------------------------------------------------------------------------------------------------
         // ---------------------------------------------- LOAD ---------------------------------------------------
         // -------------------------------------------------------------------------------------------------------
-        public void SetInfo(CartdrigePurchaseDto cartdrigePurchaseDto)
+        private async void FormPurchaseConsole_Load(object sender, EventArgs e)
         {
-            _cartdrigePurchaseDto = cartdrigePurchaseDto;
-
-            lbl_showTitle.Text = _cartdrigePurchaseDto.Name;
+            await LoadConsoleProducts();
         }
 
-        private async void FormPurchaseCartdrige_Load(object sender, EventArgs e)
+        private async Task LoadConsoleProducts()
         {
-            CenterNameLabel(lbl_showTitle);
-            await LoadRegions();
-            await LoadConditions();
+            var consoles = await _getAllConsoleProductTypesQuery.ExecuteQueryAsync();
+
+            cbo_console.DataSource = consoles;
+            cbo_console.DisplayMember = "Name";
+            cbo_console.SelectedIndex = 0;
         }
 
-        private void CenterNameLabel(Label label)
-        {
-            label.TextAlign = ContentAlignment.MiddleCenter;
-            label.AutoSize = false;
-
-            if (label.Parent != null)
-            {
-                label.Left = 0;
-                label.Width = label.Parent.ClientSize.Width;
-            }
-        }
-
-        private async Task LoadRegions()
-        {
-            var regions = (await _getAllRegionsQuery.ExecuteQueryAsync()).ToList();
-
-            RemoveCartdrigeUnreleasedRegions(regions);
-
-            cbo_region.DataSource = regions;
-            cbo_region.DisplayMember = "Name";
-            cbo_region.SelectedIndex = 0;
-        }
-
-        private void RemoveCartdrigeUnreleasedRegions(List<RegionModel> regions)
-        {
-            if (!_cartdrigePurchaseDto.JAP) { regions.Remove(regions.FirstOrDefault(r => r.Name.Contains("JAP"))); }
-            if (!_cartdrigePurchaseDto.NA) { regions.Remove(regions.FirstOrDefault(r => r.Name.Contains("NA"))); }
-            if (!_cartdrigePurchaseDto.PAL) { regions.RemoveAll(r => r.Name.Contains("PAL")); }
-        }
-
-        private async Task LoadConditions()
-        {
-            var conditions = await _getAllConditionsQuery.ExecuteQueryAsync();
-
-            cbo_condition.DataSource = conditions;
-            cbo_condition.DisplayMember = "Name";
-            cbo_condition.SelectedIndex = 4;
-        }
 
 
 
@@ -115,17 +71,17 @@ namespace Cartuchada.Forms.Purchase_Forms.Purchase_Cartdrige_Forms
                 e.Handled = true;
             }
         }
-
-
         // -------------------------------------------------------------------------------------------------------
         // ---------------------------------------- PURCHASE BUTTON ----------------------------------------------
         // -------------------------------------------------------------------------------------------------------
         private async void btn_purchase_Click(object sender, EventArgs e)
         {
+            var consolePurchaseDto = new ConsolePurchaseDto();
+
             try
             {
                 decimal purchasePrice = Decimal.Parse(txt_purchasePrice.Text);
-                _cartdrigePurchaseDto.PurchasePrice = purchasePrice;
+                consolePurchaseDto.PurchasePrice = purchasePrice;
             }
             catch (Exception)
             {
@@ -133,22 +89,16 @@ namespace Cartuchada.Forms.Purchase_Forms.Purchase_Cartdrige_Forms
                 return;
             }
 
-            RegionModel region = (RegionModel)cbo_region.SelectedItem;
-            ConditionModel condition = (ConditionModel)cbo_condition.SelectedItem;
-            _cartdrigePurchaseDto.IdRegion = region.Id;
-            _cartdrigePurchaseDto.IdCondition = condition.Id;
-            _cartdrigePurchaseDto.Region = region.Name;
-            _cartdrigePurchaseDto.Condition = condition.Name;
+            ProductTypeModel productType = (ProductTypeModel)cbo_console.SelectedItem;
+            consolePurchaseDto.IdProductType = productType.Id;
+            consolePurchaseDto.Name = productType.Name;
 
             try
             {
-                var viewModel = await _purchaseGameBoyCartdrigeService.ExecuteAsync(_cartdrigePurchaseDto);
+                var viewModel = await _purchaseConsoleService.ExecuteAsync(consolePurchaseDto);
                 MessageBox.Show(
                     $"{viewModel.Reference}\n\n" +
                     $"{viewModel.Name}\n" +
-                    $"{viewModel.ProductType}\n" +
-                    $"{viewModel.Region}\n" +
-                    $"{viewModel.Condition}\n" +
                     $"{viewModel.PurchasePrice}",
                     "Compra realizada");
 
@@ -171,9 +121,6 @@ namespace Cartuchada.Forms.Purchase_Forms.Purchase_Cartdrige_Forms
                 MessageBox.Show(ex.Message);
             }
         }
-
-
-
 
         // -------------------------------------------------------------------------------------------------------
         // ---------------------------------------------- CLOSE --------------------------------------------------

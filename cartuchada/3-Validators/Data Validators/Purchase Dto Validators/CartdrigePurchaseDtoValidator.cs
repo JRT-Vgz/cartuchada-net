@@ -1,5 +1,5 @@
 
-using _3_Mappers.DTOs;
+using _3_Mappers.DTOs.Purchase_Dtos;
 using FluentValidation;
 
 namespace _3_Validators.Data_Validators.Purchase_Dto_Validators

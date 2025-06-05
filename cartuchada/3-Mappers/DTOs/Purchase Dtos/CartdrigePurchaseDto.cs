@@ -1,4 +1,4 @@
-namespace _3_Mappers.DTOs
+namespace _3_Mappers.DTOs.Purchase_Dtos
 {
     public class CartdrigePurchaseDto
     {

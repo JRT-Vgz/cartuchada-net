@@ -13,5 +13,11 @@
     <Compile Update="Forms\Purchase Forms\Purchase Cartdrige Forms\FormPurchaseCartdrige.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="Forms\Purchase Forms\Purchase Console Forms\FormPurchaseConsole.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\Purchase Forms\Purchase Spare Parts Forms\FormPurchaseSpareParts.cs">
+      <SubType>Form</SubType>
+    </Compile>
   </ItemGroup>
 </Project>

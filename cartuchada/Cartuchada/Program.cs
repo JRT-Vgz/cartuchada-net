@@ -1,11 +1,12 @@
 using _1_Domain.Product_Entities;
+using _1_Domain.Purchase_Entities;
 using _2_Services.Interfaces;
 using _2_Services.Services.Purchase_Services;
 using _3_AccountingSystem;
 using _3_Data;
 using _3_Loggers;
 using _3_Mappers.Automapper;
-using _3_Mappers.DTOs;
+using _3_Mappers.DTOs.Purchase_Dtos;
 using _3_Presenters.Presenters.Purchase_Presenters;
 using _3_Presenters.View_Models;
 using _3_ReferenceSystem;
@@ -17,6 +18,8 @@ using _3_Validators.Entity_Validators;
 using Cartuchada.Forms;
 using Cartuchada.Forms.Purchase_Forms;
 using Cartuchada.Forms.Purchase_Forms.Purchase_Cartdrige_Forms;
+using Cartuchada.Forms.Purchase_Forms.Purchase_Console_Forms;
+using Cartuchada.Forms.Purchase_Forms.Purchase_Spare_Parts_Forms;
 using FluentValidation;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -65,9 +68,13 @@ namespace Cartuchada
             services.AddTransient<FilterGameCatalogueQuery>();
             services.AddTransient<GetAllRegionsQuery>();
             services.AddTransient<GetAllConditionsQuery>();
+            services.AddTransient<GetAllConsoleProductTypesQuery>();
+            services.AddTransient<GetAllSparePartTypesQuery>();
 
             // PRESENTERS
-            services.AddTransient<IPresenterWithReference<CartdrigePurchaseDto, PurchaseGameBoyCartdrigeViewModel>, PurchaseGameBoyCartdrigePresenter>();
+            services.AddTransient<IPresenterWithReference<CartdrigePurchaseDto, CartdrigePurchaseViewModel>, PurchaseGameBoyCartdrigePresenter>();
+            services.AddTransient<IPresenterWithReference<ConsolePurchaseDto, ConsolePurchaseViewModel>, PurchaseConsolePresenter>();
+            services.AddTransient<IPresenter<SparePartsPurchaseDto, SparePartsPurchaseViewModel>, PurchaseSparePartsPresenter>();
 
             // MANUAL MAPPERS
 
@@ -83,6 +90,10 @@ namespace Cartuchada
             // VALIDATORS:
             services.AddTransient<IValidator<CartdrigePurchaseDto>, CartdrigePurchaseDtoValidator>();
             services.AddTransient<IProductValidator<Cartdrige>, PurchasedCartdrigeValidator>();
+            services.AddTransient<IValidator<ConsolePurchaseDto>, ConsolePurchaseDtoValidator>();
+            services.AddTransient<IProductValidator<VideoConsole>, PurchasedConsoleValidator>();
+            services.AddTransient<IValidator<SparePartsPurchaseDto>, SparePartsPurchaseDtoValidator>();
+            services.AddTransient<IProductValidator<SparePartsPurchase>, SparePartsPurchaseValidator>();
 
             // INYECCION DE ARCHIVO DE CONSTANTES
             //services.AddSingleton<ConstantsConfigurationService>();
@@ -94,7 +105,9 @@ namespace Cartuchada
 
 
             // INYECCIÓN DE SERVICIOS
-            services.AddTransient<PurchaseGameBoyCartdrigeService<CartdrigePurchaseDto, PurchaseGameBoyCartdrigeViewModel>>();
+            services.AddTransient<PurchaseGameBoyCartdrigeService<CartdrigePurchaseDto, CartdrigePurchaseViewModel>>();
+            services.AddTransient<PurchaseConsoleService<ConsolePurchaseDto, ConsolePurchaseViewModel>>();
+            services.AddTransient<PurchaseSparePartsService<SparePartsPurchaseDto, SparePartsPurchaseViewModel>>();
 
 
             // INYECCIÓN DE FORMULARIOS
@@ -103,6 +116,8 @@ namespace Cartuchada
             services.AddTransient<FormPurchaseMain>();
             services.AddTransient<FormGameCatalogue>();
             services.AddTransient<FormPurchaseCartdrige>();
+            services.AddTransient<FormPurchaseConsole>();
+            services.AddTransient<FormPurchaseSpareParts>();
         }
 
         private static IConfiguration BuildConfiguration()

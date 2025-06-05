@@ -1,5 +1,5 @@
 ﻿using _3_Data.Models;
-using _3_Mappers.DTOs;
+using _3_Mappers.DTOs.Purchase_Dtos;
 using _3_Repository.Query_Objects;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -86,7 +86,7 @@ namespace Cartuchada.Forms.Purchase_Forms.Purchase_Cartdrige_Forms
 
 
         // -------------------------------------------------------------------------------------------------------
-        // ---------------------------------------------- SEARCH TEXTBOX ---------------------------------------------------
+        // ---------------------------------------------- SEARCH TEXTBOX -----------------------------------------
         // -------------------------------------------------------------------------------------------------------
         private async void txt_search_KeyPress(object sender, KeyPressEventArgs e)
         {

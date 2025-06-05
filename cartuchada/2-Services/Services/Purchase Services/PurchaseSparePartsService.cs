@@ -6,7 +6,7 @@ using FluentValidation;
 
 namespace _2_Services.Services.Purchase_Services
 {
-    public class PurchaseSparePartsService<TDto>
+    public class PurchaseSparePartsService<TDto, TViewModel>
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
@@ -14,13 +14,15 @@ namespace _2_Services.Services.Purchase_Services
         private readonly IAccountingSystem _accountingSystem;
         private readonly ILogger _logger;
         private readonly IValidator<TDto> _sparePartsPurchaseDtoValidator;
+        private readonly IPresenter<TDto, TViewModel> _presenter;
 
         public PurchaseSparePartsService(IUnitOfWork unitOfWork,
             IMapper mapper,
             IProductValidator<SparePartsPurchase> sparePartsPurchaseValidator,
             IAccountingSystem accountingSystem,
             ILogger logger,
-            IValidator<TDto> sparePartsPurchaseDtoValidator)
+            IValidator<TDto> sparePartsPurchaseDtoValidator,
+            IPresenter<TDto, TViewModel> presenter)
         {
             _unitOfWork = unitOfWork;
             _mapper = mapper;
@@ -28,51 +30,37 @@ namespace _2_Services.Services.Purchase_Services
             _accountingSystem = accountingSystem;
             _logger = logger;
             _sparePartsPurchaseDtoValidator = sparePartsPurchaseDtoValidator;
+            _presenter = presenter;
         }
 
-        public async Task ExecuteAsync(TDto sparePartsPurchaseDto)
+        public async Task<TViewModel> ExecuteAsync(TDto sparePartsPurchaseDto)
         {
-            try
+            var dataValidationResult = _sparePartsPurchaseDtoValidator.Validate(sparePartsPurchaseDto);
+            if (!dataValidationResult.IsValid)
             {
-                var dataValidationResult = _sparePartsPurchaseDtoValidator.Validate(sparePartsPurchaseDto);
-                if (!dataValidationResult.IsValid)
-                {
-                    var errors = dataValidationResult.Errors
-                    .Select(e => e.ErrorMessage)
-                    .ToList();
+                var errors = dataValidationResult.Errors
+                .Select(e => e.ErrorMessage)
+                .ToList();
 
-                    throw new DataValidationException(errors);
-                }
-
-                var sparePartsPurchase = _mapper.Map<SparePartsPurchase>(sparePartsPurchaseDto);
-
-                bool productIsValid = await _sparePartsPurchaseValidator.ValidateProductAsync(sparePartsPurchase);
-                if (!productIsValid) { throw new ProductValidationException(_sparePartsPurchaseValidator.Errors); }
-
-                await _unitOfWork.SparePartsPurchaseRepository.AddAsync(sparePartsPurchase);
-
-                await _accountingSystem.SumPurchasePriceToExpensesAsync(sparePartsPurchase.PurchaseDate, sparePartsPurchase.PurchasePrice);
-
-                string logEntry = $"COMPRA: Recambios. Tipo: {sparePartsPurchase.Name}, Concepto: {sparePartsPurchase.Concept}, " +
-                    $"Precio de compra: {sparePartsPurchase.PurchasePrice}€";
-                await _logger.WriteLogEntryAsync(logEntry);
-
-                await _unitOfWork.SaveChangesAsync();
+                throw new DataValidationException(errors);
             }
-            catch (DataValidationException ex)
-            {
-                Console.WriteLine(ex.Message);
-                foreach (var error in ex.Errors) { Console.WriteLine(error); }
-            }
-            catch (ProductValidationException ex)
-            {
-                Console.WriteLine(ex.Message);
-                foreach (var error in ex.Errors) { Console.WriteLine(error); }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
+
+            var sparePartsPurchase = _mapper.Map<SparePartsPurchase>(sparePartsPurchaseDto);
+
+            bool productIsValid = await _sparePartsPurchaseValidator.ValidateProductAsync(sparePartsPurchase);
+            if (!productIsValid) { throw new ProductValidationException(_sparePartsPurchaseValidator.Errors); }
+
+            await _unitOfWork.SparePartsPurchaseRepository.AddAsync(sparePartsPurchase);
+
+            await _accountingSystem.SumPurchasePriceToExpensesAsync(sparePartsPurchase.PurchaseDate, sparePartsPurchase.PurchasePrice);
+
+            string logEntry = $"COMPRA: Recambios. Tipo: {sparePartsPurchase.Name}, Concepto: {sparePartsPurchase.Concept}, " +
+                $"Precio de compra: {sparePartsPurchase.PurchasePrice}€";
+            await _logger.WriteLogEntryAsync(logEntry);
+
+            await _unitOfWork.SaveChangesAsync();
+
+            return _presenter.Present(sparePartsPurchaseDto);
         }
     }
 }

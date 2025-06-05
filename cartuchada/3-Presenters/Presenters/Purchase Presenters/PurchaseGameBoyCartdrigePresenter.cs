@@ -1,15 +1,15 @@
 
 using _2_Services.Interfaces;
-using _3_Mappers.DTOs;
+using _3_Mappers.DTOs.Purchase_Dtos;
 using _3_Presenters.View_Models;
 
 namespace _3_Presenters.Presenters.Purchase_Presenters
 {
-    public class PurchaseGameBoyCartdrigePresenter : IPresenterWithReference<CartdrigePurchaseDto, PurchaseGameBoyCartdrigeViewModel>
+    public class PurchaseGameBoyCartdrigePresenter : IPresenterWithReference<CartdrigePurchaseDto, CartdrigePurchaseViewModel>
     {
-        public PurchaseGameBoyCartdrigeViewModel Present(CartdrigePurchaseDto cartdrigePurchaseDto, string reference)
+        public CartdrigePurchaseViewModel Present(CartdrigePurchaseDto cartdrigePurchaseDto, string reference)
         {
-            var viewModel = new PurchaseGameBoyCartdrigeViewModel
+            var viewModel = new CartdrigePurchaseViewModel
             {
                 Reference = $"*** REFERENCIA ASIGNADA: {reference} ***",
                 Name = cartdrigePurchaseDto.Name,

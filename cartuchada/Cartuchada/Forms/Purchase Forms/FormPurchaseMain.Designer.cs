@@ -62,6 +62,7 @@
             btn_purchaseVideoconsole.TabIndex = 2;
             btn_purchaseVideoconsole.Text = "COMPAR VIDEOCONSOLA";
             btn_purchaseVideoconsole.UseVisualStyleBackColor = true;
+            btn_purchaseVideoconsole.Click += btn_purchaseVideoconsole_Click;
             // 
             // btn_purchaseSpareParts
             // 
@@ -71,6 +72,7 @@
             btn_purchaseSpareParts.TabIndex = 3;
             btn_purchaseSpareParts.Text = "COMPRAR RECAMBIOS";
             btn_purchaseSpareParts.UseVisualStyleBackColor = true;
+            btn_purchaseSpareParts.Click += btn_purchaseSpareParts_Click;
             // 
             // FormPurchaseMain
             // 

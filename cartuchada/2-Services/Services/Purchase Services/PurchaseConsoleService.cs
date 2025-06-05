@@ -6,7 +6,7 @@ using FluentValidation;
 
 namespace _2_Services.Services.Purchase_Services
 {
-    public class PurchaseConsoleService<TDto>
+    public class PurchaseConsoleService<TDto, TViewModel>
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
@@ -16,6 +16,7 @@ namespace _2_Services.Services.Purchase_Services
         private readonly ILogger _logger;
         private readonly IProductValidator<VideoConsole> _consoleValidator;
         private readonly IValidator<TDto> _consolePurchaseDtoValidator;
+        private readonly IPresenterWithReference<TDto, TViewModel> _presenter;
         public PurchaseConsoleService(IUnitOfWork unitOfWork,
             IMapper mapper,
             IReferenceSystem referenceSystem,
@@ -23,7 +24,8 @@ namespace _2_Services.Services.Purchase_Services
             IAccountingSystem accountingSystem,
             ILogger logger,
             IProductValidator<VideoConsole> consoleValidator,
-            IValidator<TDto> consolePurchaseDtoValidator)
+            IValidator<TDto> consolePurchaseDtoValidator,
+            IPresenterWithReference<TDto, TViewModel> presenter)
         {
             _unitOfWork = unitOfWork;
             _mapper = mapper;
@@ -33,55 +35,40 @@ namespace _2_Services.Services.Purchase_Services
             _logger = logger;
             _consoleValidator = consoleValidator;
             _consolePurchaseDtoValidator = consolePurchaseDtoValidator;
+            _presenter = presenter;
         }
 
-        public async Task ExecuteAsync(TDto consoleDto)
+        public async Task<TViewModel> ExecuteAsync(TDto consoleDto)
         {
-            try
+            var dataValidationResult = _consolePurchaseDtoValidator.Validate(consoleDto);
+            if (!dataValidationResult.IsValid)
             {
-                var dataValidationResult = _consolePurchaseDtoValidator.Validate(consoleDto);
-                if (!dataValidationResult.IsValid)
-                {
-                    var errors = dataValidationResult.Errors
-                    .Select(e => e.ErrorMessage)
-                    .ToList();
-
-                    throw new DataValidationException(errors);
-                }
-
-                var console = _mapper.Map<VideoConsole>(consoleDto);
-
-                await _referenceSystem.AssignReferenceToProductAsync(console);
-
-                bool productIsValid = await _consoleValidator.ValidateProductAsync(console);
-                if (!productIsValid) { throw new ProductValidationException(_consoleValidator.Errors); }
-
-                await _unitOfWork.ConsoleRepository.AddAsync(console);
-
-                await _statisticsSystem.SumOnePurchasedConsoleToStatisticsAsync(console.IdProductType);
-                await _accountingSystem.SumPurchasePriceToExpensesAsync(console.PurchaseDate, console.PurchasePrice);
-
-                string logEntry = $"COMPRA: Consola. Ref: {console.Reference}, Nombre: {console.Name}, " +
-                    $"Precio de compra: {console.PurchasePrice}€";
-                await _logger.WriteLogEntryAsync(logEntry);
-
-                await _unitOfWork.SaveChangesAsync();
-            }
-            catch (DataValidationException ex)
-            {
-                Console.WriteLine(ex.Message);
-                foreach (var error in ex.Errors) { Console.WriteLine(error); }
-            }
-            catch (ProductValidationException ex)
-            {
-                Console.WriteLine(ex.Message);
-                foreach (var error in ex.Errors) { Console.WriteLine(error); }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
+                var errors = dataValidationResult.Errors
+                .Select(e => e.ErrorMessage)
+                .ToList();
+                
+                throw new DataValidationException(errors);
             }
 
+            var console = _mapper.Map<VideoConsole>(consoleDto);
+
+            await _referenceSystem.AssignReferenceToProductAsync(console);
+
+            bool productIsValid = await _consoleValidator.ValidateProductAsync(console);
+            if (!productIsValid) { throw new ProductValidationException(_consoleValidator.Errors); }
+
+            await _unitOfWork.ConsoleRepository.AddAsync(console);
+
+            await _statisticsSystem.SumOnePurchasedConsoleToStatisticsAsync(console.IdProductType);
+            await _accountingSystem.SumPurchasePriceToExpensesAsync(console.PurchaseDate, console.PurchasePrice);
+
+            string logEntry = $"COMPRA: Consola. Ref: {console.Reference}, Nombre: {console.Name}, " +
+                $"Precio de compra: {console.PurchasePrice}€";
+            await _logger.WriteLogEntryAsync(logEntry);
+
+            await _unitOfWork.SaveChangesAsync();
+
+            return _presenter.Present(consoleDto, console.Reference);
         }
     }
 }

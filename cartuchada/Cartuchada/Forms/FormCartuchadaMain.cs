@@ -1,4 +1,6 @@
-﻿using Cartuchada.Forms.Purchase_Forms;
+﻿using _3_Data;
+using Cartuchada.Forms.Purchase_Forms;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
@@ -15,10 +17,25 @@ namespace Cartuchada.Forms
     public partial class FormCartuchadaMain : Form
     {
         private readonly IServiceProvider _serviceProvider;
-        public FormCartuchadaMain(IServiceProvider serviceProvider)
+        private readonly AppDbContext _context;
+        public FormCartuchadaMain(IServiceProvider serviceProvider,
+            AppDbContext context)
         {
             InitializeComponent();
             _serviceProvider = serviceProvider;
+            _context = context;
+        }
+
+        // -------------------------------------------------------------------------------------------------------
+        // ---------------------------------------------- LOAD ---------------------------------------------------
+        // -------------------------------------------------------------------------------------------------------
+        private void FormCartuchadaMain_Load(object sender, EventArgs e)
+        {
+            PrecargarDatos();
+        }
+        private void PrecargarDatos()
+        {
+            _context.ShopStats.Take(0).ToList();
         }
 
         // -------------------------------------------------------------------------------------------------------
@@ -37,6 +54,5 @@ namespace Cartuchada.Forms
             this.Location = new Point(frm.Location.X, frm.Location.Y);
             this.Show();
         }
-
     }
 }
