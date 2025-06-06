@@ -6,7 +6,7 @@ using FluentValidation;
 
 namespace _2_Services.Services.Purchase_Services
 {
-    public class PurchaseGameBoyCartdrigeService<TDto, TViewModel>
+    public class PurchaseCartdrigeService<TDto, TViewModel>
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
@@ -17,7 +17,7 @@ namespace _2_Services.Services.Purchase_Services
         private readonly IProductValidator<Cartdrige> _cartdrigeValidator;
         private readonly IValidator<TDto> _cartdrigePurchaseDtoValidator;
         private readonly IPresenterWithReference<TDto, TViewModel> _presenter;
-        public PurchaseGameBoyCartdrigeService(IUnitOfWork unitOfWork,
+        public PurchaseCartdrigeService(IUnitOfWork unitOfWork,
             IMapper mapper,
             IReferenceSystem referenceSystem,
             IStatisticsSystem statisticsSystem,

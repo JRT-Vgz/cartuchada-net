@@ -7,7 +7,7 @@ using FluentValidation;
 
 namespace _2_Services.Services.SaleServices
 {
-    public class SellSleeveService<TDto>
+    public class SellSleeveService<TDto, TViewModel>
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
@@ -16,6 +16,7 @@ namespace _2_Services.Services.SaleServices
         private readonly ILogger _logger;
         private readonly IProductValidator<SoldSleeve> _soldSleeveValidator;
         private readonly IValidator<TDto> _sleeveSaleDtoValidator;
+        private readonly IPresenter<TDto, TViewModel> _presenter;
 
         public SellSleeveService(IUnitOfWork unitOfWork,
             IMapper mapper,
@@ -23,7 +24,8 @@ namespace _2_Services.Services.SaleServices
             IAccountingSystem accountingSystem,
             ILogger logger,
             IProductValidator<SoldSleeve> soldSleeveValidator,
-            IValidator<TDto> sleeveSaleDtoValidator)
+            IValidator<TDto> sleeveSaleDtoValidator,
+            IPresenter<TDto, TViewModel> presenter)
         {
             _unitOfWork = unitOfWork;
             _mapper = mapper;
@@ -32,52 +34,38 @@ namespace _2_Services.Services.SaleServices
             _logger = logger;
             _soldSleeveValidator = soldSleeveValidator;
             _sleeveSaleDtoValidator = sleeveSaleDtoValidator;
+            _presenter = presenter;
         }
 
-        public async Task ExecuteAsync(TDto sleeveSaleDto)
+        public async Task<TViewModel> ExecuteAsync(TDto sleeveSaleDto)
         {
-            try
+            var dataValidationResult = _sleeveSaleDtoValidator.Validate(sleeveSaleDto);
+            if (!dataValidationResult.IsValid)
             {
-                var dataValidationResult = _sleeveSaleDtoValidator.Validate(sleeveSaleDto);
-                if (!dataValidationResult.IsValid)
-                {
-                    var errors = dataValidationResult.Errors
-                    .Select(e => e.ErrorMessage)
-                    .ToList();
+                var errors = dataValidationResult.Errors
+                .Select(e => e.ErrorMessage)
+                .ToList();
 
-                    throw new DataValidationException(errors);
-                }
-
-                var soldSleeve = _mapper.Map<SoldSleeve>(sleeveSaleDto);
-
-                bool productIsValid = await _soldSleeveValidator.ValidateProductAsync(soldSleeve);
-                if (!productIsValid) { throw new ProductValidationException(_soldSleeveValidator.Errors); }
-
-                await _unitOfWork.SoldSleeveRepository.AddAsync(soldSleeve);
-
-                await _statisticsSystem.SumSoldSleevesToStatisticsAsync(soldSleeve.IdSparePartType, soldSleeve.Quantity);
-                await _accountingSystem.SumSalePriceToIncomeAsync(soldSleeve.SaleDate, soldSleeve.SalePrice);
-
-                string logEntry = $"VENTA: Fundas. Nombre: {soldSleeve.Name}, Cantidad: {soldSleeve.Quantity}, " +
-                    $"Precio de venta: {soldSleeve.SalePrice}€";
-                await _logger.WriteLogEntryAsync(logEntry);
-
-                await _unitOfWork.SaveChangesAsync();
+                throw new DataValidationException(errors);
             }
-            catch (DataValidationException ex)
-            {
-                Console.WriteLine(ex.Message);
-                foreach (var error in ex.Errors) { Console.WriteLine(error); }
-            }
-            catch (ProductValidationException ex)
-            {
-                Console.WriteLine(ex.Message);
-                foreach (var error in ex.Errors) { Console.WriteLine(error); }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
+
+            var soldSleeve = _mapper.Map<SoldSleeve>(sleeveSaleDto);
+
+            bool productIsValid = await _soldSleeveValidator.ValidateProductAsync(soldSleeve);
+            if (!productIsValid) { throw new ProductValidationException(_soldSleeveValidator.Errors); }
+
+            await _unitOfWork.SoldSleeveRepository.AddAsync(soldSleeve);
+
+            await _statisticsSystem.SumSoldSleevesToStatisticsAsync(soldSleeve.IdSparePartType, soldSleeve.Quantity);
+            await _accountingSystem.SumSalePriceToIncomeAsync(soldSleeve.SaleDate, soldSleeve.SalePrice);
+
+            string logEntry = $"VENTA: Fundas. Nombre: {soldSleeve.Name}, Cantidad: {soldSleeve.Quantity}, " +
+                $"Precio de venta: {soldSleeve.SalePrice}€";
+            await _logger.WriteLogEntryAsync(logEntry);
+
+            await _unitOfWork.SaveChangesAsync();
+
+            return _presenter.Present(sleeveSaleDto);
         }
     }
 }

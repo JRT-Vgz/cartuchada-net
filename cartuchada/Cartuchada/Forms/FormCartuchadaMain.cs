@@ -1,5 +1,6 @@
 ﻿using _3_Data;
 using Cartuchada.Forms.Purchase_Forms;
+using Cartuchada.Forms.Sell_Forms;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using System;
@@ -46,6 +47,20 @@ namespace Cartuchada.Forms
             this.Hide();
 
             var frm = _serviceProvider.GetRequiredService<FormPurchaseMain>();
+            frm.Location = new Point(this.Location.X, this.Location.Y);
+            frm.ShowDialog();
+
+            if (frm.IsClosing) { return; }
+
+            this.Location = new Point(frm.Location.X, frm.Location.Y);
+            this.Show();
+        }
+
+        private void btn_sell_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+
+            var frm = _serviceProvider.GetRequiredService<FormSellMain>();
             frm.Location = new Point(this.Location.X, this.Location.Y);
             frm.ShowDialog();
 

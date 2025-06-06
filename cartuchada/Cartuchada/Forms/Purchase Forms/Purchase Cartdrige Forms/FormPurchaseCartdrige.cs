@@ -10,7 +10,7 @@ namespace Cartuchada.Forms.Purchase_Forms.Purchase_Cartdrige_Forms
 {
     public partial class FormPurchaseCartdrige : Form
     {
-        private readonly PurchaseGameBoyCartdrigeService<CartdrigePurchaseDto, CartdrigePurchaseViewModel> _purchaseGameBoyCartdrigeService;
+        private readonly PurchaseCartdrigeService<CartdrigePurchaseDto, CartdrigePurchaseViewModel> _purchaseCartdrigeService;
         private readonly GetAllRegionsQuery _getAllRegionsQuery;
         private readonly GetAllConditionsQuery _getAllConditionsQuery;
 
@@ -18,12 +18,12 @@ namespace Cartuchada.Forms.Purchase_Forms.Purchase_Cartdrige_Forms
         private const int MAX_LENGTH_PRICE = 6;
 
         public FormPurchaseCartdrige(
-            PurchaseGameBoyCartdrigeService<CartdrigePurchaseDto, CartdrigePurchaseViewModel> purchaseGameBoyCartdrigeService,
+            PurchaseCartdrigeService<CartdrigePurchaseDto, CartdrigePurchaseViewModel> purchaseCartdrigeService,
             GetAllRegionsQuery getAllRegionsQuery,
             GetAllConditionsQuery getAllConditionsQuery)
         {
             InitializeComponent();
-            _purchaseGameBoyCartdrigeService = purchaseGameBoyCartdrigeService;
+            _purchaseCartdrigeService = purchaseCartdrigeService;
             _getAllRegionsQuery = getAllRegionsQuery;
             _getAllConditionsQuery = getAllConditionsQuery;
         }
@@ -142,7 +142,7 @@ namespace Cartuchada.Forms.Purchase_Forms.Purchase_Cartdrige_Forms
 
             try
             {
-                var viewModel = await _purchaseGameBoyCartdrigeService.ExecuteAsync(_cartdrigePurchaseDto);
+                var viewModel = await _purchaseCartdrigeService.ExecuteAsync(_cartdrigePurchaseDto);
                 MessageBox.Show(
                     $"{viewModel.Reference}\n\n" +
                     $"{viewModel.Name}\n" +

@@ -22,7 +22,7 @@ namespace _2_Services.Services.Console_Services
             {
                 var console = await _unitOfWork.ConsoleRepository.GetByIdAsync(idConsole);
 
-                if (sparePartsPriceToWithdraw < 0) { throw new ProductValidationException("El precio a quitar de la consola por los recambios no puede ser negativo."); }
+                if (sparePartsPriceToWithdraw >= 0) { throw new ProductValidationException("El precio a quitar de la consola por los recambios debe ser negativo."); }
 
                 if (console == null) { throw new KeyNotFoundException($"No se ha encontrado ningún elemento con Id {idConsole} en la tabla 'Console'."); }
 

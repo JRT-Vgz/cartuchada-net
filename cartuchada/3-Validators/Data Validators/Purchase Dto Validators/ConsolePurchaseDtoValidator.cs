@@ -24,9 +24,9 @@ namespace _3_Validators.Data_Validators.Purchase_Dto_Validators
                 .NotEmpty()
                     .WithMessage("El campo 'Name' es obligatorio.")
                 .MaximumLength(50)
-                    .WithMessage("El campo 'Name' no puede superar los 50 caracteres.")
-                .Matches("^[a-zA-Z0-9áéíóúÁÉÍÓÚàèìòùÀÈÌÒÙäëïöüÄËÏÖÜÑñçÇ ]*$")
-                    .WithMessage("El campo 'Name' solo puede contener caracteres alfanuméricos y espacios.");
+                    .WithMessage("El campo 'Name' no puede superar los 50 caracteres.");
+                //.Matches("^[a-zA-Z0-9áéíóúÁÉÍÓÚàèìòùÀÈÌÒÙäëïöüÄËÏÖÜÑñçÇ ]*$")
+                //    .WithMessage("El campo 'Name' solo puede contener caracteres alfanuméricos y espacios.");
         }
     }
 }

@@ -31,7 +31,7 @@
             lbl_title = new Label();
             lbl_version = new Label();
             btn_purchase = new Button();
-            btn_catalogue = new Button();
+            btn_sell = new Button();
             SuspendLayout();
             // 
             // lbl_title
@@ -65,21 +65,22 @@
             btn_purchase.UseVisualStyleBackColor = true;
             btn_purchase.Click += btn_purchase_Click;
             // 
-            // btn_catalogue
+            // btn_sell
             // 
-            btn_catalogue.Location = new Point(282, 229);
-            btn_catalogue.Name = "btn_catalogue";
-            btn_catalogue.Size = new Size(238, 33);
-            btn_catalogue.TabIndex = 3;
-            btn_catalogue.Text = "CATÁLOGO";
-            btn_catalogue.UseVisualStyleBackColor = true;
+            btn_sell.Location = new Point(282, 229);
+            btn_sell.Name = "btn_sell";
+            btn_sell.Size = new Size(238, 33);
+            btn_sell.TabIndex = 3;
+            btn_sell.Text = "VENDER";
+            btn_sell.UseVisualStyleBackColor = true;
+            btn_sell.Click += btn_sell_Click;
             // 
             // FormCartuchadaMain
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
-            Controls.Add(btn_catalogue);
+            Controls.Add(btn_sell);
             Controls.Add(btn_purchase);
             Controls.Add(lbl_version);
             Controls.Add(lbl_title);
@@ -100,6 +101,6 @@
         private Label lbl_title;
         private Label lbl_version;
         private Button btn_purchase;
-        private Button btn_catalogue;
+        private Button btn_sell;
     }
 }

@@ -18,28 +18,21 @@ namespace _2_Services.Services.Console_Services
 
         public async Task ExecuteAsync(int idConsole, decimal sparePartsPrice) 
         {
-            try
-            {
-                var console = await _unitOfWork.ConsoleRepository.GetByIdAsync(idConsole);
+            var console = await _unitOfWork.ConsoleRepository.GetByIdAsync(idConsole);
 
-                if (sparePartsPrice < 0) { throw new ProductValidationException("El precio de los recambios no puede ser negativo."); }
+            if (sparePartsPrice < 0) { throw new ProductValidationException("El precio de los recambios no puede ser negativo."); }
 
-                if (console == null) { throw new KeyNotFoundException($"No se ha encontrado ningún elemento con Id {idConsole} en la tabla 'Console'."); }
+            if (console == null) { throw new KeyNotFoundException($"No se ha encontrado ningún elemento con Id {idConsole} en la tabla 'Console'."); }
 
-                console.SumToSparePartsPrice(sparePartsPrice);
+            console.SumToSparePartsPrice(sparePartsPrice);
 
-                _unitOfWork.ConsoleRepositoryUpdate.Update(console);
+            _unitOfWork.ConsoleRepositoryUpdate.Update(console);
 
-                string logEntry = $"SUMADO PRECIO DE RECAMBIOS. Id: {idConsole}, Ref: {console.Reference}, Nombre: {console.Name.ToUpper()}, " +
-                    $"Precio añadido: {sparePartsPrice}€";
-                await _logger.WriteLogEntryAsync(logEntry);
+            string logEntry = $"SUMADO PRECIO DE RECAMBIOS. Id: {idConsole}, Ref: {console.Reference}, Nombre: {console.Name.ToUpper()}, " +
+                $"Precio añadido: {sparePartsPrice}€";
+            await _logger.WriteLogEntryAsync(logEntry);
 
-                await _unitOfWork.SaveChangesAsync();
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
+            await _unitOfWork.SaveChangesAsync();
         }
     }
 }

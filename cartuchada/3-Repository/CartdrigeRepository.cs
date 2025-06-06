@@ -24,6 +24,8 @@ namespace _3_Repository
             var cartdrigeModels = await _context.Cartdriges
                 .Include("Game")
                 .Include("Reference")
+                .Include("Region")
+                .Include("Condition")
                 .ToListAsync();
 
             return cartdrigeModels.Select(c => _mapper.Map<Cartdrige>(c));
@@ -34,6 +36,8 @@ namespace _3_Repository
             var cartdrigeModel = await _context.Cartdriges
                 .Include("Game")
                 .Include("Reference")
+                .Include("Region")
+                .Include("Condition")
                 .FirstOrDefaultAsync(c => c.Id == id);
 
             return _mapper.Map<Cartdrige>(cartdrigeModel);

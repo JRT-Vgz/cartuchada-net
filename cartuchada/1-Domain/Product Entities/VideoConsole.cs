@@ -41,13 +41,17 @@ namespace _1_Domain.Product_Entities
 
         public void SumToSparePartsPrice(decimal sparePartsPrice)
         {
+            if (sparePartsPrice <= 0) { return; }
+
             SparePartsPrice += sparePartsPrice;
             CalculateTotalPrice();
         }
 
         public void WithdrawFromSparePartsPrice(decimal sparePartsPriceToWithdraw)
         {
-            SparePartsPrice -= sparePartsPriceToWithdraw;
+            if (sparePartsPriceToWithdraw >= 0) { return; }
+
+            SparePartsPrice += sparePartsPriceToWithdraw;
 
             if (SparePartsPrice < 0) { SparePartsPrice = 0; }
             CalculateTotalPrice();

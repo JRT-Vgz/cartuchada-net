@@ -7,7 +7,7 @@ using AutoMapper;
 
 namespace _2_Services.Services.SaleServices
 {
-    public class RevertSellGameBoyCartdrigeService
+    public class RevertSellCartdrigeService
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
@@ -16,7 +16,7 @@ namespace _2_Services.Services.SaleServices
         private readonly IAccountingSystem _accountingSystem;
         private readonly ILogger _logger;
         private readonly IProductValidator<Cartdrige> _cartdrigeValidator;
-        public RevertSellGameBoyCartdrigeService(IUnitOfWork unitOfWork,
+        public RevertSellCartdrigeService(IUnitOfWork unitOfWork,
             IMapper mapper,
             IReferenceSystem referenceSystem,
             IStatisticsSystem statisticsSystem,

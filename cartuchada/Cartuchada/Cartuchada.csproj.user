@@ -19,5 +19,26 @@
     <Compile Update="Forms\Purchase Forms\Purchase Spare Parts Forms\FormPurchaseSpareParts.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="Forms\Sell Forms\FormSalesHistory.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\Sell Forms\Sell Cartdrige Forms\FormManageSellCartdrige.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\Sell Forms\Sell Cartdrige Forms\FormSellCartdrige.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\Sell Forms\Sell Console Forms\FormManageSellConsole.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\Sell Forms\Sell Console Forms\FormSellConsole.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\Sell Forms\FormSellMain.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\Sell Forms\Sell Sleeves Forms\FormSellSleeves.cs">
+      <SubType>Form</SubType>
+    </Compile>
   </ItemGroup>
 </Project>
