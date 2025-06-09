@@ -16,7 +16,7 @@ namespace _2_Services.Services.Purchase_Services
         private readonly ILogger _logger;
         private readonly IProductValidator<Cartdrige> _cartdrigeValidator;
         private readonly IValidator<TDto> _cartdrigePurchaseDtoValidator;
-        private readonly IPresenterWithReference<TDto, TViewModel> _presenter;
+        private readonly IPresenter<Cartdrige, TViewModel> _presenter;
         public PurchaseCartdrigeService(IUnitOfWork unitOfWork,
             IMapper mapper,
             IReferenceSystem referenceSystem,
@@ -25,7 +25,7 @@ namespace _2_Services.Services.Purchase_Services
             ILogger logger,
             IProductValidator<Cartdrige> cartdrigeValidator,
             IValidator<TDto> cartdrigePurchaseDtoValidator,
-            IPresenterWithReference<TDto, TViewModel> presenter)
+            IPresenter<Cartdrige, TViewModel> presenter)
         {
             _unitOfWork = unitOfWork;
             _mapper = mapper;
@@ -67,7 +67,7 @@ namespace _2_Services.Services.Purchase_Services
 
             await _unitOfWork.SaveChangesAsync();
 
-            return _presenter.Present(cartdrigeDto, cartdrige.Reference);
+            return _presenter.Present(cartdrige);
         }
     }
 }

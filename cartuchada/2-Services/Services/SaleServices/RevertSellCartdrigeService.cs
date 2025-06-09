@@ -7,7 +7,7 @@ using AutoMapper;
 
 namespace _2_Services.Services.SaleServices
 {
-    public class RevertSellCartdrigeService
+    public class RevertSellCartdrigeService<TViewModel>
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
@@ -16,13 +16,15 @@ namespace _2_Services.Services.SaleServices
         private readonly IAccountingSystem _accountingSystem;
         private readonly ILogger _logger;
         private readonly IProductValidator<Cartdrige> _cartdrigeValidator;
+        private readonly IPresenter<Cartdrige, TViewModel> _presenter;
         public RevertSellCartdrigeService(IUnitOfWork unitOfWork,
             IMapper mapper,
             IReferenceSystem referenceSystem,
             IStatisticsSystem statisticsSystem,
             IAccountingSystem accountingSystem,
             ILogger logger,
-            IProductValidator<Cartdrige> cartdrigeValidator)
+            IProductValidator<Cartdrige> cartdrigeValidator,
+            IPresenter<Cartdrige, TViewModel> presenter)
         {
             _unitOfWork = unitOfWork;
             _mapper = mapper;
@@ -31,41 +33,32 @@ namespace _2_Services.Services.SaleServices
             _accountingSystem = accountingSystem;
             _logger = logger;
             _cartdrigeValidator = cartdrigeValidator;
+            _presenter = presenter;
         }
 
-        public async Task ExecuteAsync(SoldCartdrige soldCartdrige)
+        public async Task<TViewModel> ExecuteAsync(SoldCartdrige soldCartdrige)
         {
-            try
-            {
-                if (soldCartdrige == null) { throw new Exception("Error: La venta de cartucho que intenta revertirse tiene un valor nulo."); }
+            if (soldCartdrige == null) { throw new Exception("Error: La venta de cartucho que intenta revertirse tiene un valor nulo."); }
 
-                var cartdrige = _mapper.Map<Cartdrige>(soldCartdrige);
-                await _referenceSystem.AssignReferenceToProductAsync(cartdrige);
+            var cartdrige = _mapper.Map<Cartdrige>(soldCartdrige);
+            await _referenceSystem.AssignReferenceToProductAsync(cartdrige);
 
-                bool productIsValid = await _cartdrigeValidator.ValidateProductAsync(cartdrige);
-                if (!productIsValid) { throw new ProductValidationException(_cartdrigeValidator.Errors); }
+            bool productIsValid = await _cartdrigeValidator.ValidateProductAsync(cartdrige);
+            if (!productIsValid) { throw new ProductValidationException(_cartdrigeValidator.Errors); }
 
-                await _unitOfWork.SoldCartdrigeRepository.Delete(soldCartdrige);
-                await _unitOfWork.CartdrigeRepository.AddAsync(cartdrige);
+            await _unitOfWork.SoldCartdrigeRepository.Delete(soldCartdrige);
+            await _unitOfWork.CartdrigeRepository.AddAsync(cartdrige);
 
-                await _statisticsSystem.WithdrawOneSoldGameBoyCartdrigeFromStatisticsAsync();
-                await _accountingSystem.WithdrawSalePriceFromIncomeAsync(soldCartdrige.SaleDate, soldCartdrige.SalePrice);
+            await _statisticsSystem.WithdrawOneSoldGameBoyCartdrigeFromStatisticsAsync();
+            await _accountingSystem.WithdrawSalePriceFromIncomeAsync(soldCartdrige.SaleDate, soldCartdrige.SalePrice);
 
-                string logEntry = $"REVERTIR VENTA: Cartucho Game Boy. Nueva ref: {cartdrige.Reference}, Nombre: {cartdrige.Name}, " +
-                    $"Fecha de venta: {soldCartdrige.SaleDate.ToString("yyyy-MM-dd")}, Precio de venta: {soldCartdrige.SalePrice}€";
-                await _logger.WriteLogEntryAsync(logEntry);
+            string logEntry = $"REVERTIR VENTA: Cartucho Game Boy. Nueva ref: {cartdrige.Reference}, Nombre: {cartdrige.Name}, " +
+                $"Fecha de venta: {soldCartdrige.SaleDate.ToString("yyyy-MM-dd")}, Precio de venta: {soldCartdrige.SalePrice}€";
+            await _logger.WriteLogEntryAsync(logEntry);
 
-                await _unitOfWork.SaveChangesAsync();
-            }
-            catch (ProductValidationException ex)
-            {
-                Console.WriteLine(ex.Message);
-                foreach (var error in ex.Errors) { Console.WriteLine(error); }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
+            await _unitOfWork.SaveChangesAsync();
+
+            return _presenter.Present(cartdrige);
         }
     }
 }

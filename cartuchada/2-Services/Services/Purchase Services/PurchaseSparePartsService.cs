@@ -14,7 +14,7 @@ namespace _2_Services.Services.Purchase_Services
         private readonly IAccountingSystem _accountingSystem;
         private readonly ILogger _logger;
         private readonly IValidator<TDto> _sparePartsPurchaseDtoValidator;
-        private readonly IPresenter<TDto, TViewModel> _presenter;
+        private readonly IPresenter<SparePartsPurchase, TViewModel> _presenter;
 
         public PurchaseSparePartsService(IUnitOfWork unitOfWork,
             IMapper mapper,
@@ -22,7 +22,7 @@ namespace _2_Services.Services.Purchase_Services
             IAccountingSystem accountingSystem,
             ILogger logger,
             IValidator<TDto> sparePartsPurchaseDtoValidator,
-            IPresenter<TDto, TViewModel> presenter)
+            IPresenter<SparePartsPurchase, TViewModel> presenter)
         {
             _unitOfWork = unitOfWork;
             _mapper = mapper;
@@ -60,7 +60,7 @@ namespace _2_Services.Services.Purchase_Services
 
             await _unitOfWork.SaveChangesAsync();
 
-            return _presenter.Present(sparePartsPurchaseDto);
+            return _presenter.Present(sparePartsPurchase);
         }
     }
 }

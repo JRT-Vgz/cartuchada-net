@@ -29,20 +29,62 @@
         private void InitializeComponent()
         {
             panel_upperMenu = new Panel();
+            rb_historySleeves = new RadioButton();
+            rb_historyCartdriges = new RadioButton();
+            rb_historyConsoles = new RadioButton();
             btn_back = new Button();
-            dgv_cartdrigeCatalogue = new DataGridView();
+            dgv_salesHistory = new DataGridView();
             panel_upperMenu.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)dgv_cartdrigeCatalogue).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)dgv_salesHistory).BeginInit();
             SuspendLayout();
             // 
             // panel_upperMenu
             // 
+            panel_upperMenu.Controls.Add(rb_historySleeves);
+            panel_upperMenu.Controls.Add(rb_historyCartdriges);
+            panel_upperMenu.Controls.Add(rb_historyConsoles);
             panel_upperMenu.Controls.Add(btn_back);
             panel_upperMenu.Dock = DockStyle.Top;
             panel_upperMenu.Location = new Point(0, 0);
             panel_upperMenu.Name = "panel_upperMenu";
             panel_upperMenu.Size = new Size(800, 58);
             panel_upperMenu.TabIndex = 2;
+            // 
+            // rb_historySleeves
+            // 
+            rb_historySleeves.AutoSize = true;
+            rb_historySleeves.Location = new Point(484, 20);
+            rb_historySleeves.Name = "rb_historySleeves";
+            rb_historySleeves.Size = new Size(63, 19);
+            rb_historySleeves.TabIndex = 6;
+            rb_historySleeves.TabStop = true;
+            rb_historySleeves.Text = "Fundas";
+            rb_historySleeves.UseVisualStyleBackColor = true;
+            rb_historySleeves.CheckedChanged += rb_CheckedChanged;
+            // 
+            // rb_historyCartdriges
+            // 
+            rb_historyCartdriges.AutoSize = true;
+            rb_historyCartdriges.Location = new Point(218, 20);
+            rb_historyCartdriges.Name = "rb_historyCartdriges";
+            rb_historyCartdriges.Size = new Size(79, 19);
+            rb_historyCartdriges.TabIndex = 5;
+            rb_historyCartdriges.TabStop = true;
+            rb_historyCartdriges.Text = "Cartuchos";
+            rb_historyCartdriges.UseVisualStyleBackColor = true;
+            rb_historyCartdriges.CheckedChanged += rb_CheckedChanged;
+            // 
+            // rb_historyConsoles
+            // 
+            rb_historyConsoles.AutoSize = true;
+            rb_historyConsoles.Location = new Point(353, 20);
+            rb_historyConsoles.Name = "rb_historyConsoles";
+            rb_historyConsoles.Size = new Size(73, 19);
+            rb_historyConsoles.TabIndex = 4;
+            rb_historyConsoles.TabStop = true;
+            rb_historyConsoles.Text = "Consolas";
+            rb_historyConsoles.UseVisualStyleBackColor = true;
+            rb_historyConsoles.CheckedChanged += rb_CheckedChanged;
             // 
             // btn_back
             // 
@@ -54,30 +96,31 @@
             btn_back.UseVisualStyleBackColor = true;
             btn_back.Click += btn_back_Click;
             // 
-            // dgv_cartdrigeCatalogue
+            // dgv_salesHistory
             // 
-            dgv_cartdrigeCatalogue.AllowUserToAddRows = false;
-            dgv_cartdrigeCatalogue.AllowUserToDeleteRows = false;
-            dgv_cartdrigeCatalogue.AllowUserToResizeColumns = false;
-            dgv_cartdrigeCatalogue.AllowUserToResizeRows = false;
-            dgv_cartdrigeCatalogue.BorderStyle = BorderStyle.Fixed3D;
-            dgv_cartdrigeCatalogue.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgv_cartdrigeCatalogue.Dock = DockStyle.Fill;
-            dgv_cartdrigeCatalogue.Location = new Point(0, 58);
-            dgv_cartdrigeCatalogue.MultiSelect = false;
-            dgv_cartdrigeCatalogue.Name = "dgv_cartdrigeCatalogue";
-            dgv_cartdrigeCatalogue.ReadOnly = true;
-            dgv_cartdrigeCatalogue.RowHeadersVisible = false;
-            dgv_cartdrigeCatalogue.SelectionMode = DataGridViewSelectionMode.CellSelect;
-            dgv_cartdrigeCatalogue.Size = new Size(800, 392);
-            dgv_cartdrigeCatalogue.TabIndex = 3;
+            dgv_salesHistory.AllowUserToAddRows = false;
+            dgv_salesHistory.AllowUserToDeleteRows = false;
+            dgv_salesHistory.AllowUserToResizeColumns = false;
+            dgv_salesHistory.AllowUserToResizeRows = false;
+            dgv_salesHistory.BorderStyle = BorderStyle.Fixed3D;
+            dgv_salesHistory.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgv_salesHistory.Dock = DockStyle.Fill;
+            dgv_salesHistory.Location = new Point(0, 58);
+            dgv_salesHistory.MultiSelect = false;
+            dgv_salesHistory.Name = "dgv_salesHistory";
+            dgv_salesHistory.ReadOnly = true;
+            dgv_salesHistory.RowHeadersVisible = false;
+            dgv_salesHistory.SelectionMode = DataGridViewSelectionMode.CellSelect;
+            dgv_salesHistory.Size = new Size(800, 392);
+            dgv_salesHistory.TabIndex = 3;
+            dgv_salesHistory.CellContentClick += dgv_salesHistory_CellContentClick;
             // 
             // FormSalesHistory
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
-            Controls.Add(dgv_cartdrigeCatalogue);
+            Controls.Add(dgv_salesHistory);
             Controls.Add(panel_upperMenu);
             FormBorderStyle = FormBorderStyle.FixedSingle;
             MaximizeBox = false;
@@ -89,7 +132,8 @@
             FormClosing += FormSalesHistory_FormClosing;
             Load += FormSalesHistory_Load;
             panel_upperMenu.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)dgv_cartdrigeCatalogue).EndInit();
+            panel_upperMenu.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)dgv_salesHistory).EndInit();
             ResumeLayout(false);
         }
 
@@ -97,6 +141,9 @@
 
         private Panel panel_upperMenu;
         private Button btn_back;
-        private DataGridView dgv_cartdrigeCatalogue;
+        private DataGridView dgv_salesHistory;
+        private RadioButton rb_historySleeves;
+        private RadioButton rb_historyCartdriges;
+        private RadioButton rb_historyConsoles;
     }
 }

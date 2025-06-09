@@ -7,7 +7,7 @@ using AutoMapper;
 
 namespace _2_Services.Services.SaleServices
 {
-    public class RevertSellConsoleService
+    public class RevertSellConsoleService<TViewModel>
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
@@ -16,13 +16,15 @@ namespace _2_Services.Services.SaleServices
         private readonly IAccountingSystem _accountingSystem;
         private readonly ILogger _logger;
         private readonly IProductValidator<VideoConsole> _consoleValidator;
+        private readonly IPresenter<VideoConsole, TViewModel> _presenter;
         public RevertSellConsoleService(IUnitOfWork unitOfWork,
             IMapper mapper,
             IReferenceSystem referenceSystem,
             IStatisticsSystem statisticsSystem,
             IAccountingSystem accountingSystem,
             ILogger logger,
-            IProductValidator<VideoConsole> consoleValidator)
+            IProductValidator<VideoConsole> consoleValidator,
+            IPresenter<VideoConsole, TViewModel> presenter)
         {
             _unitOfWork = unitOfWork;
             _mapper = mapper;
@@ -31,41 +33,32 @@ namespace _2_Services.Services.SaleServices
             _accountingSystem = accountingSystem;
             _logger = logger;
             _consoleValidator = consoleValidator;
+            _presenter = presenter;
         }
 
-        public async Task ExecuteAsync(SoldVideoConsole soldVideoConsole)
+        public async Task<TViewModel> ExecuteAsync(SoldVideoConsole soldVideoConsole)
         {
-            try
-            {
-                if (soldVideoConsole == null) { throw new Exception("Error: La venta de consola que intenta revertirse tiene un valor nulo."); }
+            if (soldVideoConsole == null) { throw new Exception("Error: La venta de consola que intenta revertirse tiene un valor nulo."); }
 
-                var console = _mapper.Map<VideoConsole>(soldVideoConsole);
-                await _referenceSystem.AssignReferenceToProductAsync(console);
+            var console = _mapper.Map<VideoConsole>(soldVideoConsole);
+            await _referenceSystem.AssignReferenceToProductAsync(console);
 
-                bool productIsValid = await _consoleValidator.ValidateProductAsync(console);
-                if (!productIsValid) { throw new ProductValidationException(_consoleValidator.Errors); }
+            bool productIsValid = await _consoleValidator.ValidateProductAsync(console);
+            if (!productIsValid) { throw new ProductValidationException(_consoleValidator.Errors); }
 
-                await _unitOfWork.SoldConsoleRepository.Delete(soldVideoConsole);
-                await _unitOfWork.ConsoleRepository.AddAsync(console);
+            await _unitOfWork.SoldConsoleRepository.Delete(soldVideoConsole);
+            await _unitOfWork.ConsoleRepository.AddAsync(console);
 
-                await _statisticsSystem.WithdrawOneSoldConsoleFromStatisticsAsync(soldVideoConsole.IdProductType);
-                await _accountingSystem.WithdrawSalePriceFromIncomeAsync(soldVideoConsole.SaleDate, soldVideoConsole.SalePrice);
+            await _statisticsSystem.WithdrawOneSoldConsoleFromStatisticsAsync(soldVideoConsole.IdProductType);
+            await _accountingSystem.WithdrawSalePriceFromIncomeAsync(soldVideoConsole.SaleDate, soldVideoConsole.SalePrice);
 
-                string logEntry = $"REVERTIR VENTA: Consola. Nueva ref: {console.Reference}, Nombre: {console.Name}, " +
-                    $"Fecha de venta: {soldVideoConsole.SaleDate.ToString("yyyy-MM-dd")}, Precio de venta: {soldVideoConsole.SalePrice}€";
-                await _logger.WriteLogEntryAsync(logEntry);
+            string logEntry = $"REVERTIR VENTA: Consola. Nueva ref: {console.Reference}, Nombre: {console.Name}, " +
+                $"Fecha de venta: {soldVideoConsole.SaleDate.ToString("yyyy-MM-dd")}, Precio de venta: {soldVideoConsole.SalePrice}€";
+            await _logger.WriteLogEntryAsync(logEntry);
 
-                await _unitOfWork.SaveChangesAsync();
-            }
-            catch (ProductValidationException ex)
-            {
-                Console.WriteLine(ex.Message);
-                foreach (var error in ex.Errors) { Console.WriteLine(error); }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
+            await _unitOfWork.SaveChangesAsync();
+
+            return _presenter.Present(console);
         }
     }
 }

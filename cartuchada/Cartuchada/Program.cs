@@ -6,6 +6,7 @@ using _2_Services.Services.Cartdrige_Services;
 using _2_Services.Services.Console_Services;
 using _2_Services.Services.Purchase_Services;
 using _2_Services.Services.SaleServices;
+using _2_Services.Services.Sleeve_Services;
 using _3_AccountingSystem;
 using _3_Data;
 using _3_Loggers;
@@ -86,10 +87,10 @@ namespace Cartuchada
             services.AddTransient<GetAllSleevesQuery>();
 
             // PRESENTERS
-            services.AddTransient<IPresenterWithReference<CartdrigePurchaseDto, CartdrigePurchaseViewModel>, PurchaseGameBoyCartdrigePresenter>();
-            services.AddTransient<IPresenterWithReference<ConsolePurchaseDto, ConsolePurchaseViewModel>, PurchaseConsolePresenter>();
-            services.AddTransient<IPresenter<SparePartsPurchaseDto, SparePartsPurchaseViewModel>, PurchaseSparePartsPresenter>();
-            services.AddTransient<IPresenter<SleeveSaleDto, SleeveSaleViewModel>, SleeveSalePresenter>();
+            services.AddTransient<IPresenter<Cartdrige, CartdrigePurchaseViewModel>, CartdrigePurchasePresenter>();
+            services.AddTransient<IPresenter<VideoConsole, ConsolePurchaseViewModel>, ConsolePurchasePresenter>();
+            services.AddTransient<IPresenter<SparePartsPurchase, SparePartsPurchaseViewModel>, SparePartsPurchasePresenter>();
+            services.AddTransient<IPresenter<SoldSleeve, SleeveSaleViewModel>, SleeveSalePresenter>();
 
             // MANUAL MAPPERS
 
@@ -136,6 +137,12 @@ namespace Cartuchada
             services.AddTransient<SumSparePartsPriceToConsoleById>();
             services.AddTransient<WithdrawSparePartsPriceFromConsoleById>();
             services.AddTransient<SellSleeveService<SleeveSaleDto, SleeveSaleViewModel>>();
+            services.AddTransient<GetAllSoldCartdrigesService>();
+            services.AddTransient<GetAllSoldConsolesService>();
+            services.AddTransient<GetAllSoldSleevesService>();
+            services.AddTransient<RevertSellCartdrigeService<CartdrigePurchaseViewModel>>();
+            services.AddTransient<RevertSellConsoleService<ConsolePurchaseViewModel>>();
+            services.AddTransient<RevertSellSleeveService>();
 
 
             // INYECCIÓN DE FORMULARIOS

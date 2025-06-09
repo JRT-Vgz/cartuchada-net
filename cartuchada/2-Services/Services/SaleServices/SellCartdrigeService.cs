@@ -16,7 +16,8 @@ namespace _2_Services.Services.SaleServices
         private readonly IAccountingSystem _accountingSystem;
         private readonly ILogger _logger;
         private readonly IProductValidator<Cartdrige> _cartdrigeValidator;
-        private readonly IProductValidator<SoldCartdrige> _soldCartdrigeValidator;
+        private readonly IProductValidator<SoldCartdrige> _soldCartdrigeValidator;       
+
         public SellCartdrigeService(IUnitOfWork unitOfWork,
             IMapper mapper,
             IReferenceSystem referenceSystem,

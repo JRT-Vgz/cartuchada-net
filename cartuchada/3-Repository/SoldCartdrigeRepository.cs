@@ -24,6 +24,8 @@ namespace _3_Repository
         {
             var soldCartdrigeModels = await _context.SoldCartdriges
                 .Include("Game")
+                .Include("Region")
+                .Include("Condition")
                 .ToListAsync();
 
             return soldCartdrigeModels.Select(c => _mapper.Map<SoldCartdrige>(c));
@@ -33,6 +35,8 @@ namespace _3_Repository
         {
             var soldCartdrigeModel = await _context.SoldCartdriges
                 .Include("Game")
+                .Include("Region")
+                .Include("Condition")
                 .FirstOrDefaultAsync(s => s.Id == id);
 
             return _mapper.Map<SoldCartdrige>(soldCartdrigeModel);

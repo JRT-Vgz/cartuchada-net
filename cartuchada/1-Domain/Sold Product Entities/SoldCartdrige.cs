@@ -14,6 +14,8 @@ namespace _1_Domain.Sold_Product_Entities
         public decimal SalePrice { get; private set; }
         public decimal Benefit { get; private set; }
         public string? Name { get; private set; }
+        public string Region { get; private set; }
+        public string Condition { get; private set; }
         public int IdCartdrige { get; private set; }
 
         public SoldCartdrige()

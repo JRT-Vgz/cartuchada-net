@@ -13,6 +13,7 @@ namespace _1_Domain.Product_Entities
         public DateTime PurchaseDate { get; private set; }
         public decimal PurchasePrice { get; private set; }
         public string? Name { get; private set; }
+        public string? ProductType { get; private set; }
         public string? Region { get; private set; }
         public string? Condition { get; private set; }
         public string? Reference { get; private set; }
@@ -23,7 +24,7 @@ namespace _1_Domain.Product_Entities
         }
 
         public Cartdrige(int id, int idReference, int idProductType, int idGame, int idRegion, int idCondition, 
-            DateTime purchaseDate, decimal purchasePrice, string name, string region, string condition, string reference)
+            DateTime purchaseDate, decimal purchasePrice, string name, string productType, string region, string condition, string reference)
         {
             Id = id;
             IdReference = idReference;
@@ -34,6 +35,7 @@ namespace _1_Domain.Product_Entities
             PurchaseDate = purchaseDate;
             PurchasePrice = purchasePrice;
             Name = name;
+            ProductType = productType;
             Region = region;
             Condition = condition;
             Reference = reference;

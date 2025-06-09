@@ -16,7 +16,7 @@ namespace _2_Services.Services.SaleServices
         private readonly ILogger _logger;
         private readonly IProductValidator<SoldSleeve> _soldSleeveValidator;
         private readonly IValidator<TDto> _sleeveSaleDtoValidator;
-        private readonly IPresenter<TDto, TViewModel> _presenter;
+        private readonly IPresenter<SoldSleeve, TViewModel> _presenter;
 
         public SellSleeveService(IUnitOfWork unitOfWork,
             IMapper mapper,
@@ -25,7 +25,7 @@ namespace _2_Services.Services.SaleServices
             ILogger logger,
             IProductValidator<SoldSleeve> soldSleeveValidator,
             IValidator<TDto> sleeveSaleDtoValidator,
-            IPresenter<TDto, TViewModel> presenter)
+            IPresenter<SoldSleeve, TViewModel> presenter)
         {
             _unitOfWork = unitOfWork;
             _mapper = mapper;
@@ -65,7 +65,7 @@ namespace _2_Services.Services.SaleServices
 
             await _unitOfWork.SaveChangesAsync();
 
-            return _presenter.Present(sleeveSaleDto);
+            return _presenter.Present(soldSleeve);
         }
     }
 }

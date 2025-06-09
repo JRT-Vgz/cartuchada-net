@@ -16,7 +16,7 @@ namespace _2_Services.Services.Purchase_Services
         private readonly ILogger _logger;
         private readonly IProductValidator<VideoConsole> _consoleValidator;
         private readonly IValidator<TDto> _consolePurchaseDtoValidator;
-        private readonly IPresenterWithReference<TDto, TViewModel> _presenter;
+        private readonly IPresenter<VideoConsole, TViewModel> _presenter;
         public PurchaseConsoleService(IUnitOfWork unitOfWork,
             IMapper mapper,
             IReferenceSystem referenceSystem,
@@ -25,7 +25,7 @@ namespace _2_Services.Services.Purchase_Services
             ILogger logger,
             IProductValidator<VideoConsole> consoleValidator,
             IValidator<TDto> consolePurchaseDtoValidator,
-            IPresenterWithReference<TDto, TViewModel> presenter)
+            IPresenter<VideoConsole, TViewModel> presenter)
         {
             _unitOfWork = unitOfWork;
             _mapper = mapper;
@@ -68,7 +68,7 @@ namespace _2_Services.Services.Purchase_Services
 
             await _unitOfWork.SaveChangesAsync();
 
-            return _presenter.Present(consoleDto, console.Reference);
+            return _presenter.Present(console);
         }
     }
 }
