@@ -3,11 +3,11 @@ using _2_Services.Interfaces;
 
 namespace _2_Services.Services.Spare_Parts_Services
 {
-    public class GetAllSparePartsPurchases
+    public class GetAllSparePartsPurchasesService
     {
         private readonly IUnitOfWork _unitOfWork;
 
-        public GetAllSparePartsPurchases(IUnitOfWork unitOfWork)
+        public GetAllSparePartsPurchasesService(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
         }

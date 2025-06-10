@@ -7,6 +7,7 @@ using _2_Services.Services.Console_Services;
 using _2_Services.Services.Purchase_Services;
 using _2_Services.Services.SaleServices;
 using _2_Services.Services.Sleeve_Services;
+using _2_Services.Services.Spare_Parts_Services;
 using _3_AccountingSystem;
 using _3_Data;
 using _3_Loggers;
@@ -24,6 +25,7 @@ using _3_Validators.Data_Validators.Purchase_Dto_Validators;
 using _3_Validators.Data_Validators.Sale_Dto_Validators;
 using _3_Validators.Entity_Validators;
 using Cartuchada.Forms;
+using Cartuchada.Forms.Miscelanea_Forms;
 using Cartuchada.Forms.Purchase_Forms;
 using Cartuchada.Forms.Purchase_Forms.Purchase_Cartdrige_Forms;
 using Cartuchada.Forms.Purchase_Forms.Purchase_Console_Forms;
@@ -143,6 +145,8 @@ namespace Cartuchada
             services.AddTransient<RevertSellCartdrigeService<CartdrigePurchaseViewModel>>();
             services.AddTransient<RevertSellConsoleService<ConsolePurchaseViewModel>>();
             services.AddTransient<RevertSellSleeveService>();
+            services.AddTransient<GetAllSparePartsPurchasesService>();
+            services.AddTransient<RevertPurchaseSparePartsService>();
 
 
             // INYECCIÓN DE FORMULARIOS
@@ -160,6 +164,8 @@ namespace Cartuchada
             services.AddTransient<FormManageSellConsole>();
             services.AddTransient<FormSellSleeves>();
             services.AddTransient<FormSalesHistory>();
+            services.AddTransient<FormPurchasesHistory>();
+            services.AddTransient<FormConfirmRevertInput>();
         }
 
         private static IConfiguration BuildConfiguration()

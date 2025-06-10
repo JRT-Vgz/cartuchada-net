@@ -4,6 +4,12 @@
     <Compile Update="Forms\FormCartuchadaMain.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="Forms\Miscelanea Forms\FormConfirmRevertInput.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\Purchase Forms\FormPurchasesHistory.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="Forms\Purchase Forms\Purchase Cartdrige Forms\FormGameCatalogue.cs">
       <SubType>Form</SubType>
     </Compile>

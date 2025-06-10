@@ -32,6 +32,7 @@
             btn_purchaseCartdrige = new Button();
             btn_purchaseVideoconsole = new Button();
             btn_purchaseSpareParts = new Button();
+            btn_purchasesHistory = new Button();
             SuspendLayout();
             // 
             // btn_menuPrincipal
@@ -74,11 +75,22 @@
             btn_purchaseSpareParts.UseVisualStyleBackColor = true;
             btn_purchaseSpareParts.Click += btn_purchaseSpareParts_Click;
             // 
+            // btn_purchasesHistory
+            // 
+            btn_purchasesHistory.Location = new Point(282, 316);
+            btn_purchasesHistory.Name = "btn_purchasesHistory";
+            btn_purchasesHistory.Size = new Size(238, 33);
+            btn_purchasesHistory.TabIndex = 5;
+            btn_purchasesHistory.Text = "HISTORIAL DE COMPRAS";
+            btn_purchasesHistory.UseVisualStyleBackColor = true;
+            btn_purchasesHistory.Click += btn_purchasesHistory_Click;
+            // 
             // FormPurchaseMain
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(btn_purchasesHistory);
             Controls.Add(btn_purchaseSpareParts);
             Controls.Add(btn_purchaseVideoconsole);
             Controls.Add(btn_purchaseCartdrige);
@@ -100,5 +112,6 @@
         private Button btn_purchaseCartdrige;
         private Button btn_purchaseVideoconsole;
         private Button btn_purchaseSpareParts;
+        private Button btn_purchasesHistory;
     }
 }

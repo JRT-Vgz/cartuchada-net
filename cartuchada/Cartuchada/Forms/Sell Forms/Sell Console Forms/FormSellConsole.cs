@@ -104,7 +104,7 @@ namespace Cartuchada.Forms.Sell_Forms.Sell_Console_Forms
                 HeaderText = "Nombre",
                 DataPropertyName = "Name",
                 Name = "colName",
-                Width = 290
+                Width = 385
             });
 
             var purchasePriceColumn = new DataGridViewTextBoxColumn
@@ -140,17 +140,17 @@ namespace Cartuchada.Forms.Sell_Forms.Sell_Console_Forms
             totalPriceColumn.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
             dgv_consoleCatalogue.Columns.Add(totalPriceColumn);
 
-            var revertPurchaseButtonColumn = new DataGridViewButtonColumn
-            {
-                HeaderText = "",
-                Name = "colRevertPurchase",
-                Text = "Revertir compra",
-                UseColumnTextForButtonValue = true,
-                Width = 95
-            };
-            revertPurchaseButtonColumn.DefaultCellStyle.BackColor = Color.GreenYellow;
-            revertPurchaseButtonColumn.DefaultCellStyle.SelectionBackColor = Color.GreenYellow;
-            dgv_consoleCatalogue.Columns.Add(revertPurchaseButtonColumn);
+            //var revertPurchaseButtonColumn = new DataGridViewButtonColumn
+            //{
+            //    HeaderText = "",
+            //    Name = "colRevertPurchase",
+            //    Text = "Revertir compra",
+            //    UseColumnTextForButtonValue = true,
+            //    Width = 95
+            //};
+            //revertPurchaseButtonColumn.DefaultCellStyle.BackColor = Color.GreenYellow;
+            //revertPurchaseButtonColumn.DefaultCellStyle.SelectionBackColor = Color.GreenYellow;
+            //dgv_consoleCatalogue.Columns.Add(revertPurchaseButtonColumn);
         }
 
         private async Task LoadAllData()
@@ -299,14 +299,14 @@ namespace Cartuchada.Forms.Sell_Forms.Sell_Console_Forms
             }
 
             // REVERT CONSOLE PURCHASE BUTTON:
-            else if (dgv_consoleCatalogue.Columns[e.ColumnIndex].Name == "colRevertPurchase")
-            {
-                var confirmRevert = MessageBox.Show($"¿Seguro que quieres revertir la compra de la {videoConsole.Name} con referencia " +
-                    $"{videoConsole.Reference}?",
-                    "Confirmar revertir compra", MessageBoxButtons.YesNo);
+            //else if (dgv_consoleCatalogue.Columns[e.ColumnIndex].Name == "colRevertPurchase")
+            //{
+            //    var confirmRevert = MessageBox.Show($"¿Seguro que quieres revertir la compra de la {videoConsole.Name} con referencia " +
+            //        $"{videoConsole.Reference}?",
+            //        "Confirmar revertir compra", MessageBoxButtons.YesNo);
 
-                if (confirmRevert == DialogResult.Yes) { await RevertConsolePurchase(videoConsole); }
-            }
+            //    if (confirmRevert == DialogResult.Yes) { await RevertConsolePurchase(videoConsole); }
+            //}
         }
 
         private async Task RevertConsolePurchase(VideoConsole videoConsole)

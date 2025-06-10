@@ -1,6 +1,4 @@
 ﻿
-
-using _1_Domain.Product_Entities;
 using _1_Domain.Sold_Product_Entities;
 using _2_Services.Exceptions;
 using _2_Services.Services.Cartdrige_Services;
@@ -8,11 +6,14 @@ using _2_Services.Services.Console_Services;
 using _2_Services.Services.SaleServices;
 using _2_Services.Services.Sleeve_Services;
 using _3_Presenters.View_Models;
+using Cartuchada.Forms.Miscelanea_Forms;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Cartuchada.Forms.Sell_Forms
 {
     public partial class FormSalesHistory : Form
     {
+        private readonly IServiceProvider _serviceProvider;
         private readonly GetAllSoldCartdrigesService _getAllSoldCartdrigesService;
         private readonly GetAllSoldConsolesService _getAllSoldConsolesService;
         private readonly GetAllSoldSleevesService _getAllSoldSleevesService;
@@ -25,7 +26,8 @@ namespace Cartuchada.Forms.Sell_Forms
 
         public bool IsClosing { get { return _isClosing; } }
 
-        public FormSalesHistory(GetAllSoldCartdrigesService getAllSoldCartdrigesService,
+        public FormSalesHistory(IServiceProvider serviceProvider,
+            GetAllSoldCartdrigesService getAllSoldCartdrigesService,
             GetAllSoldConsolesService getAllSoldConsolesService,
             GetAllSoldSleevesService getAllSoldSleevesService,
             RevertSellCartdrigeService<CartdrigePurchaseViewModel> revertSellCartdrigeService,
@@ -33,6 +35,7 @@ namespace Cartuchada.Forms.Sell_Forms
             RevertSellSleeveService revertSellSleeveService)
         {
             InitializeComponent();
+            _serviceProvider = serviceProvider;
             _getAllSoldCartdrigesService = getAllSoldCartdrigesService;
             _getAllSoldConsolesService = getAllSoldConsolesService;
             _getAllSoldSleevesService = getAllSoldSleevesService;
@@ -41,9 +44,11 @@ namespace Cartuchada.Forms.Sell_Forms
             _revertSellSleeveService = revertSellSleeveService;
         }
 
+
         // -------------------------------------------------------------------------------------------------------
         // ---------------------------------------------- LOAD ---------------------------------------------------
         // -------------------------------------------------------------------------------------------------------
+        #region LOAD DATA
         private async void FormSalesHistory_Load(object sender, EventArgs e)
         {
             LoadDefaultCheckButton();
@@ -329,6 +334,12 @@ namespace Cartuchada.Forms.Sell_Forms
                     var prop = type.GetProperty("SaleDate");
                     return prop != null ? prop.GetValue(item) : null;
                 })
+                .ThenByDescending(item =>
+                {
+                    var type = item.GetType();
+                    var prop = type.GetProperty("Id");
+                    return prop != null ? prop.GetValue(item) : null;
+                })
                 .ToList();
         }
 
@@ -337,6 +348,7 @@ namespace Cartuchada.Forms.Sell_Forms
             if (gamesCount > 14) { this.Width = 833; }
             else { this.Width = 816; }
         }
+        #endregion
 
 
         // -------------------------------------------------------------------------------------------------------
@@ -346,18 +358,9 @@ namespace Cartuchada.Forms.Sell_Forms
         {
             if (!((RadioButton)sender).Checked) { return; }
 
-            if (sender == rb_historyCartdriges)
-            {
-                await ShowCartdrigeSaleHistoryData();
-            }
-            else if (sender == rb_historyConsoles)
-            {
-                await ShowConsoleSaleHistoryData();
-            }
-            else if (sender == rb_historySleeves)
-            {
-                await ShowSleevesSaleHistoryData();
-            }
+            if (sender == rb_historyCartdriges) { await ShowCartdrigeSaleHistoryData(); }
+            else if (sender == rb_historyConsoles) { await ShowConsoleSaleHistoryData(); }
+            else if (sender == rb_historySleeves) { await ShowSleevesSaleHistoryData(); }
         }
 
 
@@ -369,62 +372,29 @@ namespace Cartuchada.Forms.Sell_Forms
             if (e.RowIndex < 0) { return; }
             if (dgv_salesHistory.Columns[e.ColumnIndex].Name != "colRevertSale") { return; }
 
-            try
-            {
-                // REVERT SOLD CARTDRIGE
-                if (rb_historyCartdriges.Checked)
-                {
-                    SoldCartdrige soldCartdrige = (SoldCartdrige)dgv_salesHistory.Rows[e.RowIndex].DataBoundItem;
+            object product = dgv_salesHistory.Rows[e.RowIndex].DataBoundItem;
 
-                    var confirmRevert = MessageBox.Show($"¿Seguro que quieres revertir la venta del siguiente juego?\n\n" +
-                        $"{soldCartdrige.Name.ToUpper()}\n" +
-                        $"Fecha de venta: {soldCartdrige.SaleDate.ToString("dd/MM/yyyy")}\n" +
-                        $"Región: {soldCartdrige.Region}\n" +
-                        $"Condición: {soldCartdrige.Condition}\n" +
-                        $"Precio de compra: {soldCartdrige.PurchasePrice}€\n" +
-                        $"Precio de venta: {soldCartdrige.SalePrice}€\n",
-                    "Confirmar revertir venta", MessageBoxButtons.YesNo);
-
-                    if (confirmRevert == DialogResult.Yes) { await RevertSoldCartdrige(soldCartdrige); }
-                }
-                // REVERT SOLD CONSOLE
-                else if (rb_historyConsoles.Checked)
-                {
-                    SoldVideoConsole soldVideoConsole = (SoldVideoConsole)dgv_salesHistory.Rows[e.RowIndex].DataBoundItem;
-
-                    var confirmRevert = MessageBox.Show($"¿Seguro que quieres revertir la venta de la siguiente consola?\n\n" +
-                        $"{soldVideoConsole.Name.ToUpper()}\n" +
-                        $"Fecha de venta: {soldVideoConsole.SaleDate.ToString("dd/MM/yyyy")}\n" +
-                        $"Precio de compra: {soldVideoConsole.PurchasePrice}€\n" +
-                        $"Precio de piezas: {soldVideoConsole.SparePartsPrice}€\n" +
-                        $"Precio total: {soldVideoConsole.TotalPrice}€\n" +
-                        $"Precio de venta: {soldVideoConsole.SalePrice}€\n",
-                    "Confirmar revertir venta", MessageBoxButtons.YesNo);
-
-                    if (confirmRevert == DialogResult.Yes) { await RevertSoldConsole(soldVideoConsole); }
-                }
-                // REVERT SOLD SLEEVES
-                else if (rb_historySleeves.Checked)
-                {
-                    SoldSleeve soldSleeve = (SoldSleeve)dgv_salesHistory.Rows[e.RowIndex].DataBoundItem;
-
-                    var confirmRevert = MessageBox.Show($"¿Seguro que quieres revertir la venta de las siguientes fundas?\n\n" +
-                        $"{soldSleeve.Name.ToUpper()}\n" +
-                        $"Fecha de venta: {soldSleeve.SaleDate.ToString("dd/MM/yyyy")}\n" +
-                        $"Cantidad: {soldSleeve.Quantity}\n" +
-                        $"Precio de venta: {soldSleeve.SalePrice}€\n",
-                    "Confirmar revertir venta", MessageBoxButtons.YesNo);
-
-                    if (confirmRevert == DialogResult.Yes) { await RevertSoldSleeves(soldSleeve); }
-                }
-            }
-            catch (Exception ex) { Console.WriteLine(ex.Message); }
+            if (rb_historyCartdriges.Checked) { await RevertSoldCartdrige((SoldCartdrige)product); }
+            else if (rb_historyConsoles.Checked) { await RevertSoldConsole((SoldVideoConsole)product); }
+            else if (rb_historySleeves.Checked) { await RevertSoldSleeves((SoldSleeve)product); }
         }
 
         private async Task RevertSoldCartdrige(SoldCartdrige soldCartdrige)
         {
             try
             {
+                var confirmRevert = MessageBox.Show($"¿Seguro que quieres revertir la VENTA del siguiente juego?\n\n" +
+                    $"{soldCartdrige.Name.ToUpper()}\n" +
+                    $"Fecha de venta: {soldCartdrige.SaleDate.ToString("dd/MM/yyyy")}\n" +
+                    $"Región: {soldCartdrige.Region}\n" +
+                    $"Condición: {soldCartdrige.Condition}\n" +
+                    $"Precio de compra: {soldCartdrige.PurchasePrice}€\n" +
+                    $"Precio de venta: {soldCartdrige.SalePrice}€\n",
+                "Confirmar revertir venta", MessageBoxButtons.YesNo);
+
+                if (confirmRevert == DialogResult.No) { return; }
+                if (!RevertActionConfirmed()) { return; }
+
                 var viewModel = await _revertSellCartdrigeService.ExecuteAsync(soldCartdrige);
 
                 MessageBox.Show(
@@ -450,6 +420,18 @@ namespace Cartuchada.Forms.Sell_Forms
         {
             try
             {
+                var confirmRevert = MessageBox.Show($"¿Seguro que quieres revertir la VENTA de la siguiente consola?\n\n" +
+                    $"{soldVideoConsole.Name.ToUpper()}\n" +
+                    $"Fecha de venta: {soldVideoConsole.SaleDate.ToString("dd/MM/yyyy")}\n" +
+                    $"Precio de compra: {soldVideoConsole.PurchasePrice}€\n" +
+                    $"Precio de piezas: {soldVideoConsole.SparePartsPrice}€\n" +
+                    $"Precio total: {soldVideoConsole.TotalPrice}€\n" +
+                    $"Precio de venta: {soldVideoConsole.SalePrice}€\n",
+                "Confirmar revertir venta", MessageBoxButtons.YesNo);
+
+                if (confirmRevert == DialogResult.No) { return; }
+                if (!RevertActionConfirmed()) { return; }
+
                 var viewModel = await _revertSellConsoleService.ExecuteAsync(soldVideoConsole);
 
                 MessageBox.Show(
@@ -474,6 +456,18 @@ namespace Cartuchada.Forms.Sell_Forms
         {
             try
             {
+                var confirmRevert = MessageBox.Show($"¿Seguro que quieres revertir la VENTA de las siguientes fundas?\n\n" +
+                    $"{soldSleeve.Name.ToUpper()}\n" +
+                    $"Fecha de venta: {soldSleeve.SaleDate.ToString("dd/MM/yyyy")}\n" +
+                    $"Cantidad: {soldSleeve.Quantity}\n" +
+                    $"Precio de venta: {soldSleeve.SalePrice}€\n",
+                "Confirmar revertir venta", MessageBoxButtons.YesNo);
+
+                if (confirmRevert == DialogResult.No) { return; }
+                if (!RevertActionConfirmed()) { return; }
+
+                MessageBox.Show("Confirmado");
+
                 await _revertSellSleeveService.ExecuteAsync(soldSleeve);
 
                 await LoadSleevesSaleHistoryData();
@@ -486,7 +480,14 @@ namespace Cartuchada.Forms.Sell_Forms
             catch (Exception ex) { Console.WriteLine(ex.Message); }
         }
 
+        private bool RevertActionConfirmed()
+        {
+            var frm = _serviceProvider.GetRequiredService<FormConfirmRevertInput>();
+            frm.ShowDialog();
 
+            if (frm.RevertConfirmed) { return true; }
+            return false;
+        }
 
 
         // -------------------------------------------------------------------------------------------------------

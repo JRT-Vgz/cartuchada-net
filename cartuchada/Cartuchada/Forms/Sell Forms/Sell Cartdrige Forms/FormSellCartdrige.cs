@@ -75,20 +75,51 @@ namespace Cartuchada.Forms.Sell_Forms.Sell_Cartdrige_Forms
                 HeaderText = "Nombre",
                 DataPropertyName = "Name",
                 Name = "colName",
-                Width = 575
+                Width = 515
             });
 
-            var revertPurchaseButtonColumn = new DataGridViewButtonColumn
+            var regionColumn = new DataGridViewTextBoxColumn
             {
-                HeaderText = "",
-                Name = "colRevertPurchase",
-                Text = "Revertir compra",
-                UseColumnTextForButtonValue = true,
-                Width = 95
+                HeaderText = "Región",
+                DataPropertyName = "Region",
+                Name = "colRegion",
+                Width = 55
             };
-            revertPurchaseButtonColumn.DefaultCellStyle.BackColor = Color.GreenYellow;
-            revertPurchaseButtonColumn.DefaultCellStyle.SelectionBackColor = Color.GreenYellow;
-            dgv_cartdrigeCatalogue.Columns.Add(revertPurchaseButtonColumn);
+            regionColumn.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dgv_cartdrigeCatalogue.Columns.Add(regionColumn);
+
+            var conditionColumn = new DataGridViewTextBoxColumn
+            {
+                HeaderText = "Cond.",
+                DataPropertyName = "Condition",
+                Name = "coldCondition",
+                Width = 50
+            };
+            conditionColumn.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dgv_cartdrigeCatalogue.Columns.Add(conditionColumn);
+
+            var purchasePriceColumn = new DataGridViewTextBoxColumn
+            {
+                HeaderText = "Compra",
+                DataPropertyName = "PurchasePrice",
+                Name = "colPurchasePrice",
+                Width = 50
+            };
+            purchasePriceColumn.HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            purchasePriceColumn.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dgv_cartdrigeCatalogue.Columns.Add(purchasePriceColumn);
+
+            //var revertPurchaseButtonColumn = new DataGridViewButtonColumn
+            //{
+            //    HeaderText = "",
+            //    Name = "colRevertPurchase",
+            //    Text = "Revertir compra",
+            //    UseColumnTextForButtonValue = true,
+            //    Width = 95
+            //};
+            //revertPurchaseButtonColumn.DefaultCellStyle.BackColor = Color.GreenYellow;
+            //revertPurchaseButtonColumn.DefaultCellStyle.SelectionBackColor = Color.GreenYellow;
+            //dgv_cartdrigeCatalogue.Columns.Add(revertPurchaseButtonColumn);
         }
 
         private async Task LoadAllData()
@@ -191,35 +222,35 @@ namespace Cartuchada.Forms.Sell_Forms.Sell_Cartdrige_Forms
             }
 
             // REVERT CARTDRIGE PURCHASE BUTTON:
-            else if (dgv_cartdrigeCatalogue.Columns[e.ColumnIndex].Name == "colRevertPurchase")
-            {
-                var confirmRevert = MessageBox.Show($"¿Seguro que quieres revertir la compra del juego {cartdrige.Name} con referencia " +
-                    $"{cartdrige.Reference}?",
-                    "Confirmar revertir compra", MessageBoxButtons.YesNo);
+            //else if (dgv_cartdrigeCatalogue.Columns[e.ColumnIndex].Name == "colRevertPurchase")
+            //{
+            //    var confirmRevert = MessageBox.Show($"¿Seguro que quieres revertir la compra del juego {cartdrige.Name} con referencia " +
+            //        $"{cartdrige.Reference}?",
+            //        "Confirmar revertir compra", MessageBoxButtons.YesNo);
 
-                if (confirmRevert == DialogResult.Yes) { await RevertCartdrigePurchase(cartdrige); }
-            }
+            //    if (confirmRevert == DialogResult.Yes) { await RevertCartdrigePurchase(cartdrige); }
+            //}
         }
 
-        private async Task RevertCartdrigePurchase(Cartdrige cartdrige)
-        {
-            try
-            {
-                await _revertPurchaseCartdrigeService.ExecuteAsync(cartdrige);
+        //private async Task RevertCartdrigePurchase(Cartdrige cartdrige)
+        //{
+        //    try
+        //    {
+        //        await _revertPurchaseCartdrigeService.ExecuteAsync(cartdrige);
 
-                await LoadAllData();
-            }
-            catch (ProductValidationException ex)
-            {
-                string message = string.Empty;
-                foreach (var error in ex.Errors) { message += $"- {error}\n"; }
-                MessageBox.Show(message, ex.Message);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-        }
+        //        await LoadAllData();
+        //    }
+        //    catch (ProductValidationException ex)
+        //    {
+        //        string message = string.Empty;
+        //        foreach (var error in ex.Errors) { message += $"- {error}\n"; }
+        //        MessageBox.Show(message, ex.Message);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        MessageBox.Show(ex.Message);
+        //    }
+        //}
 
 
         // -------------------------------------------------------------------------------------------------------

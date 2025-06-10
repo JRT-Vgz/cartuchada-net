@@ -65,8 +65,20 @@ namespace Cartuchada.Forms.Purchase_Forms.Purchase_Cartdrige_Forms
                 HeaderText = "Nombre",
                 DataPropertyName = "Name",
                 Name = "colName",
-                Width = 670
+                Width = 625
             });
+
+            var spotButtonColumn = new DataGridViewButtonColumn
+            {
+                HeaderText = "",
+                Name = "colSpot",
+                Text = "Spot",
+                UseColumnTextForButtonValue = true,
+                Width = 45
+            };
+            spotButtonColumn.DefaultCellStyle.BackColor = Color.LightSkyBlue;
+            spotButtonColumn.DefaultCellStyle.SelectionBackColor = Color.LightSkyBlue;
+            dgv_gameCatalogue.Columns.Add(spotButtonColumn);
         }
 
         private async Task RefreshColumns()
