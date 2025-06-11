@@ -45,8 +45,36 @@ namespace _3_Validators.Data_Validators.Purchase_Dto_Validators
                     .WithMessage("El campo 'Name' es obligatorio.")
                 .MaximumLength(100)
                     .WithMessage("El campo 'Name' no puede superar los 100 caracteres.");
-                //.Matches("^[a-zA-Z0-9áéíóúÁÉÍÓÚàèìòùÀÈÌÒÙäëïöüÄËÏÖÜÑñçÇ& ]*$")
-                //    .WithMessage("El campo 'Name' solo puede contener caracteres alfanuméricos y espacios.");
+
+            RuleFor(dto => dto.JAP)
+                .NotNull()
+                    .WithMessage("El campo 'JAP' es obligatorio.");
+
+            RuleFor(dto => dto.NA)
+                .NotNull()
+                    .WithMessage("El campo 'NA' es obligatorio.");
+
+            RuleFor(dto => dto.PAL)
+                .NotNull()
+                    .WithMessage("El campo 'PAL' es obligatorio.");
+
+            RuleFor(dto => dto.ProductType)
+                .NotEmpty()
+                    .WithMessage("El campo 'ProductType' es obligatorio.")
+                .MaximumLength(100)
+                    .WithMessage("El campo 'ProductType' no puede superar los 100 caracteres.");
+
+            RuleFor(dto => dto.Region)
+                .NotEmpty()
+                    .WithMessage("El campo 'Region' es obligatorio.")
+                .MaximumLength(100)
+                    .WithMessage("El campo 'Region' no puede superar los 100 caracteres.");
+
+            RuleFor(dto => dto.Condition)
+                .NotEmpty()
+                    .WithMessage("El campo 'Condition' es obligatorio.")
+                .MaximumLength(100)
+                    .WithMessage("El campo 'Condition' no puede superar los 100 caracteres.");
         }
     }
 }

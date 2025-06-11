@@ -125,30 +125,40 @@ namespace Cartuchada.Forms.Purchase_Forms.Purchase_Cartdrige_Forms
 
 
         // -------------------------------------------------------------------------------------------------------
-        // ---------------------------------------- PURCHASE BUTTON ----------------------------------------------
+        // ------------------------------------- PURCHASE / SPOT BUTTON ------------------------------------------
         // -------------------------------------------------------------------------------------------------------
         private void dgv_gameCatalogue_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex < 0) { return; }
 
+            string gameName = dgv_gameCatalogue.Rows[e.RowIndex].Cells["colName"].Value.ToString();
+            var gameModel = _filteredGames.FirstOrDefault(g => g.Name == gameName);
+
+            var cartdrigePurchaseDto = new CartdrigePurchaseDto
+            {
+                IdProductType = gameModel.IdProductType,
+                IdGame = gameModel.Id,
+                Name = gameModel.Name,
+                JAP = gameModel.JAP,
+                NA = gameModel.NA,
+                PAL = gameModel.PAL,
+                ProductType = gameModel.ProductType.Name
+            };
+
             // PURCHASE:
             if (dgv_gameCatalogue.Columns[e.ColumnIndex].Name == "colPurchase")
             {
-                string gameName = dgv_gameCatalogue.Rows[e.RowIndex].Cells["colName"].Value.ToString();
-                var gameModel = _filteredGames.FirstOrDefault(g => g.Name == gameName);
+                var frm = _serviceProvider.GetRequiredService<FormPurchaseSpotCartdrige>();
+                frm.SetInfo(cartdrigePurchaseDto);
+                frm.ShowDialog();
 
-                var cartdrigePurchaseDto = new CartdrigePurchaseDto
-                {
-                    IdProductType = gameModel.IdProductType,
-                    IdGame = gameModel.Id,
-                    Name = gameModel.Name,
-                    JAP = gameModel.JAP,
-                    NA = gameModel.NA,
-                    PAL = gameModel.PAL,
-                    ProductType = gameModel.ProductType.Name
-                };
-
-                var frm = _serviceProvider.GetRequiredService<FormPurchaseCartdrige>();
+                txt_search.Focus();
+            }
+            // SPOT:
+            else if (dgv_gameCatalogue.Columns[e.ColumnIndex].Name == "colSpot")
+            {
+                var frm = _serviceProvider.GetRequiredService<FormPurchaseSpotCartdrige>();
+                frm.IsSpotting = true;
                 frm.SetInfo(cartdrigePurchaseDto);
                 frm.ShowDialog();
 

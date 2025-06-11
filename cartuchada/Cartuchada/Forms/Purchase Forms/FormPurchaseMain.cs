@@ -80,7 +80,7 @@ namespace Cartuchada.Forms.Purchase_Forms
             }
         }
 
-        private void btn_menuPrincipal_Click(object sender, EventArgs e)
+        private void btn_mainMenu_Click(object sender, EventArgs e)
         {
             Hide();
         }

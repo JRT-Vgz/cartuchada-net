@@ -1,17 +1,18 @@
-using _1_Domain.Product_Entities;
+
 using _1_Domain.Constants;
+using _1_Domain.Product_Entities;
 using _2_Services.Interfaces;
 using _3_Data;
 using Microsoft.EntityFrameworkCore;
 
 namespace _3_Validators.Entity_Validators
 {
-    public class PurchasedCartdrigeValidator : IProductValidator<Cartdrige>
+    public class SpotedCartdrigeValidator : INonReferencedProductValidator<Cartdrige>
     {
         public List<string> Errors { get; set; }
         private readonly AppDbContext _context;
 
-        public PurchasedCartdrigeValidator(AppDbContext context)
+        public SpotedCartdrigeValidator(AppDbContext context)
         {
             Errors = new List<string>();
             _context = context;
@@ -19,8 +20,6 @@ namespace _3_Validators.Entity_Validators
 
         public async Task<bool> ValidateProductAsync(Cartdrige cartdrige)
         {
-            if (cartdrige.IdReference == 0 || cartdrige.Reference == null) { Errors.Add($"El cartucho que intentas comprar no tiene una referencia asignada."); }
-
             var productTypeExists = await _context.ProductTypes.AnyAsync(p => p.Id == cartdrige.IdProductType);
             if (!productTypeExists) { Errors.Add($"No existe ningún tipo de producto con Id {cartdrige.IdProductType} en la tabla 'ProductType'."); }
 
@@ -39,7 +38,7 @@ namespace _3_Validators.Entity_Validators
             var conditionExists = await _context.Conditions.AnyAsync(c => c.Id == cartdrige.IdCondition);
             if (!conditionExists) { Errors.Add($"No existe ninguna condición con Id {cartdrige.IdCondition} en la tabla 'Condition'."); }
 
-            if (cartdrige.PurchaseDate == default) { Errors.Add("No se ha asignado correctamente la fecha de compra."); }
+            if (cartdrige.PurchaseDate == default) { Errors.Add("No se ha asignado correctamente la fecha de spot."); }
 
             if (cartdrige.PurchasePrice <= 0) { Errors.Add("El precio del cartucho debe ser mayor a 0."); }
 

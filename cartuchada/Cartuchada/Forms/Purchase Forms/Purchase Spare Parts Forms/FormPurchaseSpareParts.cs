@@ -1,6 +1,7 @@
 ﻿
 
 using _2_Services.Exceptions;
+using _2_Services.Interfaces;
 using _2_Services.Services.Purchase_Services;
 using _3_Data.Models.Spare_Parts_Models;
 using _3_Mappers.DTOs.Purchase_Dtos;
@@ -11,17 +12,17 @@ namespace Cartuchada.Forms.Purchase_Forms.Purchase_Spare_Parts_Forms
 {
     public partial class FormPurchaseSpareParts : Form
     {
-        private readonly GetAllSparePartTypesQuery _getAllSparePartsQuery;
+        private readonly IGetAllQuery<SparePartTypeModel> _getAllSparePartTypesQuery;
         private readonly PurchaseSparePartsService<SparePartsPurchaseDto, SparePartsPurchaseViewModel> _purchaseSparePartsService;
 
         private const int MAX_LENGTH_CONCEPT = 125;
         private const int MAX_LENGTH_PRICE = 6;
 
-        public FormPurchaseSpareParts(GetAllSparePartTypesQuery getAllSparePartsQuery,
+        public FormPurchaseSpareParts(IGetAllQuery<SparePartTypeModel> getAllSparePartTypesQuery,
             PurchaseSparePartsService<SparePartsPurchaseDto, SparePartsPurchaseViewModel> purchaseSparePartsService)
         {
             InitializeComponent();
-            _getAllSparePartsQuery = getAllSparePartsQuery;
+            _getAllSparePartTypesQuery = getAllSparePartTypesQuery;
             _purchaseSparePartsService = purchaseSparePartsService;
         }
 
@@ -35,7 +36,7 @@ namespace Cartuchada.Forms.Purchase_Forms.Purchase_Spare_Parts_Forms
 
         private async Task LoadSparePartTypes()
         {
-            var sparePartTypes = await _getAllSparePartsQuery.ExecuteQueryAsync();
+            var sparePartTypes = await _getAllSparePartTypesQuery.ExecuteQueryAsync();
 
             cbo_spareParts.DataSource = sparePartTypes;
             cbo_spareParts.DisplayMember = "Name";

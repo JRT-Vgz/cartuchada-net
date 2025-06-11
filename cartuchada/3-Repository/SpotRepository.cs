@@ -24,6 +24,8 @@ namespace _3_Repository
         {
             var spotModels = await _context.Spots
                 .Include("Game")
+                .Include("Region")
+                .Include("Condition")
                 .ToListAsync();
 
             return spotModels.Select(c => _mapper.Map<Cartdrige>(c));
@@ -32,6 +34,8 @@ namespace _3_Repository
         {
             var spotModel = await _context.Spots
                 .Include("Game")
+                .Include("Region")
+                .Include("Condition")
                 .FirstOrDefaultAsync(s => s.Id == id);
 
             return _mapper.Map<Cartdrige>(spotModel);

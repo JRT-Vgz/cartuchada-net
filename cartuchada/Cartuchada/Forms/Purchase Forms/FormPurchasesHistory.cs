@@ -17,9 +17,11 @@ namespace Cartuchada.Forms.Purchase_Forms
         private readonly GetAllCartdrigesService _getAllCartdrigesService;
         private readonly GetAllConsolesService _getAllConsolesService;
         private readonly GetAllSparePartsPurchasesService _getAllSparePartsPurchasesService;
+        private readonly GetAllSpotCartdrigesService _getAllSpotCartdrigesService;
         private readonly RevertPurchaseCartdrigeService _revertPurchaseCartdrigeService;
         private readonly RevertPurchaseConsoleService _revertPurchaseConsoleService;
         private readonly RevertPurchaseSparePartsService _revertPurchaseSparePartsService;
+        private readonly RevertSpotCartdrigePurchaseService _revertSpotCartdrigePurchaseService;
 
         private IEnumerable<object> _purchasesHistoryCurrentData;
         private bool _isClosing = false;
@@ -30,18 +32,22 @@ namespace Cartuchada.Forms.Purchase_Forms
             GetAllCartdrigesService getAllCartdrigesService,
             GetAllConsolesService getAllConsolesService,
             GetAllSparePartsPurchasesService getAllSparePartsPurchasesService,
+            GetAllSpotCartdrigesService getAllSpotCartdrigesService,
             RevertPurchaseCartdrigeService revertPurchaseCartdrigeService,
             RevertPurchaseConsoleService revertPurchaseConsoleService, 
-            RevertPurchaseSparePartsService revertPurchaseSparePartsService)
+            RevertPurchaseSparePartsService revertPurchaseSparePartsService,
+            RevertSpotCartdrigePurchaseService revertSpotCartdrigePurchaseService)
         {
             InitializeComponent();
             _serviceProvider = serviceProvider;
             _getAllCartdrigesService = getAllCartdrigesService;
             _getAllConsolesService = getAllConsolesService;
             _getAllSparePartsPurchasesService = getAllSparePartsPurchasesService;
+            _getAllSpotCartdrigesService = getAllSpotCartdrigesService;
             _revertPurchaseCartdrigeService = revertPurchaseCartdrigeService;
             _revertPurchaseConsoleService = revertPurchaseConsoleService;
             _revertPurchaseSparePartsService = revertPurchaseSparePartsService;
+            _revertSpotCartdrigePurchaseService = revertSpotCartdrigePurchaseService;
         }
 
         // -------------------------------------------------------------------------------------------------------
@@ -319,6 +325,88 @@ namespace Cartuchada.Forms.Purchase_Forms
             RefreshColumns();
         }
 
+        // --------------------------------------- SHOW CARTDRIGE DATA --------------------------------------------
+        private async Task ShowSpotCartdrigeHistoryData()
+        {
+            CreateSpotCartdrigeHistoryColumns();
+            await LoadSpotCartdrigeHistoryData();
+        }
+
+        private void CreateSpotCartdrigeHistoryColumns()
+        {
+            dgv_purchasesHistory.AutoGenerateColumns = false;
+            dgv_purchasesHistory.Columns.Clear();
+            dgv_purchasesHistory.DefaultCellStyle.SelectionBackColor = dgv_purchasesHistory.DefaultCellStyle.BackColor;
+            dgv_purchasesHistory.DefaultCellStyle.SelectionForeColor = dgv_purchasesHistory.DefaultCellStyle.ForeColor;
+
+            var purchaseDateColumn = new DataGridViewTextBoxColumn
+            {
+                HeaderText = "Fecha",
+                DataPropertyName = "PurchaseDate",
+                Name = "colPurchaseDate",
+                Width = 70
+            };
+            purchaseDateColumn.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dgv_purchasesHistory.Columns.Add(purchaseDateColumn);
+
+            dgv_purchasesHistory.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                HeaderText = "Nombre",
+                DataPropertyName = "Name",
+                Name = "colName",
+                Width = 475
+            });
+
+            var regionColumn = new DataGridViewTextBoxColumn
+            {
+                HeaderText = "Región",
+                DataPropertyName = "Region",
+                Name = "colRegion",
+                Width = 55
+            };
+            regionColumn.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dgv_purchasesHistory.Columns.Add(regionColumn);
+
+            var conditionColumn = new DataGridViewTextBoxColumn
+            {
+                HeaderText = "Cond.",
+                DataPropertyName = "Condition",
+                Name = "coldCondition",
+                Width = 50
+            };
+            conditionColumn.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dgv_purchasesHistory.Columns.Add(conditionColumn);
+
+            var purchasePriceColumn = new DataGridViewTextBoxColumn
+            {
+                HeaderText = "Compra",
+                DataPropertyName = "PurchasePrice",
+                Name = "colPurchasePrice",
+                Width = 50
+            };
+            purchasePriceColumn.HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            purchasePriceColumn.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dgv_purchasesHistory.Columns.Add(purchasePriceColumn);
+
+            var revertPurchaseButtonColumn = new DataGridViewButtonColumn
+            {
+                HeaderText = "",
+                Name = "colRevertPurchase",
+                Text = "Revertir spot",
+                UseColumnTextForButtonValue = true,
+                Width = 95
+            };
+            revertPurchaseButtonColumn.DefaultCellStyle.BackColor = Color.GreenYellow;
+            revertPurchaseButtonColumn.DefaultCellStyle.SelectionBackColor = Color.GreenYellow;
+            dgv_purchasesHistory.Columns.Add(revertPurchaseButtonColumn);
+        }
+
+        private async Task LoadSpotCartdrigeHistoryData()
+        {
+            _purchasesHistoryCurrentData = await _getAllSpotCartdrigesService.ExecuteAsync();
+            await RefreshColumns();
+        }
+
         // --------------------------------------------------------------------------------------------------------
         private async Task RefreshColumns()
         {
@@ -359,6 +447,7 @@ namespace Cartuchada.Forms.Purchase_Forms
             if (sender == rb_historyCartdriges) { await ShowCartdrigePurchasesHistoryData(); }
             else if (sender == rb_historyConsoles) { await ShowConsolePurchasesHistoryData(); }
             else if (sender == rb_historySpareParts) { await ShowSparePartsPurchasesHistoryData(); }
+            else if (sender == rb_historySpot) { await ShowSpotCartdrigeHistoryData(); }
         }
 
 
@@ -375,6 +464,7 @@ namespace Cartuchada.Forms.Purchase_Forms
             if (rb_historyCartdriges.Checked) { await RevertPurchaseCartdrige((Cartdrige)product); }
             else if (rb_historyConsoles.Checked) { await RevertPurchaseConsole((VideoConsole)product); }
             else if (rb_historySpareParts.Checked) { await RevertPurchaseSpareParts((SparePartsPurchase)product); }
+            else if (rb_historySpot.Checked) { await RevertSpotCartdrige((Cartdrige)product); }
         }
 
         private async Task RevertPurchaseCartdrige(Cartdrige cartdrige)
@@ -392,18 +482,19 @@ namespace Cartuchada.Forms.Purchase_Forms
                 if (confirmRevert == DialogResult.No) { return; }
                 if (!RevertActionConfirmed()) { return; }
 
-                MessageBox.Show("Confirmado");
-
                 await _revertPurchaseCartdrigeService.ExecuteAsync(cartdrige);
+
+                MessageBox.Show("Confirmado");
 
                 await LoadCartdrigePurchasesHistoryData();
             }
             catch (ProductValidationException ex)
             {
-                Console.WriteLine(ex.Message);
-                foreach (var error in ex.Errors) { Console.WriteLine(error); }
+                string message = string.Empty;
+                foreach (var error in ex.Errors) { message += $"- {error}\n"; }
+                MessageBox.Show(message, ex.Message);
             }
-            catch (Exception ex) { Console.WriteLine(ex.Message); }
+            catch (Exception ex) { MessageBox.Show(ex.Message); }
         }
 
         private async Task RevertPurchaseConsole(VideoConsole videoConsole)
@@ -421,18 +512,19 @@ namespace Cartuchada.Forms.Purchase_Forms
                 if (confirmRevert == DialogResult.No) { return; }
                 if (!RevertActionConfirmed()) { return; }
 
-                MessageBox.Show("Confirmado");
-
                 await _revertPurchaseConsoleService.ExecuteAsync(videoConsole);
+
+                MessageBox.Show("Confirmado");
 
                 await LoadConsolePurchasesHistoryData();
             }
             catch (ProductValidationException ex)
             {
-                Console.WriteLine(ex.Message);
-                foreach (var error in ex.Errors) { Console.WriteLine(error); }
+                string message = string.Empty;
+                foreach (var error in ex.Errors) { message += $"- {error}\n"; }
+                MessageBox.Show(message, ex.Message);
             }
-            catch (Exception ex) { Console.WriteLine(ex.Message); }
+            catch (Exception ex) { MessageBox.Show(ex.Message); }
         }
 
         private async Task RevertPurchaseSpareParts(SparePartsPurchase sparePartsPurchase)
@@ -449,18 +541,50 @@ namespace Cartuchada.Forms.Purchase_Forms
                 if (confirmRevert == DialogResult.No) { return; }
                 if (!RevertActionConfirmed()) { return; }
 
-                MessageBox.Show("Confirmado");
-
                 await _revertPurchaseSparePartsService.ExecuteAsync(sparePartsPurchase);
+
+                MessageBox.Show("Confirmado");
 
                 await LoadSparePartsPurchasesHistoryData();
             }
             catch (ProductValidationException ex)
             {
-                Console.WriteLine(ex.Message);
-                foreach (var error in ex.Errors) { Console.WriteLine(error); }
+                string message = string.Empty;
+                foreach (var error in ex.Errors) { message += $"- {error}\n"; }
+                MessageBox.Show(message, ex.Message);
             }
-            catch (Exception ex) { Console.WriteLine(ex.Message); }
+            catch (Exception ex) { MessageBox.Show(ex.Message); }
+        }
+
+        private async Task RevertSpotCartdrige(Cartdrige cartdrige)
+        {
+            try
+            {
+                //cartdrige.IdProductType = 20;
+                var confirmRevert = MessageBox.Show($"¿Seguro que quieres revertir el SPOT del siguiente juego?\n\n" +
+                    $"{cartdrige.Name.ToUpper()}\n" +
+                    $"Fecha de spot: {cartdrige.PurchaseDate.ToString("dd/MM/yyyy")}\n" +
+                    $"Región: {cartdrige.Region}\n" +
+                    $"Condición: {cartdrige.Condition}\n" +
+                    $"Precio de compra: {cartdrige.PurchasePrice}€\n",
+                "Confirmar revertir spot", MessageBoxButtons.YesNo);
+
+                if (confirmRevert == DialogResult.No) { return; }
+                if (!RevertActionConfirmed()) { return; }
+
+                await _revertSpotCartdrigePurchaseService.ExecuteAsync(cartdrige);
+
+                MessageBox.Show("Confirmado");
+
+                await LoadSpotCartdrigeHistoryData();
+            }
+            catch (ProductValidationException ex)
+            {
+                string message = string.Empty;
+                foreach (var error in ex.Errors) { message += $"- {error}\n"; }
+                MessageBox.Show(message, ex.Message);
+            }
+            catch (Exception ex) { MessageBox.Show(ex.Message); }
         }
 
         private bool RevertActionConfirmed()

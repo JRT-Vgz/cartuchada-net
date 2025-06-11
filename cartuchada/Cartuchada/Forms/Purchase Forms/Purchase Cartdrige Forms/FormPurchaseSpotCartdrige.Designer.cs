@@ -1,6 +1,6 @@
 ﻿namespace Cartuchada.Forms.Purchase_Forms.Purchase_Cartdrige_Forms
 {
-    partial class FormPurchaseCartdrige
+    partial class FormPurchaseSpotCartdrige
     {
         /// <summary>
         /// Required designer variable.

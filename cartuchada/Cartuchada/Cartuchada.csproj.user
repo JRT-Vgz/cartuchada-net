@@ -4,7 +4,16 @@
     <Compile Update="Forms\FormCartuchadaMain.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="Forms\Miscelanea Forms\FormAccounting.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="Forms\Miscelanea Forms\FormConfirmRevertInput.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\Miscelanea Forms\FormLog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\Miscelanea Forms\FormStatistics.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="Forms\Purchase Forms\FormPurchasesHistory.cs">
@@ -16,7 +25,7 @@
     <Compile Update="Forms\Purchase Forms\FormPurchaseMain.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Update="Forms\Purchase Forms\Purchase Cartdrige Forms\FormPurchaseCartdrige.cs">
+    <Compile Update="Forms\Purchase Forms\Purchase Cartdrige Forms\FormPurchaseSpotCartdrige.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="Forms\Purchase Forms\Purchase Console Forms\FormPurchaseConsole.cs">

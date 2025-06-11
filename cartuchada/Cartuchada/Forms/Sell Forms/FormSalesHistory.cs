@@ -410,10 +410,11 @@ namespace Cartuchada.Forms.Sell_Forms
             }
             catch (ProductValidationException ex)
             {
-                Console.WriteLine(ex.Message);
-                foreach (var error in ex.Errors) { Console.WriteLine(error); }
+                string message = string.Empty;
+                foreach (var error in ex.Errors) { message += $"- {error}\n"; }
+                MessageBox.Show(message, ex.Message);
             }
-            catch (Exception ex) { Console.WriteLine(ex.Message); }
+            catch (Exception ex) { MessageBox.Show(ex.Message); }
         }
 
         private async Task RevertSoldConsole(SoldVideoConsole soldVideoConsole)
@@ -446,10 +447,11 @@ namespace Cartuchada.Forms.Sell_Forms
             }
             catch (ProductValidationException ex)
             {
-                Console.WriteLine(ex.Message);
-                foreach (var error in ex.Errors) { Console.WriteLine(error); }
+                string message = string.Empty;
+                foreach (var error in ex.Errors) { message += $"- {error}\n"; }
+                MessageBox.Show(message, ex.Message);
             }
-            catch (Exception ex) { Console.WriteLine(ex.Message); }
+            catch (Exception ex) { MessageBox.Show(ex.Message); }
         }
 
         private async Task RevertSoldSleeves(SoldSleeve soldSleeve)
@@ -466,18 +468,19 @@ namespace Cartuchada.Forms.Sell_Forms
                 if (confirmRevert == DialogResult.No) { return; }
                 if (!RevertActionConfirmed()) { return; }
 
-                MessageBox.Show("Confirmado");
-
                 await _revertSellSleeveService.ExecuteAsync(soldSleeve);
+
+                MessageBox.Show("Confirmado");
 
                 await LoadSleevesSaleHistoryData();
             }
             catch (ProductValidationException ex)
             {
-                Console.WriteLine(ex.Message);
-                foreach (var error in ex.Errors) { Console.WriteLine(error); }
+                string message = string.Empty;
+                foreach (var error in ex.Errors) { message += $"- {error}\n"; }
+                MessageBox.Show(message, ex.Message);
             }
-            catch (Exception ex) { Console.WriteLine(ex.Message); }
+            catch (Exception ex) { MessageBox.Show(ex.Message); }
         }
 
         private bool RevertActionConfirmed()

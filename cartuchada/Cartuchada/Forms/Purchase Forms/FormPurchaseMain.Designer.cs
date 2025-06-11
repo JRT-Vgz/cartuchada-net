@@ -28,22 +28,22 @@
         /// </summary>
         private void InitializeComponent()
         {
-            btn_menuPrincipal = new Button();
+            btn_mainMenu = new Button();
             btn_purchaseCartdrige = new Button();
             btn_purchaseVideoconsole = new Button();
             btn_purchaseSpareParts = new Button();
             btn_purchasesHistory = new Button();
             SuspendLayout();
             // 
-            // btn_menuPrincipal
+            // btn_mainMenu
             // 
-            btn_menuPrincipal.Location = new Point(12, 12);
-            btn_menuPrincipal.Name = "btn_menuPrincipal";
-            btn_menuPrincipal.Size = new Size(99, 23);
-            btn_menuPrincipal.TabIndex = 0;
-            btn_menuPrincipal.Text = "Menú principal";
-            btn_menuPrincipal.UseVisualStyleBackColor = true;
-            btn_menuPrincipal.Click += btn_menuPrincipal_Click;
+            btn_mainMenu.Location = new Point(12, 12);
+            btn_mainMenu.Name = "btn_mainMenu";
+            btn_mainMenu.Size = new Size(99, 23);
+            btn_mainMenu.TabIndex = 0;
+            btn_mainMenu.Text = "Menú principal";
+            btn_mainMenu.UseVisualStyleBackColor = true;
+            btn_mainMenu.Click += btn_mainMenu_Click;
             // 
             // btn_purchaseCartdrige
             // 
@@ -94,7 +94,7 @@
             Controls.Add(btn_purchaseSpareParts);
             Controls.Add(btn_purchaseVideoconsole);
             Controls.Add(btn_purchaseCartdrige);
-            Controls.Add(btn_menuPrincipal);
+            Controls.Add(btn_mainMenu);
             FormBorderStyle = FormBorderStyle.FixedSingle;
             MaximizeBox = false;
             MaximumSize = new Size(816, 489);
@@ -108,7 +108,7 @@
 
         #endregion
 
-        private Button btn_menuPrincipal;
+        private Button btn_mainMenu;
         private Button btn_purchaseCartdrige;
         private Button btn_purchaseVideoconsole;
         private Button btn_purchaseSpareParts;

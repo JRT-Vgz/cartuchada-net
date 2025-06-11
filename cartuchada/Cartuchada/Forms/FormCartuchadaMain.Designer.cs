@@ -32,13 +32,16 @@
             lbl_version = new Label();
             btn_purchase = new Button();
             btn_sell = new Button();
+            btn_shopStats = new Button();
+            btn_log = new Button();
+            btn_accounting = new Button();
             SuspendLayout();
             // 
             // lbl_title
             // 
             lbl_title.AutoSize = true;
             lbl_title.Font = new Font("Segoe UI", 27.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            lbl_title.Location = new Point(275, 64);
+            lbl_title.Location = new Point(271, 42);
             lbl_title.Name = "lbl_title";
             lbl_title.Size = new Size(255, 50);
             lbl_title.TabIndex = 0;
@@ -57,7 +60,7 @@
             // 
             // btn_purchase
             // 
-            btn_purchase.Location = new Point(282, 163);
+            btn_purchase.Location = new Point(278, 131);
             btn_purchase.Name = "btn_purchase";
             btn_purchase.Size = new Size(238, 33);
             btn_purchase.TabIndex = 2;
@@ -67,7 +70,7 @@
             // 
             // btn_sell
             // 
-            btn_sell.Location = new Point(282, 229);
+            btn_sell.Location = new Point(278, 197);
             btn_sell.Name = "btn_sell";
             btn_sell.Size = new Size(238, 33);
             btn_sell.TabIndex = 3;
@@ -75,11 +78,44 @@
             btn_sell.UseVisualStyleBackColor = true;
             btn_sell.Click += btn_sell_Click;
             // 
+            // btn_shopStats
+            // 
+            btn_shopStats.Location = new Point(278, 263);
+            btn_shopStats.Name = "btn_shopStats";
+            btn_shopStats.Size = new Size(238, 33);
+            btn_shopStats.TabIndex = 4;
+            btn_shopStats.Text = "ESTADÍSTICAS";
+            btn_shopStats.UseVisualStyleBackColor = true;
+            btn_shopStats.Click += btn_shopStats_Click;
+            // 
+            // btn_log
+            // 
+            btn_log.Location = new Point(12, 411);
+            btn_log.Name = "btn_log";
+            btn_log.Size = new Size(80, 27);
+            btn_log.TabIndex = 5;
+            btn_log.Text = "LOG";
+            btn_log.UseVisualStyleBackColor = true;
+            btn_log.Click += btn_log_Click;
+            // 
+            // btn_accounting
+            // 
+            btn_accounting.Location = new Point(278, 329);
+            btn_accounting.Name = "btn_accounting";
+            btn_accounting.Size = new Size(238, 33);
+            btn_accounting.TabIndex = 6;
+            btn_accounting.Text = "CONTABILIDAD";
+            btn_accounting.UseVisualStyleBackColor = true;
+            btn_accounting.Click += btn_accounting_Click;
+            // 
             // FormCartuchadaMain
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(btn_accounting);
+            Controls.Add(btn_log);
+            Controls.Add(btn_shopStats);
             Controls.Add(btn_sell);
             Controls.Add(btn_purchase);
             Controls.Add(lbl_version);
@@ -102,5 +138,8 @@
         private Label lbl_version;
         private Button btn_purchase;
         private Button btn_sell;
+        private Button btn_shopStats;
+        private Button btn_log;
+        private Button btn_accounting;
     }
 }

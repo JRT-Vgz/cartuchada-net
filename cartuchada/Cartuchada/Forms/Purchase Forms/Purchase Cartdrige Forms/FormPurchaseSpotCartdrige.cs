@@ -1,4 +1,6 @@
 ﻿using _2_Services.Exceptions;
+using _2_Services.Interfaces;
+using _2_Services.Services.Cartdrige_Services;
 using _2_Services.Services.Purchase_Services;
 using _3_Data.Models;
 using _3_Mappers.DTOs.Purchase_Dtos;
@@ -8,22 +10,28 @@ using _3_Repository.Query_Objects;
 
 namespace Cartuchada.Forms.Purchase_Forms.Purchase_Cartdrige_Forms
 {
-    public partial class FormPurchaseCartdrige : Form
+    public partial class FormPurchaseSpotCartdrige : Form
     {
         private readonly PurchaseCartdrigeService<CartdrigePurchaseDto, CartdrigePurchaseViewModel> _purchaseCartdrigeService;
-        private readonly GetAllRegionsQuery _getAllRegionsQuery;
-        private readonly GetAllConditionsQuery _getAllConditionsQuery;
+        private readonly SpotCartdrigePurchaseService<CartdrigePurchaseDto, SpotCartdrigeViewModel> _spotCartdrigePurchaseService;
+        private readonly IGetAllQuery<RegionModel> _getAllRegionsQuery;
+        private readonly IGetAllQuery<ConditionModel> _getAllConditionsQuery;
+
+        private bool _isSpotting = false;
+        public bool IsSpotting { get => _isSpotting; set => _isSpotting = value; }
 
         private CartdrigePurchaseDto _cartdrigePurchaseDto;
         private const int MAX_LENGTH_PRICE = 6;
 
-        public FormPurchaseCartdrige(
+        public FormPurchaseSpotCartdrige(
             PurchaseCartdrigeService<CartdrigePurchaseDto, CartdrigePurchaseViewModel> purchaseCartdrigeService,
-            GetAllRegionsQuery getAllRegionsQuery,
-            GetAllConditionsQuery getAllConditionsQuery)
+            SpotCartdrigePurchaseService<CartdrigePurchaseDto, SpotCartdrigeViewModel> spotCartdrigePurchaseService,
+            IGetAllQuery<RegionModel> getAllRegionsQuery,
+            IGetAllQuery<ConditionModel> getAllConditionsQuery)
         {
             InitializeComponent();
             _purchaseCartdrigeService = purchaseCartdrigeService;
+            _spotCartdrigePurchaseService = spotCartdrigePurchaseService;
             _getAllRegionsQuery = getAllRegionsQuery;
             _getAllConditionsQuery = getAllConditionsQuery;
         }
@@ -36,6 +44,12 @@ namespace Cartuchada.Forms.Purchase_Forms.Purchase_Cartdrige_Forms
             _cartdrigePurchaseDto = cartdrigePurchaseDto;
 
             lbl_showTitle.Text = _cartdrigePurchaseDto.Name;
+
+            if(IsSpotting) 
+            { 
+                this.Text = "Spotear cartucho";
+                btn_purchase.Text = "Spotear";
+            }
         }
 
         private async void FormPurchaseCartdrige_Load(object sender, EventArgs e)
@@ -140,6 +154,14 @@ namespace Cartuchada.Forms.Purchase_Forms.Purchase_Cartdrige_Forms
             _cartdrigePurchaseDto.Region = region.Name;
             _cartdrigePurchaseDto.Condition = condition.Name;
 
+            if (IsSpotting) { await SpotCartdrige(); }
+            else { PurchaseCartdrige(); }
+
+            btn_close_Click(sender, e);
+        }
+
+        private async Task PurchaseCartdrige()
+        {
             try
             {
                 var viewModel = await _purchaseCartdrigeService.ExecuteAsync(_cartdrigePurchaseDto);
@@ -151,8 +173,6 @@ namespace Cartuchada.Forms.Purchase_Forms.Purchase_Cartdrige_Forms
                     $"{viewModel.Condition}\n" +
                     $"{viewModel.PurchasePrice}",
                     "Compra realizada");
-
-                btn_close_Click(sender, e);
             }
             catch (DataValidationException ex)
             {
@@ -166,10 +186,35 @@ namespace Cartuchada.Forms.Purchase_Forms.Purchase_Cartdrige_Forms
                 foreach (var error in ex.Errors) { message += $"- {error}\n"; }
                 MessageBox.Show(message, ex.Message);
             }
-            catch (Exception ex)
+            catch (Exception ex) { MessageBox.Show(ex.Message); }
+        }
+        private async Task SpotCartdrige()
+        {
+            try
             {
-                MessageBox.Show(ex.Message);
+                var viewModel = await _spotCartdrigePurchaseService.ExecuteAsync(_cartdrigePurchaseDto);
+                MessageBox.Show(
+                    $"{viewModel.SpotAction}\n\n" +
+                    $"{viewModel.Name}\n" +
+                    $"{viewModel.ProductType}\n" +
+                    $"{viewModel.Region}\n" +
+                    $"{viewModel.Condition}\n" +
+                    $"{viewModel.SpotPrice}",
+                    "Cartucho spoteado");
             }
+            catch (DataValidationException ex)
+            {
+                string message = string.Empty;
+                foreach (var error in ex.Errors) { message += $"- {error}\n"; }
+                MessageBox.Show(message, ex.Message);
+            }
+            catch (ProductValidationException ex)
+            {
+                string message = string.Empty;
+                foreach (var error in ex.Errors) { message += $"- {error}\n"; }
+                MessageBox.Show(message, ex.Message);
+            }
+            catch (Exception ex) { MessageBox.Show(ex.Message); }
         }
 
 

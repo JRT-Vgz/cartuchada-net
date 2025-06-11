@@ -79,17 +79,16 @@ namespace Cartuchada
 
 
             // QUERY OBJECTS
-            services.AddTransient<FilterGameCatalogueQuery>();
-            services.AddTransient<GetAllRegionsQuery>();
-            services.AddTransient<GetAllConditionsQuery>();
+            services.AddTransient(typeof(IGetAllQuery<>), typeof(GetAllQuery<>));
             services.AddTransient<GetAllConsoleProductTypesQuery>();
-            services.AddTransient<GetAllSparePartTypesQuery>();
+            services.AddTransient<GetAllSleevesQuery>();
+            services.AddTransient<FilterGameCatalogueQuery>();
             services.AddTransient<FilterCartdrigeQuery>();
             services.AddTransient<FilterConsoleQuery>();
-            services.AddTransient<GetAllSleevesQuery>();
 
             // PRESENTERS
             services.AddTransient<IPresenter<Cartdrige, CartdrigePurchaseViewModel>, CartdrigePurchasePresenter>();
+            services.AddTransient<IPresenter<Cartdrige, SpotCartdrigeViewModel>, SpotCartdrigePresenter>();
             services.AddTransient<IPresenter<VideoConsole, ConsolePurchaseViewModel>, ConsolePurchasePresenter>();
             services.AddTransient<IPresenter<SparePartsPurchase, SparePartsPurchaseViewModel>, SparePartsPurchasePresenter>();
             services.AddTransient<IPresenter<SoldSleeve, SleeveSaleViewModel>, SleeveSalePresenter>();
@@ -108,6 +107,7 @@ namespace Cartuchada
             // VALIDATORS:
             services.AddTransient<IValidator<CartdrigePurchaseDto>, CartdrigePurchaseDtoValidator>();
             services.AddTransient<IProductValidator<Cartdrige>, PurchasedCartdrigeValidator>();
+            services.AddTransient<INonReferencedProductValidator<Cartdrige>, SpotedCartdrigeValidator>();
             services.AddTransient<IValidator<ConsolePurchaseDto>, ConsolePurchaseDtoValidator>();
             services.AddTransient<IProductValidator<VideoConsole>, PurchasedConsoleValidator>();
             services.AddTransient<IValidator<SparePartsPurchaseDto>, SparePartsPurchaseDtoValidator>();
@@ -147,6 +147,9 @@ namespace Cartuchada
             services.AddTransient<RevertSellSleeveService>();
             services.AddTransient<GetAllSparePartsPurchasesService>();
             services.AddTransient<RevertPurchaseSparePartsService>();
+            services.AddTransient<SpotCartdrigePurchaseService<CartdrigePurchaseDto, SpotCartdrigeViewModel>>();
+            services.AddTransient<RevertSpotCartdrigePurchaseService>();
+            services.AddTransient<GetAllSpotCartdrigesService>();
 
 
             // INYECCIÓN DE FORMULARIOS
@@ -154,7 +157,7 @@ namespace Cartuchada
 
             services.AddTransient<FormPurchaseMain>();
             services.AddTransient<FormGameCatalogue>();
-            services.AddTransient<FormPurchaseCartdrige>();
+            services.AddTransient<FormPurchaseSpotCartdrige>();
             services.AddTransient<FormPurchaseConsole>();
             services.AddTransient<FormPurchaseSpareParts>();
             services.AddTransient<FormSellMain>();
@@ -166,6 +169,9 @@ namespace Cartuchada
             services.AddTransient<FormSalesHistory>();
             services.AddTransient<FormPurchasesHistory>();
             services.AddTransient<FormConfirmRevertInput>();
+            services.AddTransient<FormStatistics>();
+            services.AddTransient<FormLog>();
+            services.AddTransient<FormAccounting>();
         }
 
         private static IConfiguration BuildConfiguration()

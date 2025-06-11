@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             panel_upperMenu = new Panel();
+            rb_historySpot = new RadioButton();
             rb_historySpareParts = new RadioButton();
             rb_historyCartdriges = new RadioButton();
             rb_historyConsoles = new RadioButton();
@@ -40,6 +41,7 @@
             // 
             // panel_upperMenu
             // 
+            panel_upperMenu.Controls.Add(rb_historySpot);
             panel_upperMenu.Controls.Add(rb_historySpareParts);
             panel_upperMenu.Controls.Add(rb_historyCartdriges);
             panel_upperMenu.Controls.Add(rb_historyConsoles);
@@ -49,6 +51,18 @@
             panel_upperMenu.Name = "panel_upperMenu";
             panel_upperMenu.Size = new Size(800, 58);
             panel_upperMenu.TabIndex = 3;
+            // 
+            // rb_historySpot
+            // 
+            rb_historySpot.AutoSize = true;
+            rb_historySpot.Location = new Point(619, 20);
+            rb_historySpot.Name = "rb_historySpot";
+            rb_historySpot.Size = new Size(49, 19);
+            rb_historySpot.TabIndex = 7;
+            rb_historySpot.TabStop = true;
+            rb_historySpot.Text = "Spot";
+            rb_historySpot.UseVisualStyleBackColor = true;
+            rb_historySpot.CheckedChanged += rb_CheckedChanged;
             // 
             // rb_historySpareParts
             // 
@@ -145,5 +159,6 @@
         private RadioButton rb_historyConsoles;
         private Button btn_back;
         private DataGridView dgv_purchasesHistory;
+        private RadioButton rb_historySpot;
     }
 }
