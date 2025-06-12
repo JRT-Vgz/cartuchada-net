@@ -27,6 +27,7 @@ namespace _3_AccountingSystem
             }
 
             accountingModel.Expenses += purchasePrice;
+            accountingModel.Total = CalculateTotal(accountingModel);
 
             UpdateAccountingDatabase(accountingModel);
         }
@@ -44,6 +45,7 @@ namespace _3_AccountingSystem
             }
 
             accountingModel.Income += salePrice;
+            accountingModel.Total = CalculateTotal(accountingModel);
 
             UpdateAccountingDatabase(accountingModel);
         }
@@ -61,6 +63,7 @@ namespace _3_AccountingSystem
             }
 
             accountingModel.Expenses -= purchasePrice;
+            accountingModel.Total = CalculateTotal(accountingModel);
 
             UpdateAccountingDatabase(accountingModel);
         }
@@ -78,6 +81,7 @@ namespace _3_AccountingSystem
             }
 
             accountingModel.Income -= salePrice;
+            accountingModel.Total = CalculateTotal(accountingModel);
 
             UpdateAccountingDatabase(accountingModel);
         }
@@ -103,5 +107,8 @@ namespace _3_AccountingSystem
             try { _context.Accounting.Update(accountingModel); }
             catch (Exception) { throw new AccountingSystemException("Error al actualizar las cuentas en la tabla 'Accounting'."); }
         }
+
+        private decimal CalculateTotal(AccountingModel accountingModel)
+            => accountingModel.Income - accountingModel.Expenses;
     }
 }

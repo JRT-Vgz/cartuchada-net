@@ -85,6 +85,8 @@ namespace Cartuchada
             services.AddTransient<FilterGameCatalogueQuery>();
             services.AddTransient<FilterCartdrigeQuery>();
             services.AddTransient<FilterConsoleQuery>();
+            services.AddTransient<FilterSoldCartdrigeQuery>();
+            services.AddTransient<FilterSpotedCartdrigeQuery>();
 
             // PRESENTERS
             services.AddTransient<IPresenter<Cartdrige, CartdrigePurchaseViewModel>, CartdrigePurchasePresenter>();
@@ -172,6 +174,7 @@ namespace Cartuchada
             services.AddTransient<FormStatistics>();
             services.AddTransient<FormLog>();
             services.AddTransient<FormAccounting>();
+            services.AddTransient<FormRecommendedCartdrigePrice>();
         }
 
         private static IConfiguration BuildConfiguration()

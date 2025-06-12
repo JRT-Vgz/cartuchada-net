@@ -1,6 +1,7 @@
 ﻿using _3_Data.Models;
 using _3_Mappers.DTOs.Purchase_Dtos;
 using _3_Repository.Query_Objects;
+using Cartuchada.Forms.Miscelanea_Forms;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Cartuchada.Forms.Purchase_Forms.Purchase_Cartdrige_Forms
@@ -65,8 +66,20 @@ namespace Cartuchada.Forms.Purchase_Forms.Purchase_Cartdrige_Forms
                 HeaderText = "Nombre",
                 DataPropertyName = "Name",
                 Name = "colName",
-                Width = 625
+                Width = 580
             });
+
+            var infoColumn = new DataGridViewButtonColumn
+            {
+                HeaderText = "",
+                Name = "colInfo",
+                Text = "+ Info",
+                UseColumnTextForButtonValue = true,
+                Width = 45
+            };
+            infoColumn.DefaultCellStyle.BackColor = Color.PapayaWhip;
+            infoColumn.DefaultCellStyle.SelectionBackColor = Color.PapayaWhip;
+            dgv_gameCatalogue.Columns.Add(infoColumn);
 
             var spotButtonColumn = new DataGridViewButtonColumn
             {
@@ -125,7 +138,7 @@ namespace Cartuchada.Forms.Purchase_Forms.Purchase_Cartdrige_Forms
 
 
         // -------------------------------------------------------------------------------------------------------
-        // ------------------------------------- PURCHASE / SPOT BUTTON ------------------------------------------
+        // ---------------------------------- PURCHASE / INFO / SPOT BUTTON --------------------------------------
         // -------------------------------------------------------------------------------------------------------
         private void dgv_gameCatalogue_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
@@ -153,6 +166,25 @@ namespace Cartuchada.Forms.Purchase_Forms.Purchase_Cartdrige_Forms
                 frm.ShowDialog();
 
                 txt_search.Focus();
+            }
+            // INFO:
+            else if (dgv_gameCatalogue.Columns[e.ColumnIndex].Name == "colInfo")
+            {
+                this.Hide();
+
+                var frm = _serviceProvider.GetRequiredService<FormRecommendedCartdrigePrice>();
+                frm.Location = new Point(this.Location.X, this.Location.Y);
+                frm.SetInfo(cartdrigePurchaseDto);
+                frm.ShowDialog();
+
+                if (frm.IsClosing) 
+                {
+                    _isClosing = true;
+                    return; 
+                }
+
+                this.Location = new Point(frm.Location.X, frm.Location.Y);
+                this.Show();
             }
             // SPOT:
             else if (dgv_gameCatalogue.Columns[e.ColumnIndex].Name == "colSpot")

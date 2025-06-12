@@ -18,5 +18,8 @@ namespace _3_Data.Models.Management_Models
 
         [Column(TypeName = "decimal(18,2)")]
         public decimal Expenses { get; set; }
+
+        [Column(TypeName = "decimal(18,2)")]
+        public decimal Total { get; set; }
     }
 }

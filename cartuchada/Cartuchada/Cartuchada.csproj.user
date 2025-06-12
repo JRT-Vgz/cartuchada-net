@@ -28,6 +28,9 @@
     <Compile Update="Forms\Purchase Forms\Purchase Cartdrige Forms\FormPurchaseSpotCartdrige.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="Forms\Purchase Forms\Purchase Cartdrige Forms\FormRecommendedCartdrigePrice.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="Forms\Purchase Forms\Purchase Console Forms\FormPurchaseConsole.cs">
       <SubType>Form</SubType>
     </Compile>

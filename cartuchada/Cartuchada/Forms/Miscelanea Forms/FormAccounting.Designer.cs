@@ -29,15 +29,19 @@
         private void InitializeComponent()
         {
             panel_upperMenu = new Panel();
+            lbl_historicalAccounting = new Label();
             cbo_yearFilter = new ComboBox();
             btn_mainMenu = new Button();
-            dgv_statistics = new DataGridView();
+            dgv_accounting = new DataGridView();
+            dgv_historicalAccounting = new DataGridView();
             panel_upperMenu.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)dgv_statistics).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)dgv_accounting).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)dgv_historicalAccounting).BeginInit();
             SuspendLayout();
             // 
             // panel_upperMenu
             // 
+            panel_upperMenu.Controls.Add(lbl_historicalAccounting);
             panel_upperMenu.Controls.Add(cbo_yearFilter);
             panel_upperMenu.Controls.Add(btn_mainMenu);
             panel_upperMenu.Dock = DockStyle.Top;
@@ -45,6 +49,15 @@
             panel_upperMenu.Name = "panel_upperMenu";
             panel_upperMenu.Size = new Size(800, 58);
             panel_upperMenu.TabIndex = 2;
+            // 
+            // lbl_historicalAccounting
+            // 
+            lbl_historicalAccounting.AutoSize = true;
+            lbl_historicalAccounting.Location = new Point(569, 28);
+            lbl_historicalAccounting.Name = "lbl_historicalAccounting";
+            lbl_historicalAccounting.Size = new Size(69, 15);
+            lbl_historicalAccounting.TabIndex = 103;
+            lbl_historicalAccounting.Text = "HISTÓRICO:";
             // 
             // cbo_yearFilter
             // 
@@ -54,6 +67,7 @@
             cbo_yearFilter.Name = "cbo_yearFilter";
             cbo_yearFilter.Size = new Size(121, 23);
             cbo_yearFilter.TabIndex = 102;
+            cbo_yearFilter.SelectedIndexChanged += cbo_yearFilter_SelectedIndexChanged;
             // 
             // btn_mainMenu
             // 
@@ -65,30 +79,48 @@
             btn_mainMenu.UseVisualStyleBackColor = true;
             btn_mainMenu.Click += btn_mainMenu_Click;
             // 
-            // dgv_statistics
+            // dgv_accounting
             // 
-            dgv_statistics.AllowUserToAddRows = false;
-            dgv_statistics.AllowUserToDeleteRows = false;
-            dgv_statistics.AllowUserToResizeColumns = false;
-            dgv_statistics.AllowUserToResizeRows = false;
-            dgv_statistics.BorderStyle = BorderStyle.Fixed3D;
-            dgv_statistics.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgv_statistics.Dock = DockStyle.Fill;
-            dgv_statistics.Location = new Point(0, 58);
-            dgv_statistics.MultiSelect = false;
-            dgv_statistics.Name = "dgv_statistics";
-            dgv_statistics.ReadOnly = true;
-            dgv_statistics.RowHeadersVisible = false;
-            dgv_statistics.SelectionMode = DataGridViewSelectionMode.CellSelect;
-            dgv_statistics.Size = new Size(800, 392);
-            dgv_statistics.TabIndex = 3;
+            dgv_accounting.AllowUserToAddRows = false;
+            dgv_accounting.AllowUserToDeleteRows = false;
+            dgv_accounting.AllowUserToResizeColumns = false;
+            dgv_accounting.AllowUserToResizeRows = false;
+            dgv_accounting.BorderStyle = BorderStyle.Fixed3D;
+            dgv_accounting.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgv_accounting.Location = new Point(35, 58);
+            dgv_accounting.MultiSelect = false;
+            dgv_accounting.Name = "dgv_accounting";
+            dgv_accounting.ReadOnly = true;
+            dgv_accounting.RowHeadersVisible = false;
+            dgv_accounting.SelectionMode = DataGridViewSelectionMode.CellSelect;
+            dgv_accounting.Size = new Size(406, 350);
+            dgv_accounting.TabIndex = 3;
+            dgv_accounting.CellFormatting += dgv_accounting_CellFormatting;
+            // 
+            // dgv_historicalAccounting
+            // 
+            dgv_historicalAccounting.AllowUserToAddRows = false;
+            dgv_historicalAccounting.AllowUserToDeleteRows = false;
+            dgv_historicalAccounting.AllowUserToResizeColumns = false;
+            dgv_historicalAccounting.AllowUserToResizeRows = false;
+            dgv_historicalAccounting.BorderStyle = BorderStyle.Fixed3D;
+            dgv_historicalAccounting.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgv_historicalAccounting.Location = new Point(460, 58);
+            dgv_historicalAccounting.MultiSelect = false;
+            dgv_historicalAccounting.Name = "dgv_historicalAccounting";
+            dgv_historicalAccounting.ReadOnly = true;
+            dgv_historicalAccounting.RowHeadersVisible = false;
+            dgv_historicalAccounting.SelectionMode = DataGridViewSelectionMode.CellSelect;
+            dgv_historicalAccounting.Size = new Size(306, 50);
+            dgv_historicalAccounting.TabIndex = 4;
             // 
             // FormAccounting
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
-            Controls.Add(dgv_statistics);
+            Controls.Add(dgv_historicalAccounting);
+            Controls.Add(dgv_accounting);
             Controls.Add(panel_upperMenu);
             FormBorderStyle = FormBorderStyle.FixedSingle;
             MaximizeBox = false;
@@ -100,7 +132,9 @@
             FormClosing += FormAccounting_FormClosing;
             Load += FormAccounting_Load;
             panel_upperMenu.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)dgv_statistics).EndInit();
+            panel_upperMenu.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)dgv_accounting).EndInit();
+            ((System.ComponentModel.ISupportInitialize)dgv_historicalAccounting).EndInit();
             ResumeLayout(false);
         }
 
@@ -108,7 +142,9 @@
 
         private Panel panel_upperMenu;
         private Button btn_mainMenu;
-        private DataGridView dgv_statistics;
+        private DataGridView dgv_accounting;
         private ComboBox cbo_yearFilter;
+        private DataGridView dgv_historicalAccounting;
+        private Label lbl_historicalAccounting;
     }
 }
