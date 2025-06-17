@@ -1,7 +1,7 @@
-﻿using _3_Data.Models;
+﻿
+using _3_Data.Models;
 using _3_Mappers.DTOs.Purchase_Dtos;
 using _3_Repository.Query_Objects;
-using Cartuchada.Forms.Miscelanea_Forms;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Cartuchada.Forms.Purchase_Forms.Purchase_Cartdrige_Forms
@@ -10,6 +10,7 @@ namespace Cartuchada.Forms.Purchase_Forms.Purchase_Cartdrige_Forms
     {
         private readonly IServiceProvider _serviceProvider;
         private readonly FilterGameCatalogueQuery _filterGameCatalogueQuery;
+        private readonly GetAllSoldOrSpottedUniqueGameIdsQuery _getAllSoldOrSpottedUniqueGameIdsQuery;
 
         private IEnumerable<GameCatalogueModel> _filteredGames;
         private bool _isClosing = false;
@@ -17,11 +18,13 @@ namespace Cartuchada.Forms.Purchase_Forms.Purchase_Cartdrige_Forms
         public bool IsClosing { get { return _isClosing; } }
 
         public FormGameCatalogue(FilterGameCatalogueQuery filterGameCatalogueQuery,
-            IServiceProvider serviceProvider)
+            IServiceProvider serviceProvider,
+            GetAllSoldOrSpottedUniqueGameIdsQuery getAllSoldOrSpottedUniqueGameIdsQuery)
         {
             InitializeComponent();
             _filterGameCatalogueQuery = filterGameCatalogueQuery;
             _serviceProvider = serviceProvider;
+            _getAllSoldOrSpottedUniqueGameIdsQuery = getAllSoldOrSpottedUniqueGameIdsQuery;
         }
 
         // -------------------------------------------------------------------------------------------------------
@@ -77,8 +80,6 @@ namespace Cartuchada.Forms.Purchase_Forms.Purchase_Cartdrige_Forms
                 UseColumnTextForButtonValue = true,
                 Width = 45
             };
-            infoColumn.DefaultCellStyle.BackColor = Color.PapayaWhip;
-            infoColumn.DefaultCellStyle.SelectionBackColor = Color.PapayaWhip;
             dgv_gameCatalogue.Columns.Add(infoColumn);
 
             var spotButtonColumn = new DataGridViewButtonColumn
@@ -100,12 +101,30 @@ namespace Cartuchada.Forms.Purchase_Forms.Purchase_Cartdrige_Forms
             AdjustTableSize(gamesCount);
 
             dgv_gameCatalogue.DataSource = _filteredGames;
+
+            await HighlightInfoButtonsForSoldOrSpottedGamesAsync();
         }
 
         private void AdjustTableSize(int gamesCount)
         {
             if (gamesCount > 14) { this.Width = 833; }
             else { this.Width = 816; }
+        }
+
+        public async Task HighlightInfoButtonsForSoldOrSpottedGamesAsync()
+        {
+            HashSet<int> soldOrSpottedUniqueGameIds = await _getAllSoldOrSpottedUniqueGameIdsQuery.ExecuteQueryAsync();
+
+            foreach (DataGridViewRow row in dgv_gameCatalogue.Rows)
+            {
+                int currentIdGame = (int)row.Cells["colId"].Value;
+
+                if (!soldOrSpottedUniqueGameIds.Contains(currentIdGame)) { continue; }
+
+                var cell = row.Cells["colInfo"];
+                cell.Style.BackColor = Color.PapayaWhip;
+                cell.Style.SelectionBackColor = Color.PapayaWhip;
+            }
         }
 
 

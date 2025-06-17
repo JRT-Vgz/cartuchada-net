@@ -69,6 +69,8 @@ var consoleDtoValidator = new ConsolePurchaseDtoValidator();
 var sparePartsPurchaseDtoValidator = new SparePartsPurchaseDtoValidator();
 var sleeveSaleDtoValidator = new SleeveSaleDtoValidator();
 
+FileSpotsToSqlQuery.Execute();
+
 ////////////////////////////////// SERVICIOS DE CARTDRIGE //////////////////////////////////
 
 //var servicio = new GetAllCartdrigesService(unitOfWork);

@@ -87,6 +87,7 @@ namespace Cartuchada
             services.AddTransient<FilterConsoleQuery>();
             services.AddTransient<FilterSoldCartdrigeQuery>();
             services.AddTransient<FilterSpotedCartdrigeQuery>();
+            services.AddTransient<GetAllSoldOrSpottedUniqueGameIdsQuery>();
 
             // PRESENTERS
             services.AddTransient<IPresenter<Cartdrige, CartdrigePurchaseViewModel>, CartdrigePurchasePresenter>();
