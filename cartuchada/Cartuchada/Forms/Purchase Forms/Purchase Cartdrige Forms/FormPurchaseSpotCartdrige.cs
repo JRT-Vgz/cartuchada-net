@@ -44,6 +44,7 @@ namespace Cartuchada.Forms.Purchase_Forms.Purchase_Cartdrige_Forms
             _cartdrigePurchaseDto = cartdrigePurchaseDto;
 
             lbl_showTitle.Text = _cartdrigePurchaseDto.Name;
+            lbl_purchasePrice.Text = "Precio de spot:";
 
             if(IsSpotting) 
             { 

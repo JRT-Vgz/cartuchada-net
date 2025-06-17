@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormCartuchadaMain));
             lbl_title = new Label();
             lbl_version = new Label();
             btn_purchase = new Button();
@@ -121,6 +122,7 @@
             Controls.Add(lbl_version);
             Controls.Add(lbl_title);
             FormBorderStyle = FormBorderStyle.FixedSingle;
+            Icon = (Icon)resources.GetObject("$this.Icon");
             MaximizeBox = false;
             MaximumSize = new Size(816, 489);
             MinimumSize = new Size(816, 489);

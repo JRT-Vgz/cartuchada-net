@@ -85,12 +85,12 @@
             // 
             // lbl_purchasePrice
             // 
-            lbl_purchasePrice.AutoSize = true;
             lbl_purchasePrice.Location = new Point(98, 158);
             lbl_purchasePrice.Name = "lbl_purchasePrice";
             lbl_purchasePrice.Size = new Size(103, 15);
             lbl_purchasePrice.TabIndex = 6;
             lbl_purchasePrice.Text = "Precio de compra:";
+            lbl_purchasePrice.TextAlign = ContentAlignment.MiddleRight;
             // 
             // txt_purchasePrice
             // 
@@ -121,7 +121,7 @@
             btn_close.UseVisualStyleBackColor = true;
             btn_close.Click += btn_close_Click;
             // 
-            // FormPurchaseCartdrige
+            // FormPurchaseSpotCartdrige
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
@@ -142,7 +142,7 @@
             MaximumSize = new Size(500, 354);
             MinimizeBox = false;
             MinimumSize = new Size(500, 354);
-            Name = "FormPurchaseCartdrige";
+            Name = "FormPurchaseSpotCartdrige";
             ShowIcon = false;
             ShowInTaskbar = false;
             StartPosition = FormStartPosition.CenterParent;

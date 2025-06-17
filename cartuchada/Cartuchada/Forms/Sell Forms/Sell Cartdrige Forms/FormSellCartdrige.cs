@@ -108,18 +108,6 @@ namespace Cartuchada.Forms.Sell_Forms.Sell_Cartdrige_Forms
             purchasePriceColumn.HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
             purchasePriceColumn.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
             dgv_cartdrigeCatalogue.Columns.Add(purchasePriceColumn);
-
-            //var revertPurchaseButtonColumn = new DataGridViewButtonColumn
-            //{
-            //    HeaderText = "",
-            //    Name = "colRevertPurchase",
-            //    Text = "Revertir compra",
-            //    UseColumnTextForButtonValue = true,
-            //    Width = 95
-            //};
-            //revertPurchaseButtonColumn.DefaultCellStyle.BackColor = Color.GreenYellow;
-            //revertPurchaseButtonColumn.DefaultCellStyle.SelectionBackColor = Color.GreenYellow;
-            //dgv_cartdrigeCatalogue.Columns.Add(revertPurchaseButtonColumn);
         }
 
         private async Task LoadAllData()

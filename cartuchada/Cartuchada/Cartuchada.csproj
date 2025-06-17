@@ -6,10 +6,16 @@
     <Nullable>enable</Nullable>
     <UseWindowsForms>true</UseWindowsForms>
     <ImplicitUsings>enable</ImplicitUsings>
+    <AssemblyName>Cartuchada</AssemblyName>
+    <ApplicationIcon>Resources\Icons\GameBoy2.ico</ApplicationIcon>
   </PropertyGroup>
 
   <ItemGroup>
     <None Remove="Resources\AppSettings\appsettings.dev.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Resources\Icons\GameBoy2.ico" />
   </ItemGroup>
 
   <ItemGroup>
