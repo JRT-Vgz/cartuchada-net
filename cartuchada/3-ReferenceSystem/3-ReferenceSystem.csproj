@@ -5,6 +5,10 @@
     <RootNamespace>_3_ReferenceSystem</RootNamespace>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+
+	  <DebugType>none</DebugType>
+	  <DebugSymbols>false</DebugSymbols>
+	  
   </PropertyGroup>
 
   <ItemGroup>

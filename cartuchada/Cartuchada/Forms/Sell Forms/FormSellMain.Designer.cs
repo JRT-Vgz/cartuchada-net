@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormSellMain));
             btn_mainMenu = new Button();
             btn_sellCartdrige = new Button();
             btn_sellConsole = new Button();
@@ -96,6 +97,7 @@
             Controls.Add(btn_sellCartdrige);
             Controls.Add(btn_mainMenu);
             FormBorderStyle = FormBorderStyle.FixedSingle;
+            Icon = (Icon)resources.GetObject("$this.Icon");
             MaximizeBox = false;
             MaximumSize = new Size(816, 489);
             MinimumSize = new Size(816, 489);

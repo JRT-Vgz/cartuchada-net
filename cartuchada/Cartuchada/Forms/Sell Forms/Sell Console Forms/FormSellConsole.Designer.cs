@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormSellConsole));
             panel_upperMenu = new Panel();
             txt_sumSparePartsPrice = new TextBox();
             txt_searchReference = new TextBox();
@@ -114,6 +115,7 @@
             Controls.Add(dgv_consoleCatalogue);
             Controls.Add(panel_upperMenu);
             FormBorderStyle = FormBorderStyle.FixedSingle;
+            Icon = (Icon)resources.GetObject("$this.Icon");
             MaximizeBox = false;
             MaximumSize = new Size(833, 489);
             MinimumSize = new Size(816, 489);

@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormAccounting));
             panel_upperMenu = new Panel();
             lbl_historicalAccounting = new Label();
             cbo_yearFilter = new ComboBox();
@@ -123,6 +124,7 @@
             Controls.Add(dgv_accounting);
             Controls.Add(panel_upperMenu);
             FormBorderStyle = FormBorderStyle.FixedSingle;
+            Icon = (Icon)resources.GetObject("$this.Icon");
             MaximizeBox = false;
             MaximumSize = new Size(833, 489);
             MinimumSize = new Size(816, 489);

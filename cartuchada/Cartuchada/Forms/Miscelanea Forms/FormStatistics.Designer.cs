@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormStatistics));
             panel_upperMenu = new Panel();
             btn_mainMenu = new Button();
             dgv_statistics = new DataGridView();
@@ -80,6 +81,7 @@
             Controls.Add(dgv_statistics);
             Controls.Add(panel_upperMenu);
             FormBorderStyle = FormBorderStyle.FixedSingle;
+            Icon = (Icon)resources.GetObject("$this.Icon");
             MaximizeBox = false;
             MaximumSize = new Size(833, 489);
             MinimumSize = new Size(816, 489);

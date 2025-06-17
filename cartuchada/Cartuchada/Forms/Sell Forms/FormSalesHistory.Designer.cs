@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormSalesHistory));
             panel_upperMenu = new Panel();
             rb_historySleeves = new RadioButton();
             rb_historyCartdriges = new RadioButton();
@@ -123,6 +124,7 @@
             Controls.Add(dgv_salesHistory);
             Controls.Add(panel_upperMenu);
             FormBorderStyle = FormBorderStyle.FixedSingle;
+            Icon = (Icon)resources.GetObject("$this.Icon");
             MaximizeBox = false;
             MaximumSize = new Size(833, 489);
             MinimumSize = new Size(816, 489);

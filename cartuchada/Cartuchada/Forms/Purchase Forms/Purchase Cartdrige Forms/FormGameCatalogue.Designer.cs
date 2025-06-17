@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormGameCatalogue));
             btn_back = new Button();
             panel_upperMenu = new Panel();
             lbl_search = new Label();
@@ -102,6 +103,7 @@
             Controls.Add(dgv_gameCatalogue);
             Controls.Add(panel_upperMenu);
             FormBorderStyle = FormBorderStyle.FixedSingle;
+            Icon = (Icon)resources.GetObject("$this.Icon");
             MaximizeBox = false;
             MaximumSize = new Size(833, 489);
             MinimumSize = new Size(816, 489);

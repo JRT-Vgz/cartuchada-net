@@ -6,16 +6,30 @@
     <Nullable>enable</Nullable>
     <UseWindowsForms>true</UseWindowsForms>
     <ImplicitUsings>enable</ImplicitUsings>
+	  <SignAssembly>False</SignAssembly>
+	  <WindowsAppSDKSelfContained>true</WindowsAppSDKSelfContained>
     <AssemblyName>Cartuchada</AssemblyName>
-    <ApplicationIcon>Resources\Icons\GameBoy3.ico</ApplicationIcon>
+    <ApplicationIcon>Resources\Icons\GameBoy.ico</ApplicationIcon>
   </PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+		<IsPublishable>True</IsPublishable>
+		<DebugType>none</DebugType>
+		<Optimize>False</Optimize>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+		<IsPublishable>True</IsPublishable>
+		<DebugType>none</DebugType>
+		<DebugSymbols>false</DebugSymbols>
+	</PropertyGroup>
 
   <ItemGroup>
     <None Remove="Resources\AppSettings\appsettings.dev.json" />
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="Resources\Icons\GameBoy3.ico" />
+    <Content Include="Resources\Icons\GameBoy.ico" />
   </ItemGroup>
 
   <ItemGroup>

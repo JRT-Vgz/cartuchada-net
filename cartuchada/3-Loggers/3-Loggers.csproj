@@ -5,6 +5,10 @@
     <RootNamespace>_3_Loggers</RootNamespace>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+
+	  <DebugType>none</DebugType>
+	  <DebugSymbols>false</DebugSymbols>
+	  
   </PropertyGroup>
 
   <ItemGroup>
