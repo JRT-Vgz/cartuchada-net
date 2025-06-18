@@ -13,6 +13,7 @@
     <ProjectReference Include="..\2-Services\2-Services.csproj" />
     <ProjectReference Include="..\3-AccountingSystem\3-AccountingSystem.csproj" />
     <ProjectReference Include="..\3-Data\3-Data.csproj" />
+    <ProjectReference Include="..\3-Encrypter\3-Encrypter.csproj" />
     <ProjectReference Include="..\3-Loggers\3-Loggers.csproj" />
     <ProjectReference Include="..\3-Mappers\3-Mappers.csproj" />
     <ProjectReference Include="..\3-ReferenceSystem\3-ReferenceSystem.csproj" />

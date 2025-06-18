@@ -11,6 +11,7 @@ using _2_Services.Services.Spare_Parts_Services;
 using _3_AccountingSystem;
 using _3_Data;
 using _3_Data.Models;
+using _3_Encrypter;
 using _3_Loggers;
 using _3_Mappers.Automapper;
 using _3_Mappers.DTOs;
@@ -69,7 +70,9 @@ var consoleDtoValidator = new ConsolePurchaseDtoValidator();
 var sparePartsPurchaseDtoValidator = new SparePartsPurchaseDtoValidator();
 var sleeveSaleDtoValidator = new SleeveSaleDtoValidator();
 
-FileSpotsToSqlQuery.Execute();
+var texto = "Server=tcp:sql-server-cartuchada.database.windows.net,1433;Initial Catalog=sql-db-cartuchada;Persist Security Info=False;User ID=Vargath;Password=Jebimalo666;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
+string pass = Encrypter.Encrypt(texto);
+Console.WriteLine(pass);
 
 ////////////////////////////////// SERVICIOS DE CARTDRIGE //////////////////////////////////
 

@@ -35,7 +35,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "3-Validators.Tests", "3-Val
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "3-AccountingSystemTests", "3-AccountingSystemTests\3-AccountingSystemTests.csproj", "{2A615D70-74B9-4F5E-A645-6309EFA322B4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "3-Presenters", "3-Presenters\3-Presenters.csproj", "{87D08291-EB8D-4C32-B956-FE6CACB3BA78}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "3-Presenters", "3-Presenters\3-Presenters.csproj", "{87D08291-EB8D-4C32-B956-FE6CACB3BA78}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "3-Encrypter", "3-Encrypter\3-Encrypter.csproj", "{22A4609E-E29E-4C96-AC78-52A787CC08DD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -107,6 +109,10 @@ Global
 		{87D08291-EB8D-4C32-B956-FE6CACB3BA78}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{87D08291-EB8D-4C32-B956-FE6CACB3BA78}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{87D08291-EB8D-4C32-B956-FE6CACB3BA78}.Release|Any CPU.Build.0 = Release|Any CPU
+		{22A4609E-E29E-4C96-AC78-52A787CC08DD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{22A4609E-E29E-4C96-AC78-52A787CC08DD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{22A4609E-E29E-4C96-AC78-52A787CC08DD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{22A4609E-E29E-4C96-AC78-52A787CC08DD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

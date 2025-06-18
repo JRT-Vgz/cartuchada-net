@@ -9,10 +9,10 @@ namespace _3_Data
     {
         public AppDbContext CreateDbContext(string[] args)
         {
-            //var connectionString = "Connection string";
-            var connectionString = "Server = localhost; Database = Cartuchada; Trusted_Connection = True; MultipleActiveResultSets = true; TrustServerCertificate = True";
-
+            var connectionString = "Connection string";
+            
             var optionsBuilder = new DbContextOptionsBuilder<AppDbContext>();
+
             //optionsBuilder.UseSqlServer(DBEncrypter.Decrypt(connectionString));
             optionsBuilder.UseSqlServer(connectionString);
 

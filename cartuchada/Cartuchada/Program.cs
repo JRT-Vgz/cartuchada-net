@@ -10,6 +10,7 @@ using _2_Services.Services.Sleeve_Services;
 using _2_Services.Services.Spare_Parts_Services;
 using _3_AccountingSystem;
 using _3_Data;
+using _3_Encrypter;
 using _3_Loggers;
 using _3_Mappers.Automapper;
 using _3_Mappers.DTOs.Purchase_Dtos;
@@ -44,8 +45,8 @@ namespace Cartuchada
 {
     internal static class Program
     {
-        public const string DATABASE_NAMESPACE = "Cartuchada.Resources.AppSettings";
-        public const string DATABASE_JSON_FILE = "appsettings.dev.json";
+        private const string _DATABASE_NAMESPACE = "Cartuchada.Resources.AppSettings";
+        private const string _DATABASE_JSON_FILE = "appsettings.dev.json";
 
         [STAThread]
         static void Main()
@@ -65,13 +66,10 @@ namespace Cartuchada
 
             // INYECCION DE DEPENDENCIAS.          
             // ENTITY FRAMEWORK
-            //string connectionString = DBEncrypter.Decrypt(configuration.GetConnectionString("DB"));
-            string connectionString = configuration.GetConnectionString("DB");
-            //string connectionString = "Server = localhost; Database = Cartuchada; Trusted_Connection = True; MultipleActiveResultSets = true; TrustServerCertificate = True";
+            string connectionString = Encrypter.Decrypt(configuration.GetConnectionString("DB"));
+
             services.AddDbContext<AppDbContext>(options =>
                 options.UseSqlServer(connectionString));
-
-            // REPOSITORIOS
 
 
             // UNIT OF WORK
@@ -120,8 +118,6 @@ namespace Cartuchada
             services.AddTransient<IValidator<SleeveSaleDto>, SleeveSaleDtoValidator>();
             services.AddTransient<IProductValidator<SoldSleeve>, SoldSleeveValidator>();
 
-            // INYECCION DE ARCHIVO DE CONSTANTES
-            //services.AddSingleton<ConstantsConfigurationService>();
 
             // INYECCIÓN DE SISTEMAS
             services.AddTransient<IReferenceSystem, ReferenceSystem>();
@@ -183,7 +179,7 @@ namespace Cartuchada
             var assembly = Assembly.GetExecutingAssembly();
 
             // Leer el archivo JSON como recurso incrustado
-            using (var stream = assembly.GetManifestResourceStream($"{DATABASE_NAMESPACE}.{DATABASE_JSON_FILE}"))
+            using (var stream = assembly.GetManifestResourceStream($"{_DATABASE_NAMESPACE}.{_DATABASE_JSON_FILE}"))
             {
                 if (stream == null)
                 {
