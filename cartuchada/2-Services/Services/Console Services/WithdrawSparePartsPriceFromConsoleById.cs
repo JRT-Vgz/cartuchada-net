@@ -18,28 +18,21 @@ namespace _2_Services.Services.Console_Services
 
         public async Task ExecuteAsync(int idConsole, decimal sparePartsPriceToWithdraw)
         {
-            try
-            {
-                var console = await _unitOfWork.ConsoleRepository.GetByIdAsync(idConsole);
+            var console = await _unitOfWork.ConsoleRepository.GetByIdAsync(idConsole);
 
-                if (sparePartsPriceToWithdraw >= 0) { throw new ProductValidationException("El precio a quitar de la consola por los recambios debe ser negativo."); }
+            if (sparePartsPriceToWithdraw >= 0) { throw new ProductValidationException("El precio a quitar de la consola por los recambios debe ser negativo."); }
 
-                if (console == null) { throw new KeyNotFoundException($"No se ha encontrado ningún elemento con Id {idConsole} en la tabla 'Console'."); }
+            if (console == null) { throw new KeyNotFoundException($"No se ha encontrado ningún elemento con Id {idConsole} en la tabla 'Console'."); }
 
-                console.WithdrawFromSparePartsPrice(sparePartsPriceToWithdraw);
+            console.WithdrawFromSparePartsPrice(sparePartsPriceToWithdraw);
 
-                _unitOfWork.ConsoleRepositoryUpdate.Update(console);
+            _unitOfWork.ConsoleRepositoryUpdate.Update(console);
 
-                string logEntry = $"RESTADO PRECIO DE RECAMBIOS. Id: {idConsole}, Ref: {console.Reference}, Nombre: {console.Name.ToUpper()}, " +
+            string logEntry = $"RESTADO PRECIO DE RECAMBIOS. Id: {idConsole}, Ref: {console.Reference}, Nombre: {console.Name.ToUpper()}, " +
                     $"Precio restado: {sparePartsPriceToWithdraw}€";
-                await _logger.WriteLogEntryAsync(logEntry);
+            await _logger.WriteLogEntryAsync(logEntry);
 
-                await _unitOfWork.SaveChangesAsync();
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
+            await _unitOfWork.SaveChangesAsync();
         }
     }
 }

@@ -560,7 +560,6 @@ namespace Cartuchada.Forms.Purchase_Forms
         {
             try
             {
-                //cartdrige.IdProductType = 20;
                 var confirmRevert = MessageBox.Show($"¿Seguro que quieres revertir el SPOT del siguiente juego?\n\n" +
                     $"{cartdrige.Name.ToUpper()}\n" +
                     $"Fecha de spot: {cartdrige.PurchaseDate.ToString("dd/MM/yyyy")}\n" +

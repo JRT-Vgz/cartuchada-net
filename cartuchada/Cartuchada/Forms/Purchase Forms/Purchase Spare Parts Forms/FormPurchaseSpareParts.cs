@@ -6,7 +6,6 @@ using _2_Services.Services.Purchase_Services;
 using _3_Data.Models.Spare_Parts_Models;
 using _3_Mappers.DTOs.Purchase_Dtos;
 using _3_Presenters.View_Models;
-using _3_Repository.Query_Objects;
 using Cartuchada.Forms.Constants;
 
 namespace Cartuchada.Forms.Purchase_Forms.Purchase_Spare_Parts_Forms

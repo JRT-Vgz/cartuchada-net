@@ -30,36 +30,23 @@ namespace _2_Services.Services.Purchase_Services
 
         public async Task ExecuteAsync(VideoConsole console)
         {
-            try
-            {
-                if (console == null) { throw new Exception("Error: La consola cuya compra intenta revertirse tiene un valor nulo."); }
+            if (console == null) { throw new Exception("Error: La consola cuya compra intenta revertirse tiene un valor nulo."); }
 
-                bool productIsValid = await _consoleValidator.ValidateProductAsync(console);
-                if (!productIsValid) { throw new ProductValidationException(_consoleValidator.Errors); }
+            bool productIsValid = await _consoleValidator.ValidateProductAsync(console);
+            if (!productIsValid) { throw new ProductValidationException(_consoleValidator.Errors); }
 
-                await _referenceSystem.ReleaseReferenceByIdAsync(console.IdReference);
+            await _referenceSystem.ReleaseReferenceByIdAsync(console.IdReference);
 
-                await _unitOfWork.ConsoleRepository.Delete(console);
+            await _unitOfWork.ConsoleRepository.Delete(console);
 
-                await _statisticsSystem.WithdrawOnePurchasedConsoleFromStatisticsAsync(console.IdProductType);
-                await _accountingSystem.WithdrawPurchasePriceFromExpensesAsync(console.PurchaseDate, console.PurchasePrice);
+            await _statisticsSystem.WithdrawOnePurchasedConsoleFromStatisticsAsync(console.IdProductType);
+            await _accountingSystem.WithdrawPurchasePriceFromExpensesAsync(console.PurchaseDate, console.PurchasePrice);
 
-                string logEntry = $"REVERTIR COMPRA: Consola. Ref: {console.Reference}, Nombre: {console.Name}, " +
-                    $"Fecha de compra: {console.PurchaseDate.ToString("yyyy-MM-dd")}, Precio de compra: {console.PurchasePrice}€";
-                await _logger.WriteLogEntryAsync(logEntry);
+            string logEntry = $"REVERTIR COMPRA: Consola. Ref: {console.Reference}, Nombre: {console.Name}, " +
+                $"Fecha de compra: {console.PurchaseDate.ToString("yyyy-MM-dd")}, Precio de compra: {console.PurchasePrice}€";
+            await _logger.WriteLogEntryAsync(logEntry);
 
-                await _unitOfWork.SaveChangesAsync();
-            }
-            catch (ProductValidationException ex)
-            {
-                Console.WriteLine(ex.Message);
-                foreach (var error in ex.Errors) { Console.WriteLine(error); }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
-
+            await _unitOfWork.SaveChangesAsync();
         }
     }
 }

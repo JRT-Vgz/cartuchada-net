@@ -46,7 +46,7 @@ namespace Cartuchada
     internal static class Program
     {
         private const string _DATABASE_NAMESPACE = "Cartuchada.Resources.AppSettings";
-        private const string _DATABASE_JSON_FILE = "appsettings.prod.json";
+        private const string _DATABASE_JSON_FILE = "appsettings.dev.json";
 
         [STAThread]
         static void Main()
@@ -87,6 +87,7 @@ namespace Cartuchada
             services.AddTransient<FilterSpotedCartdrigeQuery>();
             services.AddTransient<GetAllSoldOrSpottedUniqueGameIdsQuery>();
 
+
             // PRESENTERS
             services.AddTransient<IPresenter<Cartdrige, CartdrigePurchaseViewModel>, CartdrigePurchasePresenter>();
             services.AddTransient<IPresenter<Cartdrige, SpotCartdrigeViewModel>, SpotCartdrigePresenter>();
@@ -94,16 +95,16 @@ namespace Cartuchada
             services.AddTransient<IPresenter<SparePartsPurchase, SparePartsPurchaseViewModel>, SparePartsPurchasePresenter>();
             services.AddTransient<IPresenter<SoldSleeve, SleeveSaleViewModel>, SleeveSalePresenter>();
 
-            // MANUAL MAPPERS
-
 
             // MAPPERS
             services.AddAutoMapper(
                 typeof(CartdrigeMappingProfile)
                 );
 
+
             // LOGGERS
             services.AddTransient<ILogger, Logger>();
+
 
             // VALIDATORS:
             services.AddTransient<IValidator<CartdrigePurchaseDto>, CartdrigePurchaseDtoValidator>();

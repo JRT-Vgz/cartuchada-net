@@ -1,7 +1,6 @@
 
 using _1_Domain.Product_Entities;
 using _2_Services.Interfaces;
-using _3_Mappers.DTOs.Purchase_Dtos;
 using _3_Presenters.View_Models;
 
 namespace _3_Presenters.Presenters.Purchase_Presenters

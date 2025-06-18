@@ -57,7 +57,7 @@
             lbl_version.Name = "lbl_version";
             lbl_version.Size = new Size(39, 21);
             lbl_version.TabIndex = 1;
-            lbl_version.Text = "v1.0";
+            lbl_version.Text = "v1.1";
             // 
             // btn_purchase
             // 

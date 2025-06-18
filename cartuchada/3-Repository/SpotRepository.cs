@@ -1,5 +1,4 @@
 using _1_Domain.Product_Entities;
-using _1_Domain.Purchase_Entities;
 using _2_Services.Interfaces;
 using _3_Data;
 using _3_Data.Models.Product_Models;
@@ -51,7 +50,7 @@ namespace _3_Repository
         public async Task Delete(Cartdrige cartdrige)
         {
             var spotModel = await _context.Spots
-                .Where(s => s.IdProductType == cartdrige.IdProductType 
+                .Where(s => s.IdProductType == cartdrige.IdProductType
                     && s.IdGame == cartdrige.IdGame
                     && s.IdRegion == cartdrige.IdRegion
                     && s.IdCondition == cartdrige.IdCondition
@@ -59,8 +58,11 @@ namespace _3_Repository
                     && s.SpotPrice == cartdrige.PurchasePrice)
                 .FirstOrDefaultAsync();
 
-            if (spotModel == null) { throw new Exception($"No se ha encontrado ningún cartucho en la tabla 'Spot' " +
-                $"que cumpla con todas las condiciones descritas."); }
+            if (spotModel == null)
+            {
+                throw new Exception($"No se ha encontrado ningún cartucho en la tabla 'Spot' " +
+                $"que cumpla con todas las condiciones descritas.");
+            }
 
             _context.Spots.Remove(spotModel);
         }

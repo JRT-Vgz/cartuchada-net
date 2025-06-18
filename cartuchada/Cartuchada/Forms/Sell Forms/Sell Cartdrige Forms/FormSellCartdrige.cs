@@ -1,5 +1,4 @@
 ﻿using _1_Domain.Product_Entities;
-using _2_Services.Exceptions;
 using _2_Services.Services.Cartdrige_Services;
 using _2_Services.Services.Purchase_Services;
 using _3_Repository.Query_Objects;
@@ -217,38 +216,7 @@ namespace Cartuchada.Forms.Sell_Forms.Sell_Cartdrige_Forms
 
                 txt_searchReference.Focus();
             }
-
-            // REVERT CARTDRIGE PURCHASE BUTTON:
-            //else if (dgv_cartdrigeCatalogue.Columns[e.ColumnIndex].Name == "colRevertPurchase")
-            //{
-            //    var confirmRevert = MessageBox.Show($"¿Seguro que quieres revertir la compra del juego {cartdrige.Name} con referencia " +
-            //        $"{cartdrige.Reference}?",
-            //        "Confirmar revertir compra", MessageBoxButtons.YesNo);
-
-            //    if (confirmRevert == DialogResult.Yes) { await RevertCartdrigePurchase(cartdrige); }
-            //}
         }
-
-        //private async Task RevertCartdrigePurchase(Cartdrige cartdrige)
-        //{
-        //    try
-        //    {
-        //        await _revertPurchaseCartdrigeService.ExecuteAsync(cartdrige);
-
-        //        await LoadAllData();
-        //    }
-        //    catch (ProductValidationException ex)
-        //    {
-        //        string message = string.Empty;
-        //        foreach (var error in ex.Errors) { message += $"- {error}\n"; }
-        //        MessageBox.Show(message, ex.Message);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        MessageBox.Show(ex.Message);
-        //    }
-        //}
-
 
         // -------------------------------------------------------------------------------------------------------
         // ---------------------------------------------- BACK ---------------------------------------------------

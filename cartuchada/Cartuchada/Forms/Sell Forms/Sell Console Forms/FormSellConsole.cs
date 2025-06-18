@@ -2,14 +2,11 @@
 
 using _1_Domain.Product_Entities;
 using _2_Services.Exceptions;
-using _2_Services.Services.Cartdrige_Services;
 using _2_Services.Services.Console_Services;
 using _2_Services.Services.Purchase_Services;
 using _3_Repository.Query_Objects;
 using Cartuchada.Forms.Constants;
-using Cartuchada.Forms.Sell_Forms.Sell_Cartdrige_Forms;
 using Microsoft.Extensions.DependencyInjection;
-using System.Windows.Forms;
 
 namespace Cartuchada.Forms.Sell_Forms.Sell_Console_Forms
 {
@@ -167,7 +164,7 @@ namespace Cartuchada.Forms.Sell_Forms.Sell_Console_Forms
         {
             string[] referenceParts = reference.Split('-');
 
-            if (referenceParts.Length == 3 ) { return referenceParts[1]; }
+            if (referenceParts.Length == 3) { return referenceParts[1]; }
 
             return "";
         }
@@ -303,16 +300,6 @@ namespace Cartuchada.Forms.Sell_Forms.Sell_Console_Forms
                     MessageBox.Show(ex.Message);
                 }
             }
-
-            // REVERT CONSOLE PURCHASE BUTTON:
-            //else if (dgv_consoleCatalogue.Columns[e.ColumnIndex].Name == "colRevertPurchase")
-            //{
-            //    var confirmRevert = MessageBox.Show($"¿Seguro que quieres revertir la compra de la {videoConsole.Name} con referencia " +
-            //        $"{videoConsole.Reference}?",
-            //        "Confirmar revertir compra", MessageBoxButtons.YesNo);
-
-            //    if (confirmRevert == DialogResult.Yes) { await RevertConsolePurchase(videoConsole); }
-            //}
         }
 
         private async Task RevertConsolePurchase(VideoConsole videoConsole)

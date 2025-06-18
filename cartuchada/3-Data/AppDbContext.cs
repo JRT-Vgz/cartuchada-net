@@ -1,5 +1,4 @@
-﻿using _2_Services.Interfaces;
-using _3_Data.Models;
+﻿using _3_Data.Models;
 using _3_Data.Models.Management_Models;
 using _3_Data.Models.Product_Models;
 using _3_Data.Models.SaleModels;
@@ -185,12 +184,9 @@ namespace _3_Data
                 .WithMany()
                 .HasForeignKey(c => c.IdCondition)
                 .OnDelete(DeleteBehavior.Restrict);
-
-
-
         }
 
-        private void ProtectNonDeletableModels(List<Microsoft.EntityFrameworkCore.ChangeTracking.EntityEntry> deletedEntities) 
+        private void ProtectNonDeletableModels(List<Microsoft.EntityFrameworkCore.ChangeTracking.EntityEntry> deletedEntities)
         {
             foreach (var entity in deletedEntities)
             {

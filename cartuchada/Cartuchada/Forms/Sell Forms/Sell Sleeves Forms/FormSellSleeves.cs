@@ -1,10 +1,8 @@
 ﻿
 
 using _2_Services.Exceptions;
-using _2_Services.Interfaces;
 using _2_Services.Services.SaleServices;
 using _3_Data.Models.Spare_Parts_Models;
-using _3_Mappers.DTOs.Purchase_Dtos;
 using _3_Mappers.DTOs.Sale_Dtos;
 using _3_Presenters.View_Models;
 using _3_Repository.Query_Objects;

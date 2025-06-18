@@ -17,13 +17,6 @@ namespace _3_Mappers.Automapper
             // From SoldVideoConsole to SoldConsoleModel
             CreateMap<SoldVideoConsole, SoldConsoleModel>();
 
-            // From ConsolePurchaseDto to VideoConsole
-            //CreateMap<ConsolePurchaseDto, VideoConsole>()
-            //    .AfterMap((src, dest) =>
-            //    {
-            //        dest.CalculateTotalPrice();
-            //    });
-
             //From VideoConsole to SoldVideoConsole
             CreateMap<VideoConsole, SoldVideoConsole>()
                 .ForMember(dest => dest.IdConsole, opt => opt.MapFrom(src => src.Id))

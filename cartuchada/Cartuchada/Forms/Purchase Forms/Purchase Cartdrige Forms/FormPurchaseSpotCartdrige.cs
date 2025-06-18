@@ -5,7 +5,6 @@ using _2_Services.Services.Purchase_Services;
 using _3_Data.Models;
 using _3_Mappers.DTOs.Purchase_Dtos;
 using _3_Presenters.View_Models;
-using _3_Repository.Query_Objects;
 using Cartuchada.Forms.Constants;
 
 
@@ -46,8 +45,8 @@ namespace Cartuchada.Forms.Purchase_Forms.Purchase_Cartdrige_Forms
             lbl_showTitle.Text = _cartdrigePurchaseDto.Name;
             lbl_purchasePrice.Text = "Precio de spot:";
 
-            if(IsSpotting) 
-            { 
+            if (IsSpotting)
+            {
                 this.Text = "Spotear cartucho";
                 btn_purchase.Text = "Spotear";
             }
@@ -80,7 +79,9 @@ namespace Cartuchada.Forms.Purchase_Forms.Purchase_Cartdrige_Forms
 
             cbo_region.DataSource = regions;
             cbo_region.DisplayMember = "Name";
-            cbo_region.SelectedIndex = 0;
+
+            int palIndex = regions.FindIndex(r => r.Name.Contains("PAL"));
+            cbo_region.SelectedIndex = palIndex >= 0 ? palIndex : 0;
         }
 
         private void RemoveCartdrigeUnreleasedRegions(List<RegionModel> regions)

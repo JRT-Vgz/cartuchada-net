@@ -1,12 +1,9 @@
-
-using _1_Domain.Product_Entities;
-using _3_Data.Models;
-using _3_Data;
-using AutoMapper;
-using System.Linq.Expressions;
 using _1_Domain.Sold_Product_Entities;
+using _3_Data;
 using _3_Data.Models.SaleModels;
+using AutoMapper;
 using Microsoft.EntityFrameworkCore;
+using System.Linq.Expressions;
 
 namespace _3_Repository.Query_Objects
 {

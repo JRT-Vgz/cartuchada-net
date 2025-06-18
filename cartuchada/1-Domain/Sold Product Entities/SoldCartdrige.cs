@@ -1,7 +1,9 @@
 
+using _1_Domain.Interfaces;
+
 namespace _1_Domain.Sold_Product_Entities
 {
-    public class SoldCartdrige
+    public class SoldCartdrige : ISoldProduct
     {
         public int? Id { get; private set; }
         public int IdProductType { get; private set; }

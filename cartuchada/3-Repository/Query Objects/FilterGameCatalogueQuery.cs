@@ -1,8 +1,5 @@
-
-using _1_Domain.Product_Entities;
 using _3_Data;
 using _3_Data.Models;
-using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 
 namespace _3_Repository.Query_Objects

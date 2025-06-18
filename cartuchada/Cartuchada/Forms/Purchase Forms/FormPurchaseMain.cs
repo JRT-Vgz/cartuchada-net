@@ -1,7 +1,6 @@
 ﻿using Cartuchada.Forms.Purchase_Forms.Purchase_Cartdrige_Forms;
 using Cartuchada.Forms.Purchase_Forms.Purchase_Console_Forms;
 using Cartuchada.Forms.Purchase_Forms.Purchase_Spare_Parts_Forms;
-using Cartuchada.Forms.Sell_Forms;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Cartuchada.Forms.Purchase_Forms

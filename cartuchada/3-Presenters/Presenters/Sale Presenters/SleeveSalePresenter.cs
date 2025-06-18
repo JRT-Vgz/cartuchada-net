@@ -1,7 +1,6 @@
 
 using _1_Domain.Sold_Product_Entities;
 using _2_Services.Interfaces;
-using _3_Mappers.DTOs.Sale_Dtos;
 using _3_Presenters.View_Models;
 
 namespace _3_Presenters.Presenters.Sale_Presenters

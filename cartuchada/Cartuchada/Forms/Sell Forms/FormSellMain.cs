@@ -1,5 +1,4 @@
-﻿using Cartuchada.Forms.Purchase_Forms.Purchase_Spare_Parts_Forms;
-using Cartuchada.Forms.Sell_Forms.Sell_Cartdrige_Forms;
+﻿using Cartuchada.Forms.Sell_Forms.Sell_Cartdrige_Forms;
 using Cartuchada.Forms.Sell_Forms.Sell_Console_Forms;
 using Cartuchada.Forms.Sell_Forms.Sell_Sleeves_Forms;
 using Microsoft.Extensions.DependencyInjection;

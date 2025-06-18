@@ -38,42 +38,30 @@ namespace _2_Services.Services.SaleServices
 
         public async Task ExecuteAsync(VideoConsole videoConsole, decimal salePrice)
         {
-            try
-            {
-                if (videoConsole == null) { throw new Exception("Error: El objeto que intenta venderse tiene un valor nulo."); }
+            if (videoConsole == null) { throw new Exception("Error: El objeto que intenta venderse tiene un valor nulo."); }
 
-                bool productIsValid = await _consoleValidator.ValidateProductAsync(videoConsole);
-                if (!productIsValid) { throw new ProductValidationException(_consoleValidator.Errors); }
+            bool productIsValid = await _consoleValidator.ValidateProductAsync(videoConsole);
+            if (!productIsValid) { throw new ProductValidationException(_consoleValidator.Errors); }
 
-                var soldVideoConsole = _mapper.Map<SoldVideoConsole>(videoConsole);
-                soldVideoConsole.AssignSalePrice(salePrice);
+            var soldVideoConsole = _mapper.Map<SoldVideoConsole>(videoConsole);
+            soldVideoConsole.AssignSalePrice(salePrice);
 
-                bool soldProductIsValid = await _soldConsoleValidator.ValidateProductAsync(soldVideoConsole);
-                if (!soldProductIsValid) { throw new ProductValidationException(_soldConsoleValidator.Errors); }
+            bool soldProductIsValid = await _soldConsoleValidator.ValidateProductAsync(soldVideoConsole);
+            if (!soldProductIsValid) { throw new ProductValidationException(_soldConsoleValidator.Errors); }
 
-                await _referenceSystem.ReleaseReferenceByIdAsync(videoConsole.IdReference);
+            await _referenceSystem.ReleaseReferenceByIdAsync(videoConsole.IdReference);
 
-                await _unitOfWork.ConsoleRepository.Delete(videoConsole);
-                await _unitOfWork.SoldConsoleRepository.AddAsync(soldVideoConsole);
+            await _unitOfWork.ConsoleRepository.Delete(videoConsole);
+            await _unitOfWork.SoldConsoleRepository.AddAsync(soldVideoConsole);
 
-                await _statisticsSystem.SumOneSoldConsoleToStatisticsAsync(soldVideoConsole.IdProductType);
-                await _accountingSystem.SumSalePriceToIncomeAsync(soldVideoConsole.SaleDate, salePrice);
+            await _statisticsSystem.SumOneSoldConsoleToStatisticsAsync(soldVideoConsole.IdProductType);
+            await _accountingSystem.SumSalePriceToIncomeAsync(soldVideoConsole.SaleDate, salePrice);
 
-                string logEntry = $"VENTA: Consola. Ref: {videoConsole.Reference}, Nombre: {videoConsole.Name}, " +
-                    $"Precio de venta: {salePrice}€";
-                await _logger.WriteLogEntryAsync(logEntry);
+            string logEntry = $"VENTA: Consola. Ref: {videoConsole.Reference}, Nombre: {videoConsole.Name}, " +
+                $"Precio de venta: {salePrice}€";
+            await _logger.WriteLogEntryAsync(logEntry);
 
-                await _unitOfWork.SaveChangesAsync();
-            }
-            catch (ProductValidationException ex)
-            {
-                Console.WriteLine(ex.Message);
-                foreach (var error in ex.Errors) { Console.WriteLine(error); }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
+            await _unitOfWork.SaveChangesAsync();
         }
     }
 }
