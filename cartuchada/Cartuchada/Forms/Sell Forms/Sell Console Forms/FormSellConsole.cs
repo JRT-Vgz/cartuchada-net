@@ -139,18 +139,6 @@ namespace Cartuchada.Forms.Sell_Forms.Sell_Console_Forms
             totalPriceColumn.HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleRight;
             totalPriceColumn.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
             dgv_consoleCatalogue.Columns.Add(totalPriceColumn);
-
-            //var revertPurchaseButtonColumn = new DataGridViewButtonColumn
-            //{
-            //    HeaderText = "",
-            //    Name = "colRevertPurchase",
-            //    Text = "Revertir compra",
-            //    UseColumnTextForButtonValue = true,
-            //    Width = 95
-            //};
-            //revertPurchaseButtonColumn.DefaultCellStyle.BackColor = Color.GreenYellow;
-            //revertPurchaseButtonColumn.DefaultCellStyle.SelectionBackColor = Color.GreenYellow;
-            //dgv_consoleCatalogue.Columns.Add(revertPurchaseButtonColumn);
         }
 
         private async Task LoadAllData()
@@ -165,7 +153,8 @@ namespace Cartuchada.Forms.Sell_Forms.Sell_Console_Forms
             AdjustTableSize(consoleCount);
 
             dgv_consoleCatalogue.DataSource = _filteredVideoConsoles
-                .OrderBy(c => c.Reference)
+                .OrderBy(c => ExtractVideoConsoleTypeFromReference(c.Reference))
+                .ThenBy(c => ExtractNumberFromVideoConsoleReference(c.Reference))
                 .ToList();
         }
 
@@ -173,6 +162,24 @@ namespace Cartuchada.Forms.Sell_Forms.Sell_Console_Forms
         {
             if (consoleCount > 14) { this.Width = 833; }
             else { this.Width = 816; }
+        }
+
+        private string ExtractVideoConsoleTypeFromReference(string reference)
+        {
+            string[] referenceParts = reference.Split('-');
+
+            if (referenceParts.Length == 3 ) { return referenceParts[1]; }
+
+            return "";
+        }
+
+        private int ExtractNumberFromVideoConsoleReference(string reference)
+        {
+            string[] referenceParts = reference.Split('-');
+
+            if (referenceParts.Length == 3 && int.TryParse(referenceParts[2], out int referenceNumber)) { return referenceNumber; }
+
+            return int.MinValue;
         }
 
         private void ResetSumSparePartsText()

@@ -122,7 +122,7 @@ namespace Cartuchada.Forms.Sell_Forms.Sell_Cartdrige_Forms
             AdjustTableSize(cartdrigeCount);
 
             dgv_cartdrigeCatalogue.DataSource = _filteredCartdriges
-                .OrderBy(c => c.Reference)
+                .OrderBy(c => ExtractNumberFromCartdrigeReference(c.Reference))
                 .ToList();
         }
 
@@ -130,6 +130,15 @@ namespace Cartuchada.Forms.Sell_Forms.Sell_Cartdrige_Forms
         {
             if (cartdrigeCount > 14) { this.Width = 833; }
             else { this.Width = 816; }
+        }
+
+        private int ExtractNumberFromCartdrigeReference(string reference)
+        {
+            string[] referenceParts = reference.Split('-');
+
+            if (referenceParts.Length == 2 && int.TryParse(referenceParts[1], out int referenceNumber)) { return referenceNumber; }
+
+            return int.MinValue;
         }
 
 
