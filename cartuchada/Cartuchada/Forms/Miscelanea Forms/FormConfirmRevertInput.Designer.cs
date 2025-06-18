@@ -39,9 +39,9 @@
             lbl_confirmRevert.AutoSize = true;
             lbl_confirmRevert.Location = new Point(53, 19);
             lbl_confirmRevert.Name = "lbl_confirmRevert";
-            lbl_confirmRevert.Size = new Size(174, 15);
+            lbl_confirmRevert.Size = new Size(187, 15);
             lbl_confirmRevert.TabIndex = 0;
-            lbl_confirmRevert.Text = "Escribe 'revertir' para confirmar:";
+            lbl_confirmRevert.Text = "Escribe 'password' para confirmar:";
             // 
             // txt_confirmRevert
             // 

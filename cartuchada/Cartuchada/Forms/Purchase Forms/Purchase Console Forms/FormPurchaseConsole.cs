@@ -4,6 +4,7 @@ using _3_Data.Models;
 using _3_Mappers.DTOs.Purchase_Dtos;
 using _3_Presenters.View_Models;
 using _3_Repository.Query_Objects;
+using Cartuchada.Forms.Constants;
 
 namespace Cartuchada.Forms.Purchase_Forms.Purchase_Console_Forms
 {
@@ -11,8 +12,6 @@ namespace Cartuchada.Forms.Purchase_Forms.Purchase_Console_Forms
     {
         private readonly GetAllConsoleProductTypesQuery _getAllConsoleProductTypesQuery;
         private readonly PurchaseConsoleService<ConsolePurchaseDto, ConsolePurchaseViewModel> _purchaseConsoleService;
-
-        private const int MAX_LENGTH_PRICE = 6;
 
         public FormPurchaseConsole(GetAllConsoleProductTypesQuery getAllConsoleProductTypesQuery,
             PurchaseConsoleService<ConsolePurchaseDto, ConsolePurchaseViewModel> purchaseConsoleService)
@@ -66,7 +65,7 @@ namespace Cartuchada.Forms.Purchase_Forms.Purchase_Console_Forms
                 else { e.Handled = true; }
             }
 
-            if (textBox.Text.Length == MAX_LENGTH_PRICE && !char.IsControl(e.KeyChar))
+            if (textBox.Text.Length == UIConstants.PRICE_TEXTBOX_MAX_LENGTH && !char.IsControl(e.KeyChar))
             {
                 e.Handled = true;
             }

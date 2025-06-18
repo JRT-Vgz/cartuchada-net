@@ -7,6 +7,7 @@ using _3_Data.Models.Spare_Parts_Models;
 using _3_Mappers.DTOs.Purchase_Dtos;
 using _3_Presenters.View_Models;
 using _3_Repository.Query_Objects;
+using Cartuchada.Forms.Constants;
 
 namespace Cartuchada.Forms.Purchase_Forms.Purchase_Spare_Parts_Forms
 {
@@ -14,9 +15,6 @@ namespace Cartuchada.Forms.Purchase_Forms.Purchase_Spare_Parts_Forms
     {
         private readonly IGetAllQuery<SparePartTypeModel> _getAllSparePartTypesQuery;
         private readonly PurchaseSparePartsService<SparePartsPurchaseDto, SparePartsPurchaseViewModel> _purchaseSparePartsService;
-
-        private const int MAX_LENGTH_CONCEPT = 125;
-        private const int MAX_LENGTH_PRICE = 6;
 
         public FormPurchaseSpareParts(IGetAllQuery<SparePartTypeModel> getAllSparePartTypesQuery,
             PurchaseSparePartsService<SparePartsPurchaseDto, SparePartsPurchaseViewModel> purchaseSparePartsService)
@@ -58,7 +56,7 @@ namespace Cartuchada.Forms.Purchase_Forms.Purchase_Spare_Parts_Forms
         private void txt_concept_KeyPress(object sender, KeyPressEventArgs e)
         {
             var textBox = (sender as TextBox);
-            if (textBox.Text.Length == MAX_LENGTH_CONCEPT && !char.IsControl(e.KeyChar))
+            if (textBox.Text.Length == UIConstants.SPARE_PARTS_CONCEPT_TEXTBOX_MAX_LENGTH && !char.IsControl(e.KeyChar))
             {
                 e.Handled = true;
             }
@@ -85,7 +83,7 @@ namespace Cartuchada.Forms.Purchase_Forms.Purchase_Spare_Parts_Forms
                 else { e.Handled = true; }
             }
 
-            if (textBox.Text.Length == MAX_LENGTH_PRICE && !char.IsControl(e.KeyChar))
+            if (textBox.Text.Length == UIConstants.PRICE_TEXTBOX_MAX_LENGTH && !char.IsControl(e.KeyChar))
             {
                 e.Handled = true;
             }

@@ -1,7 +1,7 @@
 
 namespace _1_Domain.Constants
 {
-    public struct ShopStatConstants
+    public static class ShopStatConstants
     {
         public const string JUEGOS_GAME_BOY_COMPRADOS = "Juegos Game Boy Comprados";
         public const string JUEGOS_GAME_BOY_VENDIDOS = "Juegos Game Boy Vendidos";

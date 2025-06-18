@@ -1,6 +1,7 @@
 ﻿using _1_Domain.Product_Entities;
 using _2_Services.Exceptions;
 using _2_Services.Services.SaleServices;
+using Cartuchada.Forms.Constants;
 
 
 namespace Cartuchada.Forms.Sell_Forms.Sell_Console_Forms
@@ -13,8 +14,6 @@ namespace Cartuchada.Forms.Sell_Forms.Sell_Console_Forms
         private bool _videoConsoleSold = false;
 
         public bool VideoConsoleSold { get { return _videoConsoleSold; } }
-
-        private const int MAX_LENGTH_PRICE = 6;
 
         public FormManageSellConsole(SellConsoleService sellConsoleService)
         {
@@ -87,7 +86,7 @@ namespace Cartuchada.Forms.Sell_Forms.Sell_Console_Forms
                 else { e.Handled = true; }
             }
 
-            if (textBox.Text.Length == MAX_LENGTH_PRICE && !char.IsControl(e.KeyChar))
+            if (textBox.Text.Length == UIConstants.PRICE_TEXTBOX_MAX_LENGTH && !char.IsControl(e.KeyChar))
             {
                 e.Handled = true;
             }

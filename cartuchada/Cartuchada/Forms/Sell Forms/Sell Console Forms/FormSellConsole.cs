@@ -6,6 +6,7 @@ using _2_Services.Services.Cartdrige_Services;
 using _2_Services.Services.Console_Services;
 using _2_Services.Services.Purchase_Services;
 using _3_Repository.Query_Objects;
+using Cartuchada.Forms.Constants;
 using Cartuchada.Forms.Sell_Forms.Sell_Cartdrige_Forms;
 using Microsoft.Extensions.DependencyInjection;
 using System.Windows.Forms;
@@ -26,8 +27,6 @@ namespace Cartuchada.Forms.Sell_Forms.Sell_Console_Forms
         private bool _isClosing = false;
 
         public bool IsClosing { get { return _isClosing; } }
-
-        private const int MAX_LENGTH_PRICE = 6;
 
         public FormSellConsole(GetAllConsolesService getAllConsolesService,
             FilterConsoleQuery filterConsoleQuery,
@@ -237,7 +236,7 @@ namespace Cartuchada.Forms.Sell_Forms.Sell_Console_Forms
                 else { e.Handled = true; }
             }
 
-            if (textBox.Text.Length == MAX_LENGTH_PRICE && !char.IsControl(e.KeyChar))
+            if (textBox.Text.Length == UIConstants.PRICE_TEXTBOX_MAX_LENGTH && !char.IsControl(e.KeyChar))
             {
                 e.Handled = true;
             }

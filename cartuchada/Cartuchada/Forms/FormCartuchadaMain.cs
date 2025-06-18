@@ -2,17 +2,7 @@
 using Cartuchada.Forms.Miscelanea_Forms;
 using Cartuchada.Forms.Purchase_Forms;
 using Cartuchada.Forms.Sell_Forms;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 
 namespace Cartuchada.Forms
 {

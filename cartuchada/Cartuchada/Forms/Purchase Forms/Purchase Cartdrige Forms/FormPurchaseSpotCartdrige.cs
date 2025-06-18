@@ -6,6 +6,7 @@ using _3_Data.Models;
 using _3_Mappers.DTOs.Purchase_Dtos;
 using _3_Presenters.View_Models;
 using _3_Repository.Query_Objects;
+using Cartuchada.Forms.Constants;
 
 
 namespace Cartuchada.Forms.Purchase_Forms.Purchase_Cartdrige_Forms
@@ -21,7 +22,6 @@ namespace Cartuchada.Forms.Purchase_Forms.Purchase_Cartdrige_Forms
         public bool IsSpotting { get => _isSpotting; set => _isSpotting = value; }
 
         private CartdrigePurchaseDto _cartdrigePurchaseDto;
-        private const int MAX_LENGTH_PRICE = 6;
 
         public FormPurchaseSpotCartdrige(
             PurchaseCartdrigeService<CartdrigePurchaseDto, CartdrigePurchaseViewModel> purchaseCartdrigeService,
@@ -125,7 +125,7 @@ namespace Cartuchada.Forms.Purchase_Forms.Purchase_Cartdrige_Forms
                 else { e.Handled = true; }
             }
 
-            if (textBox.Text.Length == MAX_LENGTH_PRICE && !char.IsControl(e.KeyChar))
+            if (textBox.Text.Length == UIConstants.PRICE_TEXTBOX_MAX_LENGTH && !char.IsControl(e.KeyChar))
             {
                 e.Handled = true;
             }

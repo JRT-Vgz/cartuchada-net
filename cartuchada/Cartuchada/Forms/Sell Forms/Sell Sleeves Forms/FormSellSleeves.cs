@@ -8,6 +8,7 @@ using _3_Mappers.DTOs.Purchase_Dtos;
 using _3_Mappers.DTOs.Sale_Dtos;
 using _3_Presenters.View_Models;
 using _3_Repository.Query_Objects;
+using Cartuchada.Forms.Constants;
 
 namespace Cartuchada.Forms.Sell_Forms.Sell_Sleeves_Forms
 {
@@ -15,9 +16,6 @@ namespace Cartuchada.Forms.Sell_Forms.Sell_Sleeves_Forms
     {
         private readonly GetAllSleevesQuery _getAllSleevesQuery;
         private readonly SellSleeveService<SleeveSaleDto, SleeveSaleViewModel> _sellSleeveService;
-
-        private const int MAX_LENGTH_QUANTITY = 4;
-        private const int MAX_LENGTH_PRICE = 6;
 
         public FormSellSleeves(GetAllSleevesQuery getAllSleevesQuery,
             SellSleeveService<SleeveSaleDto, SleeveSaleViewModel> sellSleeveService)
@@ -64,7 +62,7 @@ namespace Cartuchada.Forms.Sell_Forms.Sell_Sleeves_Forms
                 e.Handled = true;
             }
 
-            if (textBox.Text.Length == MAX_LENGTH_QUANTITY && !char.IsControl(e.KeyChar))
+            if (textBox.Text.Length == UIConstants.SLEEVES_SELL_QUANTITY_TEXTBOX_MAX_LENGTH && !char.IsControl(e.KeyChar))
             {
                 e.Handled = true;
             }
@@ -93,7 +91,7 @@ namespace Cartuchada.Forms.Sell_Forms.Sell_Sleeves_Forms
                 else { e.Handled = true; }
             }
 
-            if (textBox.Text.Length == MAX_LENGTH_PRICE && !char.IsControl(e.KeyChar))
+            if (textBox.Text.Length == UIConstants.PRICE_TEXTBOX_MAX_LENGTH && !char.IsControl(e.KeyChar))
             {
                 e.Handled = true;
             }

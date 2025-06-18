@@ -1,6 +1,7 @@
 ﻿using _1_Domain.Product_Entities;
 using _2_Services.Exceptions;
 using _2_Services.Services.SaleServices;
+using Cartuchada.Forms.Constants;
 
 
 namespace Cartuchada.Forms.Sell_Forms.Sell_Cartdrige_Forms
@@ -13,8 +14,6 @@ namespace Cartuchada.Forms.Sell_Forms.Sell_Cartdrige_Forms
         private bool _cartdrigeSold = false;
 
         public bool CartdrigeSold { get { return _cartdrigeSold; } }
-
-        private const int MAX_LENGTH_PRICE = 6;
 
         public FormManageSellCartdrige(SellCartdrigeService sellCartdrigeService)
         {
@@ -92,7 +91,7 @@ namespace Cartuchada.Forms.Sell_Forms.Sell_Cartdrige_Forms
                 else { e.Handled = true; }
             }
 
-            if (textBox.Text.Length == MAX_LENGTH_PRICE && !char.IsControl(e.KeyChar))
+            if (textBox.Text.Length == UIConstants.PRICE_TEXTBOX_MAX_LENGTH && !char.IsControl(e.KeyChar))
             {
                 e.Handled = true;
             }

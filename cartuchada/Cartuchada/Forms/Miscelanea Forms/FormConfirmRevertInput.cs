@@ -1,13 +1,12 @@
 ﻿
 
+using Cartuchada.Forms.Constants;
+
 namespace Cartuchada.Forms.Miscelanea_Forms
 {
     public partial class FormConfirmRevertInput : Form
     {
         public bool RevertConfirmed { get; private set; }
-
-        private const string CONFIRMATION_TEXT = "revertir";
-        private const int MAX_TEXT_LENGTH = 8;
         public FormConfirmRevertInput()
         {
             InitializeComponent();
@@ -15,6 +14,7 @@ namespace Cartuchada.Forms.Miscelanea_Forms
 
         private void FormConfirmRevertInput_Load(object sender, EventArgs e)
         {
+            lbl_confirmRevert.Text = $"Escribe '{UIConstants.REVERT_TEXTBOX_CHECKWORD}' para confirmar:";
             txt_confirmRevert.Focus();
         }
 
@@ -33,7 +33,7 @@ namespace Cartuchada.Forms.Miscelanea_Forms
         private void txt_confirmRevert_KeyPress(object sender, KeyPressEventArgs e)
         {
             var textBox = (sender as TextBox);
-            if (textBox.Text.Length == MAX_TEXT_LENGTH && !char.IsControl(e.KeyChar))
+            if (textBox.Text.Length == UIConstants.REVERT_TEXTBOX_MAX_LENGTH && !char.IsControl(e.KeyChar))
             {
                 e.Handled = true;
             }
@@ -44,7 +44,7 @@ namespace Cartuchada.Forms.Miscelanea_Forms
         // -------------------------------------------------------------------------------------------------------
         private void btn_ok_Click(object sender, EventArgs e)
         {
-            if (txt_confirmRevert.Text == CONFIRMATION_TEXT)
+            if (txt_confirmRevert.Text == UIConstants.REVERT_TEXTBOX_CHECKWORD)
             {
                 RevertConfirmed = true;
             }

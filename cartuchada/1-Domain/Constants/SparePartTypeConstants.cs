@@ -1,7 +1,7 @@
 
 namespace _1_Domain.Constants
 {
-    public struct SparePartTypeConstants
+    public static class SparePartTypeConstants
     {
         public const int _SPARE_PART_TYPE_FAKE_GAME_BOY_SLEEVE = 3;
         public const int _SPARE_PART_TYPE_FAKE_GAME_GEAR_SLEEVE = 4;
