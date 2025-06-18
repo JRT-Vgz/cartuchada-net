@@ -1,12 +1,14 @@
 
 using System.Text.RegularExpressions;
-using System.Threading.Channels;
 
 namespace Cartuchada_Console
 {
     public static class FileSpotsToSqlQuery
     {
 
+        // Script para la recuperación de los Spots de la antigua Cartuchada.
+        // Itera por todas las fichas de juegos del programa antiguo, coge todos los spots y conviertelos en un query sql para la tabla Spot.
+        // Necesita una carpeta con todas las fichas para funcionar.
         public static void Execute()
         {
             // printear el encabezado del query
@@ -19,7 +21,6 @@ namespace Cartuchada_Console
             string folderFullPath = Path.Combine(projectRootPath, folder);
 
             var fileNames = Directory.EnumerateFiles(folderFullPath);
-
 
 
 

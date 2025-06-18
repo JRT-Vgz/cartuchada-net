@@ -5,9 +5,9 @@ namespace Cartuchada_Console
 {
     public static class CartdrigeCatalogueCsvToSqlQuery
     {
-        /// <summary>
-        /// Convierte el csv del catálogo de Game Boy en un query SQL para la tabla GameCatalogue.
-        /// </summary>
+        // Script para la recuperación del catálogo completo de GB de la antigua Cartuchada.
+        // Convierte el csv del catálogo de Game Boy en un query SQL para la tabla GameCatalogue.
+        // Necesita el antiguo csv para funcionar.
         public static void Execute() 
         { 
             string projectRootPath = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.FullName;
