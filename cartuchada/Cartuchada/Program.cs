@@ -46,7 +46,7 @@ namespace Cartuchada
     internal static class Program
     {
         private const string _DATABASE_NAMESPACE = "Cartuchada.Resources.AppSettings";
-        private const string _DATABASE_JSON_FILE = "appsettings.prod.json";
+        private const string _DATABASE_JSON_FILE = "appsettings.dev.json";
 
         [STAThread]
         static void Main()

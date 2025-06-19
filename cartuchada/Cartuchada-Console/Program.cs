@@ -1,6 +1,7 @@
 ﻿
 using _3_AccountingSystem;
 using _3_Data;
+using _3_Encrypter;
 using _3_Loggers;
 using _3_Mappers.Automapper;
 using _3_ReferenceSystem;
@@ -51,4 +52,3 @@ var cartdrigeDtoValidator = new CartdrigePurchaseDtoValidator();
 var consoleDtoValidator = new ConsolePurchaseDtoValidator();
 var sparePartsPurchaseDtoValidator = new SparePartsPurchaseDtoValidator();
 var sleeveSaleDtoValidator = new SleeveSaleDtoValidator();
-

@@ -10,7 +10,7 @@ namespace _3_Data
         public AppDbContext CreateDbContext(string[] args)
         {
             var connectionString = "Connection string";
-            
+           
             var optionsBuilder = new DbContextOptionsBuilder<AppDbContext>();
 
             //optionsBuilder.UseSqlServer(DBEncrypter.Decrypt(connectionString));
