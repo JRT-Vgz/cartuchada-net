@@ -3,4 +3,63 @@
   <PropertyGroup>
     <_LastSelectedProfileId>C:\Users\Miguel\Desktop\cartuchada-net\cartuchada\Cartuchada\Properties\PublishProfiles\FolderProfile.pubxml</_LastSelectedProfileId>
   </PropertyGroup>
+  <ItemGroup>
+    <Compile Update="Forms\FormCartuchadaMain.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\Miscelanea Forms\FormAccounting.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\Miscelanea Forms\FormConfirmRevertInput.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\Miscelanea Forms\FormLog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\Miscelanea Forms\FormStatistics.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\Purchase Forms\FormPurchaseMain.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\Purchase Forms\FormPurchasesHistory.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\Purchase Forms\Purchase Cartdrige Forms\FormGameCatalogue.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\Purchase Forms\Purchase Cartdrige Forms\FormPurchaseSpotCartdrige.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\Purchase Forms\Purchase Cartdrige Forms\FormRecommendedCartdrigePrice.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\Purchase Forms\Purchase Console Forms\FormPurchaseConsole.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\Purchase Forms\Purchase Spare Parts Forms\FormPurchaseSpareParts.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\Sell Forms\FormSalesHistory.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\Sell Forms\FormSellMain.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\Sell Forms\Sell Cartdrige Forms\FormManageSellCartdrige.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\Sell Forms\Sell Cartdrige Forms\FormSellCartdrige.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\Sell Forms\Sell Console Forms\FormManageSellConsole.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\Sell Forms\Sell Console Forms\FormSellConsole.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\Sell Forms\Sell Sleeves Forms\FormSellSleeves.cs">
+      <SubType>Form</SubType>
+    </Compile>
+  </ItemGroup>
 </Project>

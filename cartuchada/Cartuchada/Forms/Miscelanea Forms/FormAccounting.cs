@@ -43,6 +43,8 @@ namespace Cartuchada.Forms.Miscelanea_Forms
             .OrderByDescending(a => a)
             .ToArray();
 
+            if (years.Length == 0) { return; }
+
             cbo_yearFilter.DataSource = years;
             cbo_yearFilter.SelectedIndex = 0;
         }
