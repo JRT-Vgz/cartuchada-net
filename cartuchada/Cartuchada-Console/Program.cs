@@ -52,3 +52,6 @@ var cartdrigeDtoValidator = new CartdrigePurchaseDtoValidator();
 var consoleDtoValidator = new ConsolePurchaseDtoValidator();
 var sparePartsPurchaseDtoValidator = new SparePartsPurchaseDtoValidator();
 var sleeveSaleDtoValidator = new SleeveSaleDtoValidator();
+
+var texto = Encrypter.Encrypt("Server=tcp:vargath.database.windows.net,1433;Initial Catalog=free-sql-db-skavengers;Persist Security Info=False;User ID=Vargath;Password=Jebimalo666;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;");
+Console.WriteLine(texto);

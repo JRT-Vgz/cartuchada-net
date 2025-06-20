@@ -13,6 +13,9 @@
     <Compile Update="Forms\Miscelanea Forms\FormConfirmRevertInput.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="Forms\Miscelanea Forms\FormLoadingDb.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="Forms\Miscelanea Forms\FormLog.cs">
       <SubType>Form</SubType>
     </Compile>

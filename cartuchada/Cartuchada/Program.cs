@@ -173,6 +173,7 @@ namespace Cartuchada
             services.AddTransient<FormLog>();
             services.AddTransient<FormAccounting>();
             services.AddTransient<FormRecommendedCartdrigePrice>();
+            services.AddTransient<FormLoadingDb>();
         }
 
         private static IConfiguration BuildConfiguration()

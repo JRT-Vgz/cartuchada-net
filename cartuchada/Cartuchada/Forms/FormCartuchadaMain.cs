@@ -6,10 +6,18 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace Cartuchada.Forms
 {
+    using Cartuchada.Forms.Constants;
+    using System;
+    using System.Drawing;
+    using System.Windows.Forms;
+
     public partial class FormCartuchadaMain : Form
     {
         private readonly IServiceProvider _serviceProvider;
         private readonly AppDbContext _context;
+
+        private bool _dbLoaded = false;
+
         public FormCartuchadaMain(IServiceProvider serviceProvider,
             AppDbContext context)
         {
@@ -21,20 +29,59 @@ namespace Cartuchada.Forms
         // -------------------------------------------------------------------------------------------------------
         // ---------------------------------------------- LOAD ---------------------------------------------------
         // -------------------------------------------------------------------------------------------------------
-        private void FormCartuchadaMain_Load(object sender, EventArgs e)
+        private void FormCartuchadaMain_Shown(object sender, EventArgs e)
         {
-            PrecargarDatos();
+            LoadDatabase();
         }
-        private void PrecargarDatos()
+
+        private async void LoadDatabase()
         {
-            _context.ShopStats.Take(0).ToList();
+            var loadingForm = _serviceProvider.GetRequiredService<FormLoadingDb>();
+
+            loadingForm.Location = new Point(
+                this.Location.X + (this.Width - loadingForm.Width) / 2,
+                this.Location.Y + (this.Height - loadingForm.Height) / 2
+            );
+            loadingForm.Show();
+            loadingForm.Refresh();
+
+            _dbLoaded = await WaitForDatabaseAsync();
+
+            loadingForm.Close();
+
+            if (!_dbLoaded)
+            {
+                MessageBox.Show("No se pudo conectar a la base de datos.");
+                Application.Exit();
+            }
         }
+
+        private async Task<bool> WaitForDatabaseAsync()
+        {
+            for (int i = 0; i < LoadDbConstants.MAX_CONNECTION_RETRIES; i++)
+            {
+                try
+                {
+                    _context.ShopStats.Take(0).ToList();
+                    return true;
+                }
+                catch (Exception) { }
+
+                await Task.Delay(LoadDbConstants.TIME_BETWEEN_CONNECTION_TRIES);
+            }
+
+            return false;
+        }
+
+
 
         // -------------------------------------------------------------------------------------------------------
         // --------------------------------------------- NAVIGATION ----------------------------------------------
         // -------------------------------------------------------------------------------------------------------
         private void btn_purchase_Click(object sender, EventArgs e)
         {
+            if (!_dbLoaded) { return; }
+
             this.Hide();
 
             var frm = _serviceProvider.GetRequiredService<FormPurchaseMain>();
@@ -49,6 +96,8 @@ namespace Cartuchada.Forms
 
         private void btn_sell_Click(object sender, EventArgs e)
         {
+            if (!_dbLoaded) { return; }
+
             this.Hide();
 
             var frm = _serviceProvider.GetRequiredService<FormSellMain>();
@@ -63,6 +112,8 @@ namespace Cartuchada.Forms
 
         private void btn_shopStats_Click(object sender, EventArgs e)
         {
+            if (!_dbLoaded) { return; }
+
             this.Hide();
 
             var frm = _serviceProvider.GetRequiredService<FormStatistics>();
@@ -77,6 +128,8 @@ namespace Cartuchada.Forms
 
         private void btn_log_Click(object sender, EventArgs e)
         {
+            if (!_dbLoaded) { return; }
+
             this.Hide();
 
             var frm = _serviceProvider.GetRequiredService<FormLog>();
@@ -91,6 +144,8 @@ namespace Cartuchada.Forms
 
         private void btn_accounting_Click(object sender, EventArgs e)
         {
+            if (!_dbLoaded) { return; }
+
             this.Hide();
 
             var frm = _serviceProvider.GetRequiredService<FormAccounting>();
@@ -101,6 +156,6 @@ namespace Cartuchada.Forms
 
             this.Location = new Point(frm.Location.X, frm.Location.Y);
             this.Show();
-        }
+        } 
     }
 }

@@ -129,7 +129,7 @@
             Name = "FormCartuchadaMain";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Cartuchada";
-            Load += FormCartuchadaMain_Load;
+            Shown += FormCartuchadaMain_Shown;
             ResumeLayout(false);
             PerformLayout();
         }
